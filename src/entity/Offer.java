@@ -3,45 +3,45 @@ package entity;
 import java.util.Objects;
 
 /**
- * Class for representation of barbershop service.
+ * Class for representation of barbershop offer.
  *
  * @author Kirill Tolkun
  */
-public final class Service extends Entity {
+public final class Offer extends Entity {
 
     /**
-     * Name of service.
+     * Name of offer.
      */
     private String name;
 
     /**
-     * Description of service.
+     * Description of offer.
      */
     private String description;
 
     /**
-     * Price of service.
+     * Price of offer.
      */
     private float price;
 
     /**
-     * Time period occupied by the service.
+     * Time period occupied by the offer.
      */
     private int period;
 
     /**
      * Constructor with parameters.
      *
-     * @param inputId of the service
+     * @param inputId of the offer
      */
-    public Service(final int inputId) {
+    public Offer(final int inputId) {
         super(inputId);
     }
 
     /**
      * Get name.
      *
-     * @return name of service
+     * @return name of offer
      */
     public String getName() {
         return name;
@@ -50,7 +50,7 @@ public final class Service extends Entity {
     /**
      * Set name.
      *
-     * @param inputName the new name of service
+     * @param inputName the new name of offer
      */
     public void setName(final String inputName) {
         name = inputName;
@@ -59,7 +59,7 @@ public final class Service extends Entity {
     /**
      * Get description.
      *
-     * @return description of service
+     * @return description of offer
      */
     public String getDescription() {
         return description;
@@ -68,7 +68,7 @@ public final class Service extends Entity {
     /**
      * Set description.
      *
-     * @param inputDescription the new description of service
+     * @param inputDescription the new description of offer
      */
     public void setDescription(final String inputDescription) {
         description = inputDescription;
@@ -77,7 +77,7 @@ public final class Service extends Entity {
     /**
      * Get price.
      *
-     * @return price of service
+     * @return price of offer
      */
     public float getPrice() {
         return price;
@@ -86,7 +86,7 @@ public final class Service extends Entity {
     /**
      * Set price.
      *
-     * @param inputPrice the new price of service
+     * @param inputPrice the new price of offer
      */
     public void setPrice(final float inputPrice) {
         price = inputPrice;
@@ -95,7 +95,7 @@ public final class Service extends Entity {
     /**
      * Get period.
      *
-     * @return period of service
+     * @return period of offer
      */
     public int getPeriod() {
         return period;
@@ -104,7 +104,7 @@ public final class Service extends Entity {
     /**
      * Set period.
      *
-     * @param inputPeriod the new period of service
+     * @param inputPeriod the new period of offer
      */
     public void setPeriod(final int inputPeriod) {
         period = inputPeriod;
@@ -113,7 +113,7 @@ public final class Service extends Entity {
     /**
      * Compares this object to the specified object. The result is
      * {@code true} if the argument is not
-     * {@code null} and is an {@code Service} object that
+     * {@code null} and is an {@code Offer} object that
      * contains the same fields values as this object.
      *
      * @param o the object to compare with
@@ -131,12 +131,12 @@ public final class Service extends Entity {
         if (!super.equals(o)) {
             return false;
         }
-        Service service = (Service) o;
-        return getId() == service.getId()
-                && Float.compare(service.price, price) == 0
-                && period == service.period
-                && Objects.equals(name, service.name)
-                && Objects.equals(description, service.description);
+        Offer offer = (Offer) o;
+        return getId() == offer.getId()
+                && Float.compare(offer.price, price) == 0
+                && period == offer.period
+                && Objects.equals(name, offer.name)
+                && Objects.equals(description, offer.description);
     }
 
     /**
@@ -152,11 +152,11 @@ public final class Service extends Entity {
     /**
      * Create string representation.
      *
-     * @return string representation of service
+     * @return string representation of offer
      */
     @Override
     public String toString() {
-        return "Service{"
+        return "Offer{"
                 + "name='" + name + '\''
                 + ", description='" + description + '\''
                 + ", price=" + price

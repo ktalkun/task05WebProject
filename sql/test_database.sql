@@ -15,17 +15,17 @@
 
 #Table `reservations`
     ## Insert
-        INSERT INTO `reservations` (`service_id`, `customer_id`, `employee_id`, `date`)
+        INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`)
         VALUES
         (1, 10, 28, "1970-01-01");
     ## Select all
         SELECT
             reservations.id,
-            services.id AS service_id,
-            services.name AS service_name,
-            services.description AS service_description,
-            services.price AS service_price,
-            services.period AS service_period,
+            offers.id AS offer_id,
+            offers.name AS offer_name,
+            offers.description AS offer_description,
+            offers.price AS offer_price,
+            offers.period AS offer_period,
             customers.id AS customer_id,
             customers.login AS customer_login,
             customers.password AS customer_password,
@@ -49,17 +49,17 @@
             employees.role AS employees_role,
             reservations.date
         FROM reservations
-                 JOIN services ON services.id = reservations.service_id
+                 JOIN offers ON offers.id = reservations.offer_id
                  JOIN users AS customers ON customers.id = reservations.customer_id
                  JOIN users AS employees ON employees.id = reservations.employee_id;
     ## Select by customer
         SELECT
             reservations.id,
-            services.id AS service_id,
-            services.name AS service_name,
-            services.description AS service_description,
-            services.price AS service_price,
-            services.period AS service_period,
+            offers.id AS offer_id,
+            offers.name AS offer_name,
+            offers.description AS offer_description,
+            offers.price AS offer_price,
+            offers.period AS offer_period,
             customers.id AS customer_id,
             customers.login AS customer_login,
             customers.password AS customer_password,
@@ -83,18 +83,18 @@
             employees.role AS employees_role,
             reservations.date
         FROM reservations
-                 JOIN services ON services.id = reservations.service_id
+                 JOIN offers ON offers.id = reservations.offer_id
                  JOIN users AS customers ON customers.id = reservations.customer_id
                  JOIN users AS employees ON employees.id = reservations.employee_id
         WHERE reservations.customer_id = 1;
     ## Select by employee
         SELECT
             reservations.id,
-            services.id AS service_id,
-            services.name AS service_name,
-            services.description AS service_description,
-            services.price AS service_price,
-            services.period AS service_period,
+            offers.id AS offer_id,
+            offers.name AS offer_name,
+            offers.description AS offer_description,
+            offers.price AS offer_price,
+            offers.period AS offer_period,
             customers.id AS customer_id,
             customers.login AS customer_login,
             customers.password AS customer_password,
@@ -118,30 +118,30 @@
             employees.role AS employees_role,
             reservations.date
         FROM reservations
-                 JOIN services ON services.id = reservations.service_id
+                 JOIN offers ON offers.id = reservations.offer_id
                  JOIN users AS customers ON customers.id = reservations.customer_id
                  JOIN users AS employees ON employees.id = reservations.employee_id
         WHERE reservations.employee_id = 2;
     ## Update
         UPDATE `reservations`
         SET
-            `service_id` = 2,
+            `offer_id` = 2,
             `customer_id` = 1,
             `employee_id` = 2,
             `date` = "2018-02-17"
         WHERE `id` = 1;
     ## Delete
         DELETE FROM `reservations` WHERE `id` = 2;
-#Table `services`
+#Table `offers`
     ## Insert
-        INSERT INTO `services` (`name`, `description`, `price`, `period`)
+        INSERT INTO `offers` (`name`, `description`, `price`, `period`)
         VALUES ("Мытьё волос", "Мытьё волос. Укладка волос", 9.99, 25);
     ## Select
         SELECT `id`, `name`, `description`, `price`, `period`
-        FROM `services`
+        FROM `offers`
         WHERE `id` = 1;
     ## Update
-    UPDATE `services`
+    UPDATE `offers`
     SET
         `name` = "Мытьё волос",
         `description` = "Мытьё волос. Укладка волос",
@@ -149,4 +149,4 @@
         `period` = "25"
     WHERE `id` = 1;
     ## Delete
-#     DELETE FROM `services` WHERE `id` = 2;
+#     DELETE FROM `offers` WHERE `id` = 2;

@@ -2,7 +2,7 @@ package dao;
 
 import dao.mysql.ReservationDaoImpl;
 import dao.mysql.ReviewsDaoImpl;
-import dao.mysql.ServiceDaoImpl;
+import dao.mysql.OfferDaoImpl;
 import dao.mysql.UserDaoImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,13 +13,13 @@ public final class DAOFactory {
     private static final Logger LOGGER = LogManager.getLogger(DAOFactory.class);
 
     private final UserDao userDao;
-    private final ServiceDao serviceDao;
+    private final OfferDao offerDao;
     private final ReviewDao reviewDao;
     private final ReservationDao reservationDao;
 
     private DAOFactory(){
         userDao = new UserDaoImpl();
-        serviceDao = new ServiceDaoImpl();
+        offerDao = new OfferDaoImpl();
         reviewDao = new ReviewsDaoImpl();
         reservationDao = new ReservationDaoImpl();
         LOGGER.debug("Object of DAOFactory created");
@@ -33,8 +33,8 @@ public final class DAOFactory {
         return userDao;
     }
 
-    public ServiceDao getServiceDao(){
-        return serviceDao;
+    public OfferDao getOfferDao(){
+        return offerDao;
     }
 
     public ReviewDao getReviewDao(){

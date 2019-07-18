@@ -1,6 +1,6 @@
 USE `barbershop_db`;
 
-CREATE TRIGGER `insert_service`
+CREATE TRIGGER `insert_offer`
   BEFORE INSERT
   ON `reservations`
   FOR EACH ROW
@@ -11,7 +11,7 @@ CREATE TRIGGER `insert_service`
     SET MESSAGE_TEXT = 'Cannot add row: user role mismatch.';
   END IF;
 
-CREATE TRIGGER `update_service`
+CREATE TRIGGER `update_offer`
   BEFORE UPDATE
   ON `reservations`
   FOR EACH ROW

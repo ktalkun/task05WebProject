@@ -11,9 +11,9 @@ import java.util.Objects;
 public final class Reservation extends Entity {
 
     /**
-     * Service of reservation.
+     * Offer of reservation.
      */
-    private Service service;
+    private Offer offer;
 
     /**
      * User with {@code Role.CUSTOMER}.
@@ -40,21 +40,21 @@ public final class Reservation extends Entity {
     }
 
     /**
-     * Get service.
+     * Get offer.
      *
-     * @return service of reservation
+     * @return offer of reservation
      */
-    public Service getService() {
-        return service;
+    public Offer getOffer() {
+        return offer;
     }
 
     /**
-     * Set service.
+     * Set offer.
      *
-     * @param inputService the service of reservation
+     * @param inputOffer the offer of reservation
      */
-    public void setService(final Service inputService) {
-        service = inputService;
+    public void setOffer(final Offer inputOffer) {
+        offer = inputOffer;
     }
 
     /**
@@ -134,7 +134,7 @@ public final class Reservation extends Entity {
         }
         Reservation that = (Reservation) o;
         return getId() == that.getId()
-                && service == that.service
+                && offer == that.offer
                 && customer == that.customer
                 && employee == that.employee
                 && Objects.equals(date, that.date);
@@ -149,7 +149,7 @@ public final class Reservation extends Entity {
     public int hashCode() {
         return Objects.hash(
                 super.hashCode(),
-                service,
+                offer,
                 customer,
                 employee,
                 date
@@ -164,7 +164,7 @@ public final class Reservation extends Entity {
     @Override
     public String toString() {
         return "Reservation{"
-                + "service=" + service
+                + "offer=" + offer
                 + ", customer=" + customer
                 + ", employee=" + employee
                 + ", date=" + date

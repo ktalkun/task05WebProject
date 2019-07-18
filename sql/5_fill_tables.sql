@@ -138,8 +138,8 @@ VALUES
 (94, "1970-01-01"),
 (95, "1970-01-01");
 
-# Fill table `services`
-INSERT INTO `services` (`name`, `description`, `price`, `period`)
+# Fill table `offers`
+INSERT INTO `offers` (`name`, `description`, `price`, `period`)
 VALUES
 ("Бритьё головы", "Распаривание кожного покрова головы. Бритьё шаветкой.", 30, 45),
 ("Королевское бритьё", "Распаривание кожного покрова лица. Бритьё шаветкой.", 40, 60),
@@ -160,7 +160,7 @@ VALUES
 ("Массаж головы", "Массаж головы.", 10, 15);
 
 # Fill table `reservations`
-INSERT INTO `reservations` (`service_id`, `customer_id`, `employee_id`, `date`)
+INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`)
 VALUES
 (17, 6, 16, "1970-01-01"),
 (9, 21, 20, "1970-01-01"),

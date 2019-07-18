@@ -2,10 +2,9 @@ package dao.mysql;
 
 import builder.EmployeeBuilder;
 import builder.ReservationBuilder;
-import builder.ServiceBuilder;
+import builder.OfferBuilder;
 import builder.UserBuilder;
 import dao.ReservationDao;
-import entity.Employee;
 import entity.Reservation;
 import entity.Role;
 import exception.PersistentException;
@@ -30,12 +29,12 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
 
     @Override
     public int create(final Reservation reservation) throws PersistentException {
-        final String query = "INSERT INTO `reservations` (`service_id`, `customer_id`, `employee_id`, `date`) VALUES (?,?,?,?)";
+        final String query = "INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`) VALUES (?,?,?,?)";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, reservation.getService().getId());
+            statement.setInt(1, reservation.getOffer().getId());
             statement.setInt(2, reservation.getCustomer().getId());
             statement.setInt(3, reservation.getEmployee().getId());
             statement.setDate(4, reservation.getDate());
@@ -67,11 +66,11 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     public Reservation read(final int id) throws PersistentException {
         final String query = "SELECT "
                 + "reservations.id,"
-                + "services.id AS service_id,"
-                + "services.name AS service_name,"
-                + "services.description AS service_description,"
-                + "services.price AS service_price,"
-                + "services.period AS service_period,"
+                + "offers.id AS offer_id,"
+                + "offers.name AS offer_name,"
+                + "offers.description AS offer_description,"
+                + "offers.price AS offer_price,"
+                + "offers.period AS offer_period,"
                 + "customers.id AS customer_id,"
                 + "customers.login AS customer_login,"
                 + "customers.password AS customer_password,"
@@ -95,7 +94,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 + "employees_info.experience AS employee_experience, "
                 + "reservations.date "
                 + "FROM reservations "
-                + "JOIN services ON services.id = reservations.service_id "
+                + "JOIN offers ON offers.id = reservations.offer_id "
                 + "JOIN users AS customers ON customers.id = reservations.customer_id "
                 + "JOIN users AS employees ON employees.id = reservations.employee_id "
                 + "JOIN employees AS employees_info ON employees.id = reservations.employee_id "
@@ -107,16 +106,16 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             ReservationBuilder reservationBuilder = new ReservationBuilder();
-            ServiceBuilder serviceBuilder = new ServiceBuilder();
+            OfferBuilder offerBuilder = new OfferBuilder();
             UserBuilder customerBuilder = new UserBuilder();
             EmployeeBuilder employeeBuilder = new EmployeeBuilder();
             if (resultSet.next()) {
-                serviceBuilder
-                        .id(resultSet.getInt("service_id"))
-                        .name(resultSet.getString("service_name"))
-                        .description(resultSet.getString("service_description"))
-                        .price(resultSet.getFloat("service_price"))
-                        .period(resultSet.getInt("service_period"));
+                offerBuilder
+                        .id(resultSet.getInt("offer_id"))
+                        .name(resultSet.getString("offer_name"))
+                        .description(resultSet.getString("offer_description"))
+                        .price(resultSet.getFloat("offer_price"))
+                        .period(resultSet.getInt("offer_period"));
                 customerBuilder
                         .id(resultSet.getInt("customer_id"))
                         .login(resultSet.getString("customer_login"))
@@ -144,7 +143,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
 
                 reservationBuilder
                         .id(resultSet.getInt("id"))
-                        .service(serviceBuilder.build())
+                        .offer(offerBuilder.build())
                         .customer(customerBuilder.build())
                         .employee(employeeBuilder.build())
                         .date(resultSet.getDate("date"));
@@ -173,11 +172,11 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     public List<Reservation> readAll() throws PersistentException {
         final String query = "SELECT "
                 + "reservations.id,"
-                + "services.id AS service_id,"
-                + "services.name AS service_name,"
-                + "services.description AS service_description,"
-                + "services.price AS service_price,"
-                + "services.period AS service_period,"
+                + "offers.id AS offer_id,"
+                + "offers.name AS offer_name,"
+                + "offers.description AS offer_description,"
+                + "offers.price AS offer_price,"
+                + "offers.period AS offer_period,"
                 + "customers.id AS customer_id,"
                 + "customers.login AS customer_login,"
                 + "customers.password AS customer_password,"
@@ -201,7 +200,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 + "employees_info.experience AS employee_experience, "
                 + "reservations.date "
                 + "FROM reservations "
-                + "JOIN services ON services.id = reservations.service_id "
+                + "JOIN offers ON offers.id = reservations.offer_id "
                 + "JOIN users AS customers ON customers.id = reservations.customer_id "
                 + "JOIN users AS employees ON employees.id = reservations.employee_id "
                 + "JOIN employees AS employees_info ON employees.id = employees.id;";
@@ -211,17 +210,17 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
             statement = connection.prepareStatement(query);
             resultSet = statement.executeQuery();
             ReservationBuilder reservationBuilder = new ReservationBuilder();
-            ServiceBuilder serviceBuilder = new ServiceBuilder();
+            OfferBuilder offerBuilder = new OfferBuilder();
             UserBuilder customerBuilder = new UserBuilder();
             EmployeeBuilder employeeBuilder = new EmployeeBuilder();
             List<Reservation> reservations = new ArrayList<>();
             while (resultSet.next()) {
-                serviceBuilder
-                        .id(resultSet.getInt("service_id"))
-                        .name(resultSet.getString("service_name"))
-                        .description(resultSet.getString("service_description"))
-                        .price(resultSet.getFloat("service_price"))
-                        .period(resultSet.getInt("service_period"));
+                offerBuilder
+                        .id(resultSet.getInt("offer_id"))
+                        .name(resultSet.getString("offer_name"))
+                        .description(resultSet.getString("offer_description"))
+                        .price(resultSet.getFloat("offer_price"))
+                        .period(resultSet.getInt("offer_period"));
                 customerBuilder
                         .id(resultSet.getInt("customer_id"))
                         .login(resultSet.getString("customer_login"))
@@ -249,7 +248,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
 
                 reservationBuilder
                         .id(resultSet.getInt("id"))
-                        .service(serviceBuilder.build())
+                        .offer(offerBuilder.build())
                         .customer(customerBuilder.build())
                         .employee(employeeBuilder.build())
                         .date(resultSet.getDate("date"));
@@ -276,11 +275,11 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     public List<Reservation> readByCustomer(final int customerId) throws PersistentException {
         final String query = "SELECT "
                 + "reservations.id,"
-                + "services.id AS service_id,"
-                + "services.name AS service_name,"
-                + "services.description AS service_description,"
-                + "services.price AS service_price,"
-                + "services.period AS service_period,"
+                + "offers.id AS offer_id,"
+                + "offers.name AS offer_name,"
+                + "offers.description AS offer_description,"
+                + "offers.price AS offer_price,"
+                + "offers.period AS offer_period,"
                 + "customers.id AS customer_id,"
                 + "customers.login AS customer_login,"
                 + "customers.password AS customer_password,"
@@ -304,7 +303,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 + "employees_info.experience AS employee_experience, "
                 + "reservations.date "
                 + "FROM reservations "
-                + "JOIN services ON services.id = reservations.service_id "
+                + "JOIN offers ON offers.id = reservations.offer_id "
                 + "JOIN users AS customers ON customers.id = reservations.customer_id "
                 + "JOIN users AS employees ON employees.id = reservations.employee_id "
                 + "JOIN employees AS employees_info ON employees.id = employees.id "
@@ -315,17 +314,17 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
             statement = connection.prepareStatement(query);
             resultSet = statement.executeQuery();
             ReservationBuilder reservationBuilder = new ReservationBuilder();
-            ServiceBuilder serviceBuilder = new ServiceBuilder();
+            OfferBuilder offerBuilder = new OfferBuilder();
             UserBuilder customerBuilder = new UserBuilder();
             EmployeeBuilder employeeBuilder = new EmployeeBuilder();
             List<Reservation> reservations = new ArrayList<>();
             while (resultSet.next()) {
-                serviceBuilder
-                        .id(resultSet.getInt("service_id"))
-                        .name(resultSet.getString("service_name"))
-                        .description(resultSet.getString("service_description"))
-                        .price(resultSet.getFloat("service_price"))
-                        .period(resultSet.getInt("service_period"));
+                offerBuilder
+                        .id(resultSet.getInt("offer_id"))
+                        .name(resultSet.getString("offer_name"))
+                        .description(resultSet.getString("offer_description"))
+                        .price(resultSet.getFloat("offer_price"))
+                        .period(resultSet.getInt("offer_period"));
                 customerBuilder
                         .id(resultSet.getInt("customer_id"))
                         .login(resultSet.getString("customer_login"))
@@ -353,7 +352,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
 
                 reservationBuilder
                         .id(resultSet.getInt("id"))
-                        .service(serviceBuilder.build())
+                        .offer(offerBuilder.build())
                         .customer(customerBuilder.build())
                         .employee(employeeBuilder.build())
                         .date(resultSet.getDate("date"));
@@ -380,11 +379,11 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     public List<Reservation> readByEmployee(final int employeeId) throws PersistentException {
         final String query = "SELECT "
                 + "reservations.id,"
-                + "services.id AS service_id,"
-                + "services.name AS service_name,"
-                + "services.description AS service_description,"
-                + "services.price AS service_price,"
-                + "services.period AS service_period,"
+                + "offers.id AS offer_id,"
+                + "offers.name AS offer_name,"
+                + "offers.description AS offer_description,"
+                + "offers.price AS offer_price,"
+                + "offers.period AS offer_period,"
                 + "customers.id AS customer_id,"
                 + "customers.login AS customer_login,"
                 + "customers.password AS customer_password,"
@@ -408,7 +407,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 + "employees_info.experience AS employee_experience, "
                 + "reservations.date "
                 + "FROM reservations "
-                + "JOIN services ON services.id = reservations.service_id "
+                + "JOIN offers ON offers.id = reservations.offer_id "
                 + "JOIN users AS customers ON customers.id = reservations.customer_id "
                 + "JOIN users AS employees ON employees.id = reservations.employee_id "
                 + "JOIN employees AS employees_info ON employees.id = employees.id "
@@ -419,17 +418,17 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
             statement = connection.prepareStatement(query);
             resultSet = statement.executeQuery();
             ReservationBuilder reservationBuilder = new ReservationBuilder();
-            ServiceBuilder serviceBuilder = new ServiceBuilder();
+            OfferBuilder offerBuilder = new OfferBuilder();
             UserBuilder customerBuilder = new UserBuilder();
             EmployeeBuilder employeeBuilder = new EmployeeBuilder();
             List<Reservation> reservations = new ArrayList<>();
             while (resultSet.next()) {
-                serviceBuilder
-                        .id(resultSet.getInt("service_id"))
-                        .name(resultSet.getString("service_name"))
-                        .description(resultSet.getString("service_description"))
-                        .price(resultSet.getFloat("service_price"))
-                        .period(resultSet.getInt("service_period"));
+                offerBuilder
+                        .id(resultSet.getInt("offer_id"))
+                        .name(resultSet.getString("offer_name"))
+                        .description(resultSet.getString("offer_description"))
+                        .price(resultSet.getFloat("offer_price"))
+                        .period(resultSet.getInt("offer_period"));
                 customerBuilder
                         .id(resultSet.getInt("customer_id"))
                         .login(resultSet.getString("customer_login"))
@@ -457,7 +456,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
 
                 reservationBuilder
                         .id(resultSet.getInt("id"))
-                        .service(serviceBuilder.build())
+                        .offer(offerBuilder.build())
                         .customer(customerBuilder.build())
                         .employee(employeeBuilder.build())
                         .date(resultSet.getDate("date"));
@@ -482,11 +481,11 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
 
     @Override
     public void update(final Reservation reservation) throws PersistentException {
-        final String query = "UPDATE `reservations` SET `service_id` = ?, `customer_id` = ?, `employee_id` = ?, `date` = ? WHERE `id` = ?";
+        final String query = "UPDATE `reservations` SET `offer_id` = ?, `customer_id` = ?, `employee_id` = ?, `date` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try{
             statement = connection.prepareStatement(query);
-            statement.setInt(1, reservation.getService().getId());
+            statement.setInt(1, reservation.getOffer().getId());
             statement.setInt(2, reservation.getCustomer().getId());
             statement.setInt(3, reservation.getEmployee().getId());
             statement.setDate(4, reservation.getDate());

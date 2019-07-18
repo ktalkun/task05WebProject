@@ -1,9 +1,6 @@
 package builder;
 
-import entity.Employee;
-import entity.Reservation;
-import entity.Service;
-import entity.User;
+import entity.*;
 
 import java.sql.Date;
 
@@ -15,9 +12,9 @@ import java.sql.Date;
 public class ReservationBuilder extends EntityBuilder {
 
     /**
-     * Service of reservation.
+     * Offer of reservation.
      */
-    private Service service;
+    private Offer offer;
 
     /**
      * User with {@code Role.CUSTOMER}.
@@ -47,13 +44,13 @@ public class ReservationBuilder extends EntityBuilder {
     }
 
     /**
-     * Build service of reservation.
+     * Build offer of reservation.
      *
-     * @param inputService of building reservation
+     * @param inputOffer of building reservation
      * @return builder
      */
-    public ReservationBuilder service(final Service inputService) {
-        service = inputService;
+    public ReservationBuilder offer(final Offer inputOffer) {
+        offer = inputOffer;
         return this;
     }
 
@@ -98,7 +95,7 @@ public class ReservationBuilder extends EntityBuilder {
     @Override
     public Reservation build() {
         Reservation reservation = new Reservation(id);
-        reservation.setService(service);
+        reservation.setOffer(offer);
         reservation.setCustomer(customer);
         reservation.setEmployee(employee);
         reservation.setDate(date);
