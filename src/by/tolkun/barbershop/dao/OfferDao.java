@@ -1,7 +1,7 @@
 package by.tolkun.barbershop.dao;
 
 
-import entity.Offer;
+import by.tolkun.barbershop.entity.Offer;
 
 public interface OfferDao extends Dao<Offer> {
 

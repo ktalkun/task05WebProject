@@ -1,11 +1,11 @@
 package by.tolkun.barbershop.action;
 
-import entity.User;
-import exception.LogicException;
+import by.tolkun.barbershop.entity.User;
+import by.tolkun.barbershop.exception.LogicException;
+import by.tolkun.barbershop.service.ServiceFactory;
+import by.tolkun.barbershop.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.ServiceFactory;
-import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

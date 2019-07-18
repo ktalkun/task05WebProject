@@ -1,11 +1,11 @@
 package by.tolkun.barbershop.service.impl;
 
-import dao.DAOFactory;
-import dao.UserDao;
-import entity.User;
-import exception.LogicException;
-import exception.PersistentException;
-import service.UserService;
+import by.tolkun.barbershop.dao.DAOFactory;
+import by.tolkun.barbershop.dao.UserDao;
+import by.tolkun.barbershop.entity.User;
+import by.tolkun.barbershop.exception.LogicException;
+import by.tolkun.barbershop.exception.PersistentException;
+import by.tolkun.barbershop.service.UserService;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

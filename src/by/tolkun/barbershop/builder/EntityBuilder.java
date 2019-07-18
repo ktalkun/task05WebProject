@@ -1,6 +1,6 @@
 package by.tolkun.barbershop.builder;
 
-import entity.Entity;
+import by.tolkun.barbershop.entity.Entity;
 
 /**
  * Abstract class to build entity classes.

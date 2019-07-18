@@ -1,6 +1,6 @@
 package by.tolkun.barbershop.dao.pool;
 
-import exception.PersistentException;
+import by.tolkun.barbershop.exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

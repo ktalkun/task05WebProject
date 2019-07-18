@@ -1,8 +1,8 @@
 package by.tolkun.barbershop.controller;
 
-import action.Action;
+import by.tolkun.barbershop.action.Action;
 import by.tolkun.barbershop.dao.pool.ConnectionPool;
-import exception.PersistentException;
+import by.tolkun.barbershop.exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

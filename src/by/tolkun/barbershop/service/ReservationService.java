@@ -1,9 +1,7 @@
 package by.tolkun.barbershop.service;
 
-import dao.ReservationDao;
-import entity.Reservation;
-import entity.User;
-import exception.LogicException;
+import by.tolkun.barbershop.entity.Reservation;
+import by.tolkun.barbershop.exception.LogicException;
 
 import java.util.List;
 

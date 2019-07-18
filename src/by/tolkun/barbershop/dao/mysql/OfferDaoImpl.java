@@ -1,9 +1,9 @@
 package by.tolkun.barbershop.dao.mysql;
 
-import builder.OfferBuilder;
-import dao.OfferDao;
-import entity.Offer;
-import exception.PersistentException;
+import by.tolkun.barbershop.builder.OfferBuilder;
+import by.tolkun.barbershop.dao.OfferDao;
+import by.tolkun.barbershop.entity.Offer;
+import by.tolkun.barbershop.exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

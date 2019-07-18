@@ -1,7 +1,7 @@
 package by.tolkun.barbershop.dao;
 
-import entity.Entity;
-import exception.PersistentException;
+import by.tolkun.barbershop.entity.Entity;
+import by.tolkun.barbershop.exception.PersistentException;
 
 import java.util.List;
 

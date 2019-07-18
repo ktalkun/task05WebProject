@@ -1,7 +1,7 @@
 package by.tolkun.barbershop.builder;
 
 
-import entity.Offer;
+import by.tolkun.barbershop.entity.Offer;
 
 /**
  * Class to build {@code Offer}'s object.

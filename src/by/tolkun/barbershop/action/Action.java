@@ -1,7 +1,5 @@
 package by.tolkun.barbershop.action;
 
-import exception.PersistentException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;

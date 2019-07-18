@@ -1,7 +1,7 @@
 package by.tolkun.barbershop.builder;
 
-import entity.Role;
-import entity.User;
+import by.tolkun.barbershop.entity.Role;
+import by.tolkun.barbershop.entity.User;
 
 /**
  * Class to build {@code User}'s object.

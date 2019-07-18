@@ -1,13 +1,13 @@
 package by.tolkun.barbershop.dao.mysql;
 
-import builder.EmployeeBuilder;
-import builder.ReservationBuilder;
-import builder.OfferBuilder;
-import builder.UserBuilder;
-import dao.ReservationDao;
-import entity.Reservation;
-import entity.Role;
-import exception.PersistentException;
+import by.tolkun.barbershop.builder.EmployeeBuilder;
+import by.tolkun.barbershop.builder.OfferBuilder;
+import by.tolkun.barbershop.builder.ReservationBuilder;
+import by.tolkun.barbershop.builder.UserBuilder;
+import by.tolkun.barbershop.dao.ReservationDao;
+import by.tolkun.barbershop.entity.Reservation;
+import by.tolkun.barbershop.entity.Role;
+import by.tolkun.barbershop.exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

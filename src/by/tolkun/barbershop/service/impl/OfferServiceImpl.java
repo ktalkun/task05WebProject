@@ -1,11 +1,11 @@
 package by.tolkun.barbershop.service.impl;
 
-import dao.DAOFactory;
-import dao.OfferDao;
-import entity.Offer;
-import exception.LogicException;
-import exception.PersistentException;
-import service.OfferService;
+import by.tolkun.barbershop.dao.DAOFactory;
+import by.tolkun.barbershop.dao.OfferDao;
+import by.tolkun.barbershop.entity.Offer;
+import by.tolkun.barbershop.exception.LogicException;
+import by.tolkun.barbershop.exception.PersistentException;
+import by.tolkun.barbershop.service.OfferService;
 
 import java.util.List;
 

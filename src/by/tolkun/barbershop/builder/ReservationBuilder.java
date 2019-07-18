@@ -1,6 +1,9 @@
 package by.tolkun.barbershop.builder;
 
-import entity.*;
+import by.tolkun.barbershop.entity.Employee;
+import by.tolkun.barbershop.entity.Offer;
+import by.tolkun.barbershop.entity.Reservation;
+import by.tolkun.barbershop.entity.User;
 
 import java.sql.Date;
 

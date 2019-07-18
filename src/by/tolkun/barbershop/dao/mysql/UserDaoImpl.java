@@ -1,10 +1,10 @@
 package by.tolkun.barbershop.dao.mysql;
 
-import builder.UserBuilder;
-import dao.UserDao;
-import entity.Role;
-import entity.User;
-import exception.PersistentException;
+import by.tolkun.barbershop.builder.UserBuilder;
+import by.tolkun.barbershop.dao.UserDao;
+import by.tolkun.barbershop.entity.Role;
+import by.tolkun.barbershop.entity.User;
+import by.tolkun.barbershop.exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,8 +1,8 @@
 package by.tolkun.barbershop.builder;
 
-import entity.Employee;
-import entity.Review;
-import entity.User;
+import by.tolkun.barbershop.entity.Employee;
+import by.tolkun.barbershop.entity.Review;
+import by.tolkun.barbershop.entity.User;
 
 /**
  * Class to build {@code Review}'s object.

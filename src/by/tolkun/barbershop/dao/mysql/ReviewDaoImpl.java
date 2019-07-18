@@ -1,9 +1,9 @@
 package by.tolkun.barbershop.dao.mysql;
 
-import builder.ReviewBuilder;
-import dao.ReviewDao;
-import entity.Review;
-import exception.PersistentException;
+import by.tolkun.barbershop.builder.ReviewBuilder;
+import by.tolkun.barbershop.dao.ReviewDao;
+import by.tolkun.barbershop.entity.Review;
+import by.tolkun.barbershop.exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

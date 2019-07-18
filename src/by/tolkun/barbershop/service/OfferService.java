@@ -1,7 +1,7 @@
 package by.tolkun.barbershop.service;
 
-import entity.Offer;
-import exception.LogicException;
+import by.tolkun.barbershop.entity.Offer;
+import by.tolkun.barbershop.exception.LogicException;
 
 import java.util.List;
 

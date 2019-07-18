@@ -1,7 +1,7 @@
 package by.tolkun.barbershop.controller;
 
-import action.Action;
-import action.MainAction;
+import by.tolkun.barbershop.action.Action;
+import by.tolkun.barbershop.action.MainAction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
