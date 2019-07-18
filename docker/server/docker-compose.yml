@@ -1,0 +1,42 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    build: ./db
+    container_name: mariadb_bs
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: hofesa123/
+    ports:
+      - 3306:3306
+    volumes:
+      - ../resources/db/databases:/var/lib/mysql
+
+  adminer:
+    build: ./adminer
+    container_name: adminer_bs
+    restart: always
+    ports:
+      - 6080:8080
+
+  phpmyadmin:
+    build: ./phpmyadmin
+    container_name: phpmyadmin_bs
+    restart: always
+    ports:
+      - 7080:80
+
+  tomcat:
+    build: ./tomcat
+    container_name: tomcat_bs
+    restart: always
+    ports:
+      - 8888:8080
+    volumes:
+      - ../../web/:/usr/local/tomcat/webapps/task05WebProject/
+      - ../resources/tomcat/config/server.xml:/usr/local/tomcat/conf/servel.xml
+      - ../resources/tomcat/config/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - ../resources/tomcat/log/:/usr/local/tomcat/logs/
+#      - ../resources/tomcat/config/webApplicationContext.xml:/usr/local/tomcat/conf/Catalina/localhostwebApplicationContext.xml
