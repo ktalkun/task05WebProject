@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Main</title>
+    <%--    TODO: user resource bundle--%>
+    <title>Главная</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="css/style.css">
@@ -23,7 +24,7 @@
 </header>
 <div id="promo">
     <img id="promo-background" src="img/promo.png">
-    <img id="promo-logo" src="img/logo.png">
+    <img id="promo-title" src="img/logo.png">
 </div>
 <main>
     <section id="work-example-section">
