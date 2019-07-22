@@ -16,6 +16,19 @@
     font-weight: normal;
 }
 
+@font-face {
+    font-family: 'Impact';
+    src: url('../font/Impact.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('../font/GothamNarrSSm.otf') format('truetype');
+    font-weight: normal;
+}
+
+
 * {
     margin: 0px;
     padding: 0px;
@@ -26,6 +39,10 @@ body, html {
     height: 100%;
     font-family: sans-serif;
     background: #D6D6D6;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 header {
@@ -86,18 +103,33 @@ a#log-ref {
     width: 100%;
 }
 
-#promo-logo {
+#promo-title {
     position: absolute;
     top: 27%;
     left: 11%;
     width: 21%;
 }
 
+h1#promo-title {
+    position: absolute;
+    top: 50%;
+    left: 9.5%;
+    width: 25%;
+    font-family: Impact;
+    font-size: 3.2vw;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 9px;
+    color: #232327;
+
+}
+
 #work-example-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 1140px;
+    max-width: 1140px;
+    width: 100%;
     margin: 0 auto;
     padding: 40px 0px;
 }
@@ -127,7 +159,8 @@ a#log-ref {
 }
 
 #work-example-preview img {
-    margin-top: 40px;
+    width: 31%;
+    margin-top: 3.5%;
 }
 
 #contact-us-section {
@@ -139,7 +172,7 @@ a#log-ref {
 #contact-us-section form {
     display: flex;
     flex-direction: column;
-    width: 680px;
+    max-width: 680px;
     margin-left: 150px;
 }
 
@@ -172,6 +205,141 @@ a#log-ref {
     color: #111111;
     font-family: Arial;
     font-size: 1.4em;
+    background: none;
+}
+
+/*Service*/
+
+.main-service {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 60px;
+    background: #232322;
+    font-size: 1em;
+    color: #EFEFF1;
+}
+
+.main-service:nth-child(even) {
+    flex-direction: row-reverse;
+    background: #FFFFFF;
+    color: #242323;
+}
+
+.main-service form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 73%;
+}
+
+.main-service-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-service-title h2,
+.main-service-title h3 {
+    font-family: Impact;
+    font-size: 3em;
+    font-weight: 100;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+}
+
+.main-service-title h3 {
+    margin-left: 3%;
+    font-size: 7.4em;
+    letter-spacing: 5px;
+    line-height: 120px;
+}
+
+.main-service form > p {
+    flex-grow: 1;
+    margin-top: 20px;
+    line-height: 30px;
+    font-family: Hebar;
+    font-size: 1.3em;
+    color: #a9a9a9;
+}
+
+.main-service button {
+    display: block;
+    padding: 15px;
+    width: 190px;
+    border: 1px solid #EFEFF1;
+    background: none;
+    font-family: Arial;
+    font-size: 1.4em;
+    color: #EFEFF1;
+}
+
+.main-service:nth-child(even) button {
+    border-color: #242323;
+    color: #242323;
+}
+
+.main-service img {
+    width: 23%;
+    height: 23%;
+}
+
+#additional-service {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 25px;
+    font-size: 1em;
+    color: #46464B;
+}
+
+#additional-service form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 32%;
+    margin-bottom: 2%;
+    background: #FFFFFF;
+}
+
+#additional-service form img {
+    width: 100%;
+}
+
+#additional-service form > div {
+    width: 85%;
+    margin: 30px 0 20px 0;
+    font-family: Impact;
+    color: #46464B;
+}
+
+#additional-service form > div h3 {
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    letter-spacing: 2px;
+    font-weight: 100;
+}
+
+#additional-service form > div h4 {
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 100;
+}
+
+#additional-service form button {
+    width: 85%;
+    margin-bottom: 30px;
+    padding: 15px;
+    font-family: Arial;
+    font-size: 1.4em;
+    border: 1px solid #242323;
+    color: #242323;
     background: none;
 }
 
