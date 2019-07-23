@@ -343,16 +343,16 @@ h1#promo-title {
     background: none;
 }
 
-/*barber choice*/
+/*barber choice page*/
 
-#barber-choice-title{
+#barber-choice-title {
     margin: 38px 0;
     font-family: Raleway;
     font-size: 2.3em;
     text-align: center;
 }
 
-#barber-choice{
+#barber-choice {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -361,7 +361,7 @@ h1#promo-title {
     margin: 0 auto;
 }
 
-#barber-choice form{
+#barber-choice form {
     display: flex;
     position: relative;
     width: 49.3%;
@@ -371,26 +371,26 @@ h1#promo-title {
     background: #FFFFFF;
 }
 
-#barber-choice img{
+#barber-choice img {
     width: 300px;
     height: 300px;
 }
 
-#barber-choice form > div{
+#barber-choice form > div {
     display: flex;
     flex-direction: column;
     padding: 45px;
 }
 
-#barber-choice form p{
-    margin-bottom: 30px ;
+#barber-choice form p {
+    margin-bottom: 30px;
     font-size: 2.5em;
 }
 
-#barber-choice ul{
+#barber-choice ul {
     display: flex;
     justify-content: space-between;
-    max-width: 270px;
+    max-width: 180px;
     margin-bottom: 35px;
     font-size: 0.8em;
     text-transform: uppercase;
@@ -398,28 +398,28 @@ h1#promo-title {
     list-style: none;
 }
 
-#barber-choice ul li{
+#barber-choice ul li {
     padding: 2px 5px;
     background: #D6D5D2;
 }
 
-#barber-choice .active-day{
+#barber-choice .active-day {
     color: #FFFFFF;
     background: #1E7C04;
 }
 
-.barber-social{
+.barber-social {
     display: flex;
     justify-content: space-between;
     width: 80px;
 }
 
-.barber-social i{
+.barber-social i {
     font-size: 1.1em;
     color: #111111;
 }
 
-#barber-choice button{
+#barber-choice button {
     position: absolute;
     right: 20px;
     bottom: 20px;
@@ -431,7 +431,96 @@ h1#promo-title {
     background: none;
 }
 
+/*staff page*/
 
+#staff-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 1660px;
+    width: 100%;
+    margin: 25px auto;
+    padding: 0 45px;
+    background: #FFFFFF;
+}
+
+#staff-list form:last-child {
+    border-bottom: none;
+}
+
+#staff-list form {
+    display: flex;
+    justify-content: space-between;
+    padding: 45px 0;
+    border-bottom: 1px solid #111111;
+    font-family: Hebar;
+}
+
+#staff-list form img {
+    width: 210px;
+    height: 210px;
+    border-radius: 100%;
+}
+
+#staff-list form > div {
+    padding-left: 50px;
+}
+
+.staff-list-description {
+    display: flex;
+    margin-bottom: 15px;
+    color: #111111;
+}
+
+.staff-list-description > p {
+    font-size: 2.5em;
+
+}
+
+.staff-list-description > i {
+    margin-left: 45px;
+    font-size: 1.8em;
+    line-height: 40px;
+}
+
+.staff-list-description > span {
+    margin-left: 10px;
+    font-size: 2.1em;
+    line-height: 45px;
+}
+
+#staff-list form > div > blockquote {
+    margin: 0 0 15px 15px;
+    font-family: Hylvetica;
+    font-size: 1em;
+    font-style: italic;
+    line-height: 30px;
+    color: #99999A;
+}
+
+.staff-nav-bar {
+    display: flex;
+}
+
+#staff-list form i {
+    font-size: 1.5em;
+}
+
+#staff-list form button {
+    padding: 10px 12px;
+    font-size: 1.2em;
+    border: 1px solid #242323;
+    color: #242323;
+    background: none;
+}
+
+#staff-list form a {
+    padding: 10px;
+    margin-left: 20px;
+    font-size: 1.2em;
+    border: 1px solid #242323;
+    color: #242323;
+    background: none;
+}
 
 footer {
     display: flex;
