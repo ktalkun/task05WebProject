@@ -141,6 +141,7 @@ final public class ConnectionPool {
             for (int counter = 0; counter < startSize; counter++) {
                 freeConnections.put(createConnection());
             }
+            LOGGER.debug("Connection pool initialized : {} free connections ready", startSize);
         } catch (ClassNotFoundException | SQLException | InterruptedException e) {
             LOGGER.fatal("It is impossible to initialize connection pool", e);
             throw new PersistentException(e);
