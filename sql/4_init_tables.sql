@@ -9,11 +9,11 @@ INSERT INTO users (login,
                    image_path,
                    role)
 VALUES ("admin",
-        "NHt98jzAzqNdGDlWvcqHy6UfFIQxm9mQ7sPS8o2Me/rqSjQ2qwzGFkhIkmIeVFVp7ZIChXlVd9g7gG3s838qFw==",
+        "72phEFttR6ik1wYYLBk0iRjIr5DpWoSJTNo4A6QXY+PlfjuFnjfGguvvtUDlvKtPmUSu8jXwrRCADXR5FHkB7w==",
         "admin",
         "admin",
         "admin",
         "admin@gmail.com",
         00000000,
-        "admin.jpg",
+        "upload/avatars/admin.jpg",
         0);

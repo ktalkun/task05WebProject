@@ -297,7 +297,7 @@ public class User extends Entity {
                 + ", phone='" + phone + '\''
                 + ", imagePath='" + imagePath + '\''
                 + ", role=" + role
-                + super.toString()
+                + " " + super.toString()
                 + "} ";
     }
 }

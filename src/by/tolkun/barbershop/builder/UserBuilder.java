@@ -182,6 +182,7 @@ public class UserBuilder extends EntityBuilder {
         user.setEmail(email);
         user.setPhone(phone);
         user.setRole(role);
+        user.setImagePath(imagePath);
         return user;
     }
 }
