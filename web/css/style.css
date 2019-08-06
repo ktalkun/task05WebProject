@@ -70,7 +70,7 @@ header > img {
 
 }
 
-#nav-bar ul {
+#nav-bar > ul {
     display: flex;
     align-items: center;
     list-style: none;
@@ -86,13 +86,76 @@ header > img {
 }
 
 #nav-bar li a:hover {
-    border-bottom: 1px solid #111111;
+    border-bottom: 1px solid #b1b1b1;
 }
 
 a#log-ref {
     margin-left: 160px;
     padding: 10px 15px;
     border: 1px solid #111111;
+}
+
+#user-header-nav {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 10px;
+}
+
+#user-header-nav > div {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-left: 1px solid #b1b1b1;
+}
+
+#user-header-nav img {
+    width: 60px;
+    margin: 0 16px;
+    border-radius: 100%;
+    border: 1px solid #c5c5c5;
+}
+
+#user-header-nav > span {
+    font-family: Hebar;
+    margin-right: 20px;
+}
+
+#user-header-nav > i {
+    margin-left: 5px;
+    font-size: 1.3em;
+}
+
+#user-header-nav > ul {
+    position: absolute;
+    top: 70px;
+    width: 286px;
+    display: none;
+    height: 0px;
+    padding: 0 25px 20px;
+    background: #FFFFFF;
+    font-size: 0.75em;
+    list-style: none;
+}
+
+#user-header-nav > ul.show{
+    display: block;
+    height: auto;
+}
+
+#user-header-nav a {
+    padding: 10px 0px;
+    width: 100%;
+}
+
+#user-header-nav a i {
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+#user-header-nav a:hover {
+    border-bottom: 1px solid #b1b1b1;
+    margin-bottom: -1px;
 }
 
 #promo {
@@ -522,6 +585,346 @@ h1#promo-title {
     background: none;
 }
 
+/*login page*/
+
+#login-form-section {
+    display: flex;
+    justify-content: center;
+    max-width: 1280px;
+    width: 100%;
+    height: 57%;
+    margin: 0 auto;
+    background: #FFFFFF;
+}
+
+#login-form-section form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    min-width: 320px;
+    width: 60%;
+    padding: 50px;
+}
+
+#login-form-section form h1 {
+    margin-bottom: 20px;
+    font-family: Hebar;
+    font-size: 2em;
+}
+
+#login-form-section form input {
+    border: none;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-family: Hylvetica;
+    color: #333333;
+    background: #23232312;
+}
+
+#login-form-section form button {
+    padding: 10px 12px;
+    font-size: 1.2em;
+    border: 1px solid #242323;
+    color: #242323;
+    background: none;
+}
+
+/*edit profile page*/
+
+#edit-main {
+    position: relative;
+    display: flex;
+    padding-top: 80px;
+    background: #f1f1f1;
+    border-right: 1px solid #9B9B9B;
+    box-shadow: 2px 0px 20px #0000000f;
+}
+
+#edit-main aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 27%;
+    position: sticky;
+    top: 80px;
+    height: -webkit-fill-available;
+    border-right: 1px solid #11111130;
+    box-shadow: 10px 0 14px -8px #88888852;
+}
+
+#edit-main aside > img {
+    width: 55%;
+    margin: 40px 0 60px 0;
+    border-radius: 70%;
+}
+
+#edit-main aside > div {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+}
+
+#edit-main aside > div > span {
+    font-family: Gotham;
+    font-size: 0.75em;
+    text-transform: uppercase;
+}
+
+#edit-main aside > div > i {
+    position: relative;
+    top: -9px;
+    right: -90%;
+    width: 27px;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 50%;
+    color: #717171;
+}
+
+#edit-main aside > div > i:hover {
+    cursor: pointer;
+}
+
+#edit-main aside > div > input {
+    width: 70%;
+    margin: 0 0 -20px 20px;
+    padding: 0 8px;
+    font-family: Gotham;
+    font-size: 1.5em;
+    color: #000000;
+}
+
+#edit-main aside > div > input:disabled {
+    border: none;
+    background: none;
+}
+
+#profile-menu{
+    margin: 20px 0 40px 0;
+}
+
+#edit-main #profile-menu span{
+    font-size: 1.45em;
+    text-transform: none;
+}
+
+#profile-menu > ul {
+    font-size: 0.75em;
+    list-style: none;
+}
+
+#profile-menu > ul > li {
+    margin: 10px 0;
+}
+
+#profile-menu > ul a {
+    padding: 10px 0;
+    font-family: Gotham;
+    font-size: 1.8em;
+    text-decoration: none;
+    color: #111111;
+}
+
+/*#profile-menu > ul > li:hover {*/
+/*    margin-bottom: -1px;*/
+/*    border-bottom: 1px solid #b1b1b1;*/
+/*}*/
+
+#profile-menu a > i {
+    position: relative;
+    top: -2px;
+    margin-right: 10px;
+    font-size: 0.7em;
+}
+
+#edit-main > div {
+    flex-basis: 65%;
+    margin: 50px auto;
+    max-width: 960px;
+    width: 80%;
+}
+
+#edit-main > div > h1 {
+    font-family: Hebar;
+    font-size: 1.4em;
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+#current-services {
+    margin-top: 50px;
+}
+
+.current-service > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 60px;
+    padding: 20px;
+    border: 1px solid #BFBFBF;
+    font-family: Hebar;
+    background: #FFFFFF;
+}
+
+.current-service > div > img {
+    flex-basis: 17%;
+    margin: 30px;
+    width: 6%;
+    height: 6%;
+    border-radius: 50%;
+}
+
+.current-service > div:first-child > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.current-service > div:first-child > div:nth-child(2) {
+    flex-basis: 65%;
+    padding: 30px;
+}
+
+.current-service-description-units{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.current-service-description h2{
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+.current-service-description-units > div {
+    flex-basis: 50%;
+    text-transform: uppercase;
+}
+
+.current-service-description-units > div > span {
+    display: block;
+    margin: 18px 0;
+    font-size: 0.8em;
+}
+
+.current-service-description-units > div > div {
+    margin-left: 15px;
+    font-size: 1.4em;
+}
+
+.current-service-description-units > div > div > i {
+    position: relative;
+    top: -2px;
+    margin-right: 5px;
+    font-size: 0.6em;
+}
+
+
+.current-service > div:nth-child(1) > div:last-child{
+    display: flex;
+    flex-basis: 15%;
+    right: 0%;
+    top: 0%;
+}
+
+.current-service-buttons-bar{
+    height: 177px;
+}
+
+.current-service-buttons-bar > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 120px;
+}
+
+.current-service-buttons-bar button{
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ababab;
+    background: none;
+}
+
+.current-service-buttons-bar button i{
+    font-size: 1.3em;
+    color: #3a3a3a;
+}
+
+.current-service > div:nth-child(2){
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.diagram-unit{
+    width: 28%;
+    height: 280px;
+    padding: 30px;
+    border: 1px solid #BFBFBF;
+    background: #FFFFFF;
+    text-transform: uppercase;
+}
+
+.diagram-unit:before{
+    content: " ";
+    position: absolute;
+    top: -24%;
+    display: block;
+    width: 8px;
+    height: 82px;
+    background: #ababab;
+    /*box-shadow: 20px 0px 0 0px #ababab;*/
+}
+
+.diagram-unit:after{
+    content: " ";
+    position: relative;
+    right: -97%;
+    top: -101%;
+    display: block;
+    width: 8px;
+    height: 82px;
+    background: #ababab;
+}
+
+.diagram-unit:nth-child(2):after{
+    top: -148%;
+}
+
+
+.diagram-unit div{
+    font-size: 6em;
+    color: #3D3D3D;
+}
+
+.diagram-unit:nth-child(1) > div{
+    position: relative;
+    top: 21%;
+    left: 34%;
+}
+
+.diagram-unit:nth-child(2) > div{
+    position: relative;
+    top: 9%;
+    left: 8%;
+}
+
+.diagram-unit > div > span.hours-title{
+    margin-left: 57px;
+}
+
+.diagram-unit:nth-child(3) > div{
+    position: relative;
+    top: 21%;
+    left: 16%;
+}
+
+.diagram-unit > div > span {
+    margin-left: 10px;
+    font-size: 0.15em;
+}
+
+/*footer*/
+
 footer {
     display: flex;
     flex-direction: column;
@@ -535,8 +938,10 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 160px;
-    height: 160px;
+    max-width: 160px;
+    max-height: 160px;
+    width: 15vw;
+    height: 15vw;
     margin-bottom: 20px;
     border-radius: 100%;
     background: #FFFFFF;
