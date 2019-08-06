@@ -122,7 +122,7 @@ public class Gener {
                     .append("\"")
                     .append(", ")
                     .append("\"")
-                    .append(HashGenerator.hashPassword(login, name).get())
+                    .append(HashGenerator.hashPassword(login, login).get())
                     .append("\"")
                     .append(", ")
                     .append("\"")
@@ -182,9 +182,9 @@ public class Gener {
             stringBuffer.setLength(0);
         }
 
-        printStream.println("\n# Fill table `services`");
+        printStream.println("\n# Fill table `offers`");
         printStream.println(
-                "INSERT INTO `services` (`name`, `description`, `price`, `period`)\n" +
+                "INSERT INTO `offers` (`name`, `description`, `price`, `period`)\n" +
                         "VALUES\n" +
                         "(\"Бритьё головы\", \"Распаривание кожного покрова головы. Бритьё шаветкой.\", 30, 45),\n" +
                         "(\"Королевское бритьё\", \"Распаривание кожного покрова лица. Бритьё шаветкой.\", 40, 60),\n" +
@@ -206,7 +206,7 @@ public class Gener {
         );
 
         printStream.println("\n# Fill table `reservations`");
-        printStream.println("INSERT INTO `reservations` (`service_id`, `customer_id`, `employee_id`, `date`)");
+        printStream.println("INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`)");
         printStream.println("VALUES");
         for (int i = 0; i < NUMBER; i++) {
             Random random = new Random();

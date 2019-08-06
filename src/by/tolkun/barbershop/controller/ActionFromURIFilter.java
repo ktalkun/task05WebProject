@@ -1,7 +1,6 @@
 package by.tolkun.barbershop.controller;
 
-import by.tolkun.barbershop.action.Action;
-import by.tolkun.barbershop.action.MainAction;
+import by.tolkun.barbershop.action.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +18,10 @@ public class ActionFromURIFilter implements Filter {
 //    TODO: use objects instead of classes like DAOFactory
     static {
         actions.put("/", MainAction.class);
+        actions.put("/index", MainAction.class);
+        actions.put("/login", LoginAction.class);
+        actions.put("/logout", LogoutAction.class);
+        actions.put("/profile/edit", ProfileEditAction.class);
     }
 
     @Override
@@ -46,7 +49,7 @@ public class ActionFromURIFilter implements Filter {
         try {
             Action action = actionClass.newInstance();
             action.setName(actionName);
-            httpServletRequest.setAttribute("by/tolkun/barbershop/action", action);
+            httpServletRequest.setAttribute("action", action);
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (InstantiationException
                 | IllegalAccessException
