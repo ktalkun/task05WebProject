@@ -5,7 +5,10 @@ import by.tolkun.barbershop.dao.UserDao;
 import by.tolkun.barbershop.entity.User;
 import by.tolkun.barbershop.exception.LogicException;
 import by.tolkun.barbershop.exception.PersistentException;
+import by.tolkun.barbershop.password.HashGenerator;
 import by.tolkun.barbershop.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,6 +16,9 @@ import java.util.Formatter;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
+
+    private static final Logger LOGGER
+            = LogManager.getLogger(UserServiceImpl.class);
 
     private UserDao userDao;
 
@@ -45,7 +51,9 @@ public class UserServiceImpl implements UserService {
                                        final String password)
             throws LogicException {
         try {
-            return userDao.read(login, md5(password));
+            String hashPassword
+                    = HashGenerator.hashPassword(password, login).get();
+            return userDao.read(login, hashPassword);
         } catch (PersistentException e) {
             throw new LogicException((e));
         }
