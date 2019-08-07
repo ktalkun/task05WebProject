@@ -15,5 +15,5 @@ VALUES ("admin",
         "admin",
         "admin@gmail.com",
         00000000,
-        "upload/avatars/admin.jpg",
+        "/upload/avatars/admin.jpg",
         0);
