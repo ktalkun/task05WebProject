@@ -54,9 +54,9 @@ header {
     position: fixed;
     padding: 0 20px;
     z-index: 999;
-    opacity: 0.7;
+    opacity: 0.97;
     box-shadow: #111111 0px 3px 4px -2px;
-    background: #FFFFFF;
+    background: #f1f1f2;
 }
 
 header > img {
@@ -128,12 +128,12 @@ a#log-ref {
 
 #user-header-nav > ul {
     position: absolute;
-    top: 70px;
+    top: 80px;
     width: 286px;
     display: none;
     height: 0px;
     padding: 0 25px 20px;
-    background: #FFFFFF;
+    background: #f0f0f2;
     font-size: 0.75em;
     list-style: none;
 }
@@ -635,7 +635,7 @@ h1#promo-title {
     position: relative;
     display: flex;
     padding-top: 80px;
-    background: #f1f1f1;
+    background: #f4f4f4;
     border-right: 1px solid #9B9B9B;
     box-shadow: 2px 0px 20px #0000000f;
 }

@@ -1,52 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
+
 <html>
-<head>
+<u:head>
     <%--    TODO: user resource bundle--%>
     <title>Профиль</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="<c:url value = "/css/fontawesome.min.css"/>">
-    <link rel="stylesheet" href="<c:url value = "/css/light.min.css"/>">
-    <link rel="stylesheet" href="<c:url value = "/css/brands.min.css"/>">
-    <link rel="stylesheet" href="<c:url value = "/css/style.css"/>">
-</head>
+</u:head>
 <body>
-<header>
-    <img src="<c:url value = "/img/short-logo.png"/>">
-    <%--    TODO: user resource bundle--%>
-    <div id="nav-bar">
-        <ul>
-            <li><a href="<c:url value = "/index.jsp"/>">Главная</a></li>
-            <li><a href="<c:url value = "/service.jsp"/>">Услуги</a></li>
-            <li><a href="<c:url value = "/book.jsp"/>">Запись</a></li>
-            <li><a href="<c:url value = "/staff.jsp"/>">Сотрудники</a></li>
-            <li><a href="<c:url value = "/about_us.jsp"/>">О нас</a></li>
-        </ul>
-        <c:choose>
-            <c:when test="${authorizedUser != null}">
-                <div id="user-header-nav">
-                    <div>
-                        <span>${authorizedUser.name} ${authorizedUser.surname}</span>
-                        <img src="<c:url value = "/${authorizedUser.imagePath}"/>">
-                        <i class="fal fa-angle-down"></i>
-                    </div>
-                    <u:menu>
-                        <li>
-                            <a href="<c:url value = "/logout.jsp"/>">Выход</a>
-                        </li>
-                    </u:menu>
-
-                </div>
-            </c:when>
-            <c:otherwise>
-                <a id="log-ref" href="<c:url value = "/login.jsp"/>">Log in</a>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</header>
+<u:header/>
 <main id="edit-main">
     <aside>
         <img src="<c:url value = "/${authorizedUser.imagePath}"/>">
@@ -151,14 +114,17 @@
                                     <span>Дата</span>
                                     <div>
                                         <i class="fal fa-calendar"></i>
-                                        <span><fmt:formatDate pattern = "dd.MM.yyyy"  value = "${reservation.date}" /></span>
+                                        <span><fmt:formatDate
+                                                pattern="dd.MM.yyyy"
+                                                value="${reservation.date}"/></span>
                                     </div>
                                 </div>
                                 <div>
                                     <span>Время</span>
                                     <div>
                                         <i class="fal fa-clock"></i>
-                                        <span><fmt:formatDate pattern = "HH:mm"  value = "${reservation.date}" /></span>
+                                        <span><fmt:formatDate pattern="HH:mm"
+                                                              value="${reservation.date}"/></span>
                                     </div>
                                 </div>
                                 <div>
@@ -179,13 +145,18 @@
                         </div>
                         <div class="current-service-buttons-bar">
                             <div>
-                                <form action="<c:url value = "edit.jsp"/>" method="POST">
-                                    <input name="reservation-edit" hidden value="${reservation.id}">
+                                <form action="<c:url value = "edit.jsp"/>"
+                                      method="POST">
+                                    <input name="reservation-edit" hidden
+                                           value="${reservation.id}">
                                     <button><i class="fal fa-pen"></i></button>
                                 </form>
-                                <form action="<c:url value="edit.jsp"/>" method="POST">
-                                    <input name="reservation-delete" hidden value="${reservation.id}">
-                                    <button><i class="fal fa-times"></i></button>
+                                <form action="<c:url value="edit.jsp"/>"
+                                      method="POST">
+                                    <input name="reservation-delete" hidden
+                                           value="${reservation.id}">
+                                    <button><i class="fal fa-times"></i>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -210,13 +181,6 @@
         </div>
     </div>
 </main>
-<footer>
-    <div id="footer-logo">
-        <img src="<c:url value = "/img/short-logo.png"/>">
-    </div>
-    <%--    TODO: make autoupdate--%>
-    <p id="copyright">Copyright CityBarber, 2019</p>
-    <script src="<c:url value="/js/view.js"/>"></script>
-</footer>
+<u:footer></u:footer>
 </body>
 </html>

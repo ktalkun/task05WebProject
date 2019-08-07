@@ -1,30 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
+
 <html>
-<head>
+<u:head>
     <%--    TODO: user resource bundle--%>
     <title>Запись</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/light.min.css">
-    <link rel="stylesheet" href="css/brands.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
+</u:head>
 <body>
-<header>
-    <img src="img/short-logo.png">
-    <%--    TODO: user resource bundle--%>
-    <div id="nav-bar">
-        <ul>
-            <li><a href="index.jsp">Главная</a></li>
-            <li><a href="service.jsp">Услуги</a></li>
-            <li><a href="book.jsp">Запись</a></li>
-            <li><a href="staff.jsp">Сотрудники</a></li>
-            <li><a href="about_us.jsp">О нас</a></li>
-        </ul>
-        <a id="log-ref">Log in</a>
-    </div>
-</header>
+<u:header/>
 <div id="promo">
     <img id="promo-background" src="img/promo.png">
     <h1 id="promo-title">Запись</h1>
@@ -233,12 +216,6 @@
         </form>
     </section>
 </main>
-<footer>
-    <div id="footer-logo">
-        <img src="img/short-logo.png">
-    </div>
-    <%--    TODO: make autoupdate--%>
-    <p id="copyright">Copyright CityBarber, 2019</p>
-</footer>
+<u:footer></u:footer>
 </body>
 </html>
