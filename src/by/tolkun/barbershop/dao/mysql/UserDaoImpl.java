@@ -21,7 +21,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Override
     public int create(final User user) throws PersistentException {
-        final String query = "INSERT INTO `users` (`login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role`) VALUES (?,?,?,?,?,?,?,?,?)";
+        final String query = "INSERT INTO `users` (`login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `imagePath`, `role`) VALUES (?,?,?,?,?,?,?,?,?)";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -61,7 +61,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Override
     public User read(int id) throws PersistentException {
-        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `id` = ?";
+        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `imagePath`, `role` FROM `users` WHERE `id` = ?";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -79,7 +79,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
                         .patronymic(resultSet.getString("patronymic"))
                         .email(resultSet.getString("email"))
                         .phone(resultSet.getLong("phone"))
-                        .imagePath(resultSet.getString("image_path"))
+                        .imagePath(resultSet.getString("imagePath"))
                         .role(Role.getByIdentity(resultSet.getInt("role")))
                         .build();
 
@@ -104,7 +104,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Override
     public List<User> readAll() throws PersistentException {
-        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users`";
+        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `imagePath`, `role` FROM `users`";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -122,7 +122,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
                         .patronymic(resultSet.getString("patronymic"))
                         .email(resultSet.getString("email"))
                         .phone(resultSet.getLong("phone"))
-                        .imagePath(resultSet.getString("image_path"))
+                        .imagePath(resultSet.getString("imagePath"))
                         .role(Role.getByIdentity(resultSet.getInt("role")));
                 users.add(userBuilder.build());
             }
@@ -145,7 +145,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Override
     public User read(String login, String password) throws PersistentException {
-        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ? AND password = ?";
+        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `imagePath`, `role` FROM `users` WHERE `login` = ? AND password = ?";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -164,7 +164,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
                         .patronymic(resultSet.getString("patronymic"))
                         .email(resultSet.getString("email"))
                         .phone(resultSet.getLong("phone"))
-                        .imagePath(resultSet.getString("image_path"))
+                        .imagePath(resultSet.getString("imagePath"))
                         .role(Role.getByIdentity(resultSet.getInt("role")))
                         .build();
 
@@ -189,7 +189,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
     @Override
     public void update(User user) throws PersistentException {
-        final String query = "UPDATE `users` SET `login` = ?, `password` = ?, `name`  = ?, `surname` = ?, `patronymic` = ?, `email` = ?, `phone` = ?, `image_path` = ?, `role` = ? WHERE `id` = ?";
+        final String query = "UPDATE `users` SET `login` = ?, `password` = ?, `name`  = ?, `surname` = ?, `patronymic` = ?, `email` = ?, `phone` = ?, `imagePath` = ?, `role` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(query);

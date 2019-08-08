@@ -24,7 +24,7 @@
 <%--customers.patronymic AS customer_patronymic,--%>
 <%--customers.email AS customer_email,--%>
 <%--customers.phone AS customer_phone,--%>
-<%--customers.image_path AS customer_image_path,--%>
+<%--customers.imagePath AS customer_image_path,--%>
 <%--customers.role AS customer_role,--%>
 <%--employees.id AS employee_id,--%>
 <%--employees.login AS employee_login,--%>
@@ -34,7 +34,7 @@
 <%--employees.patronymic AS employee_patronymic,--%>
 <%--employees.email AS employee_email,--%>
 <%--employees.phone AS employee_phone,--%>
-<%--employees.image_path AS employee_image_path,--%>
+<%--employees.imagePath AS employee_image_path,--%>
 <%--employees.role AS employee_role,--%>
 <%--employees_info.experience AS employee_experience,--%>
 <%--reservations.date--%>

@@ -6,7 +6,7 @@ INSERT INTO users (login,
                    patronymic,
                    email,
                    phone,
-                   image_path,
+                   imagePath,
                    role)
 VALUES ("admin",
         "72phEFttR6ik1wYYLBk0iRjIr5DpWoSJTNo4A6QXY+PlfjuFnjfGguvvtUDlvKtPmUSu8jXwrRCADXR5FHkB7w==",
