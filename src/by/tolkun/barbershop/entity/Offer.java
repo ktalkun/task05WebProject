@@ -20,6 +20,11 @@ public final class Offer extends Entity {
     private String description;
 
     /**
+     * Image preview path of offer
+     */
+    private String imagePath;
+
+    /**
      * Price of offer.
      */
     private float price;
@@ -28,6 +33,16 @@ public final class Offer extends Entity {
      * Time period occupied by the offer.
      */
     private int period;
+
+    /**
+     * State of offer for position on page.
+     */
+    private boolean isMain;
+
+    /**
+     * State of offer to show on page.
+     */
+    private boolean isShow;
 
     /**
      * Constructor with parameters.
@@ -75,6 +90,24 @@ public final class Offer extends Entity {
     }
 
     /**
+     * Get image preview path.
+     *
+     * @return image path of offer
+     */
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    /**
+     * Set image path of offer.
+     *
+     * @param inputImagePath the new image path of offer
+     */
+    public void setImagePath(final String inputImagePath) {
+        imagePath = inputImagePath;
+    }
+
+    /**
      * Get price.
      *
      * @return price of offer
@@ -108,6 +141,43 @@ public final class Offer extends Entity {
      */
     public void setPeriod(final int inputPeriod) {
         period = inputPeriod;
+    }
+
+    /**
+     * Get state of offer for position on page.
+     *
+     * @return {@code true} if offer will be in main area,
+     * {@code false} otherwise
+     */
+    public boolean isMain() {
+        return isMain;
+    }
+
+    /**
+     * Set state of offer for position on page.
+     *
+     * @param inputIsMain the new state of offer for position on page
+     */
+    public void setMain(final boolean inputIsMain) {
+        isMain = inputIsMain;
+    }
+
+    /**
+     * Get state of offer to show.
+     *
+     * @return {@code true} if offer will be show, {@code false} otherwise
+     */
+    public boolean isShow() {
+        return isShow;
+    }
+
+    /**
+     * Set state of offer to show.
+     *
+     * @param inputIsShow the new state of offer
+     */
+    public void setShow(final boolean inputIsShow) {
+        isShow = inputIsShow;
     }
 
     /**

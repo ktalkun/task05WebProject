@@ -10,7 +10,7 @@ CREATE TABLE `users`
     `patronymic` VARCHAR(32)  NOT NULL,
     `email`      VARCHAR(64)  NOT NULL,
     `phone`      BIGINT       NOT NULL,
-    `image_path` VARCHAR(255) NOT NULL,
+    `imagePath` VARCHAR(255) NOT NULL,
     `role`       TINYINT      NOT NULL,
     CONSTRAINT USERS_ID_PK PRIMARY KEY (id),
     CONSTRAINT USERS_PHONE_UQ UNIQUE (phone),
@@ -33,8 +33,11 @@ CREATE TABLE `offers`
     `id`          INTEGER      NOT NULL AUTO_INCREMENT,
     `name`        VARCHAR(64)  NOT NULL,
     `description` VARCHAR(255) NOT NULL,
+    `imagePath`  VARCHAR(255) NOT NULL,
     `price`       FLOAT(6, 2)  NOT NULL,
     `period`      TINYINT      NOT NULL,
+    `isMain`     BOOL         NOT NULL,
+    `isShow`     BOOL         NOT NULL,
     CONSTRAINT OFFERS_ID_PK PRIMARY KEY (id),
     CONSTRAINT OFFERS_NAME_CHK CHECK (LENGTH(name) > 0),
     CONSTRAINT OFFERS_DESCRIPTION_CHK CHECK (LENGTH(description) > 0),
@@ -45,7 +48,7 @@ CREATE TABLE `offers`
 CREATE TABLE `employees_offers`
 (
     `employee_id` INTEGER NOT NULL,
-    `offer_id`  INTEGER NOT NULL,
+    `offer_id`    INTEGER NOT NULL,
     CONSTRAINT EMPLOYEES_OFFERS_EMPLOYEE_ID_FK
         FOREIGN KEY (employee_id) REFERENCES users (id),
     INDEX EMPLOYEES_OFFERS_EMPLOYEE_ID_IND (employee_id),
@@ -69,7 +72,7 @@ CREATE TABLE `ratings`
 CREATE TABLE `reservations`
 (
     `id`          INTEGER  NOT NULL AUTO_INCREMENT,
-    `offer_id`  INTEGER  NOT NULL,
+    `offer_id`    INTEGER  NOT NULL,
     `customer_id` INTEGER  NOT NULL,
     `employee_id` INTEGER  NOT NULL,
     `date`        DATETIME NOT NULL,

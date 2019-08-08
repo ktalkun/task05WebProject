@@ -21,6 +21,11 @@ public class OfferBuilder extends EntityBuilder {
     private String description;
 
     /**
+     * Image preview path of offer
+     */
+    private String imagePath;
+
+    /**
      * Price of offer.
      */
     private float price;
@@ -29,6 +34,16 @@ public class OfferBuilder extends EntityBuilder {
      * Time period occupied by the offer.
      */
     private int period;
+
+    /**
+     * State of offer for position on page.
+     */
+    private boolean isMain;
+
+    /**
+     * State of offer to show on page.
+     */
+    private boolean isShow;
 
     /**
      * Build id of offer.
@@ -65,6 +80,17 @@ public class OfferBuilder extends EntityBuilder {
     }
 
     /**
+     * Build image path of offer.
+     *
+     * @param inputImagePath the image path of offer
+     * @return builder
+     */
+    public OfferBuilder imagePath(final String inputImagePath) {
+        imagePath = inputImagePath;
+        return this;
+    }
+
+    /**
      * Build price of offer.
      *
      * @param inputPrice the offer price
@@ -87,6 +113,28 @@ public class OfferBuilder extends EntityBuilder {
     }
 
     /**
+     * Build state of offer for position.
+     *
+     * @param inputIsMain the state of offer for position on page
+     * @return builder
+     */
+    public OfferBuilder main(final boolean inputIsMain) {
+        isMain = inputIsMain;
+        return this;
+    }
+
+    /**
+     * Build state of offer to show.
+     *
+     * @param inputIsShow the state of offer to show on page
+     * @return builder
+     */
+    public OfferBuilder show(final boolean inputIsShow) {
+        isShow = inputIsShow;
+        return this;
+    }
+
+    /**
      * Build offer.
      *
      * @return built offer
@@ -96,8 +144,11 @@ public class OfferBuilder extends EntityBuilder {
         Offer offer = new Offer(id);
         offer.setName(name);
         offer.setDescription(description);
+        offer.setImagePath(imagePath);
         offer.setPrice(price);
         offer.setPeriod(period);
+        offer.setMain(isMain);
+        offer.setShow(isShow);
         return offer;
     }
 }
