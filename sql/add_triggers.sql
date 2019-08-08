@@ -18,7 +18,7 @@ CREATE TRIGGER `update_offer`
   IF IS_ID_CORRESPOND_ROLE(NEW.customer_id, 3) = 0
      OR IS_ID_CORRESPOND_ROLE(NEW.employee_id, 2) = 0
   THEN
-    SIGNAL SQLSTATE '45000'
+    SIGNAL SQLSTATE '45001'
     SET MESSAGE_TEXT = 'Cannot update row: user role mismatch.';
   END IF;
 
@@ -29,7 +29,7 @@ CREATE TRIGGER `insert_review`
   IF IS_ID_CORRESPOND_ROLE(NEW.customer_id, 3) = 0
      OR IS_ID_CORRESPOND_ROLE(NEW.employee_id, 2) = 0
   THEN
-    SIGNAL SQLSTATE '45000'
+    SIGNAL SQLSTATE '45002'
     SET MESSAGE_TEXT = 'Cannot add row: user role mismatch.';
   END IF;
 
@@ -40,6 +40,6 @@ CREATE TRIGGER `update_review`
   IF IS_ID_CORRESPOND_ROLE(NEW.customer_id, 3) = 0
      OR IS_ID_CORRESPOND_ROLE(NEW.employee_id, 2) = 0
   THEN
-    SIGNAL SQLSTATE '45000'
+    SIGNAL SQLSTATE '45003'
     SET MESSAGE_TEXT = 'Cannot update row: user role mismatch.';
   END IF;
