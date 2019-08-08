@@ -26,7 +26,13 @@ public class DispatcherServlet extends HttpServlet {
     public void init() {
         try {
 //            TODO: delete generator test data
-//            Gener.main(null);
+//            try {
+//                LOGGER.error("generating");
+//                Gener.main(null);
+//                LOGGER.error("stop generating");
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
             ConnectionPool.getInstance().init(DB_DRIVER_CLASS, DB_URL, DB_USER, DB_PASSWORD, DB_POOL_START_SIZE, DB_POOL_MAX_SIZE, DB_POOL_CHECK_CONNECTION_TIMEOUT);
         } catch (PersistentException e) {
             LOGGER.error("It is impossible to initialize application", e);

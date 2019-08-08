@@ -23,7 +23,8 @@ public class ServiceFactory {
         offerService = new OfferServiceImpl();
         reviewService = new ReviewServiceImpl();
         reservationService = new ReservationServiceImpl();
-        LOGGER.debug("Object of ServiceFactory created.");
+//        TODO: NULLPOINTEREXC
+//        LOGGER.debug("Object of ServiceFactory created.");
     }
 
     public static ServiceFactory getInstance() {
