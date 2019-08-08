@@ -19,6 +19,9 @@ public class ActionFromURIFilter implements Filter {
     static {
         actions.put("/", MainAction.class);
         actions.put("/index", MainAction.class);
+        actions.put("/service", OfferAction.class);
+        actions.put("/book", BookAction.class);
+        actions.put("/staff", StaffAction.class);
         actions.put("/login", LoginAction.class);
         actions.put("/logout", LogoutAction.class);
         actions.put("/profile/edit", ProfileEditAction.class);
