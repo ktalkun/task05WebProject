@@ -204,7 +204,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 + "JOIN users AS customers ON customers.id = reservations.customer_id "
                 + "JOIN users AS employees ON employees.id = reservations.employee_id "
                 + "JOIN employees AS employees_info ON employees.id = employees.id "
-                + "GROUP BY offer_id;";
+                + "GROUP BY `id`;";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -309,7 +309,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 "JOIN users AS employees ON employees.id = reservations.employee_id " +
                 "JOIN employees AS employees_info ON employees.id = employees.id " +
                 "WHERE reservations.customer_id = ? " +
-                "GROUP BY offer_id;";
+                "GROUP BY `id`;";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -415,7 +415,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 + "JOIN users AS employees ON employees.id = reservations.employee_id "
                 + "JOIN employees AS employees_info ON employees.id = employees.id "
                 + "WHERE reservations.employee_id = ?"
-                + "GROUP BY offer_id;";
+                + "GROUP BY `id`;";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
