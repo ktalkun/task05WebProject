@@ -9,7 +9,7 @@
         <ul>
             <li><a href="<c:url value = "/index.jsp"/>">Главная</a></li>
             <li><a href="<c:url value = "/service.jsp"/>">Услуги</a></li>
-            <li><a href="<c:url value = "/book.jsp"/>">Запись</a></li>
+            <li><a href="<c:url value = "/barber.jsp"/>">Барберы</a></li>
             <li><a href="<c:url value = "/staff.jsp"/>">Сотрудники</a></li>
             <li><a href="<c:url value = "/about_us.jsp"/>">О нас</a></li>
         </ul>

@@ -15,6 +15,7 @@ public final class DAOFactory {
     private static final Logger LOGGER = LogManager.getLogger(DAOFactory.class);
 
     private final UserDao userDao;
+    private final EmployeeDao employeeDao;
     private final OfferDao offerDao;
     private final ReviewDao reviewDao;
     private final ReservationDao reservationDao;
@@ -22,12 +23,15 @@ public final class DAOFactory {
     private DAOFactory() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         userDao = new UserDaoImpl();
+        employeeDao = new EmployeeDaoImpl();
         offerDao = new OfferDaoImpl();
         reviewDao = new ReviewDaoImpl();
         reservationDao = new ReservationDaoImpl();
         try {
             Connection connection = connectionPool.getConnection();
             ((BaseDaoImpl) userDao)
+                    .setConnection(connection);
+            ((BaseDaoImpl) employeeDao)
                     .setConnection(connection);
             ((BaseDaoImpl) offerDao)
                     .setConnection(connectionPool.getConnection());
@@ -48,6 +52,10 @@ public final class DAOFactory {
 
     public UserDao getUserDao() {
         return userDao;
+    }
+
+    public EmployeeDao getEmployeeDao() {
+        return employeeDao;
     }
 
     public OfferDao getOfferDao() {

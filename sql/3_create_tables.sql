@@ -23,6 +23,10 @@ CREATE TABLE `employees`
 (
     `employee_id` INTEGER NOT NULL,
     `experience`  DATE    NOT NULL,
+    `im`          VARCHAR(255),
+    `fb`          VARCHAR(255),
+    `vk`          VARCHAR(255),
+    `work_week`   VARCHAR(7) NOT NULL,
     CONSTRAINT EMPLOYEES_INFO_EMPLOYEE_ID_FK
         FOREIGN KEY (employee_id) REFERENCES users (id),
     INDEX EMPLOYEES_INFO_EMPLOYEE_ID_IND (employee_id)
@@ -36,8 +40,8 @@ CREATE TABLE `offers`
     `image_path`  VARCHAR(255) NOT NULL,
     `price`       FLOAT(6, 2)  NOT NULL,
     `period`      TINYINT      NOT NULL,
-    `isMain`     BOOL         NOT NULL,
-    `isShow`     BOOL         NOT NULL,
+    `isMain`      BOOL         NOT NULL,
+    `isShow`      BOOL         NOT NULL,
     CONSTRAINT OFFERS_ID_PK PRIMARY KEY (id),
     CONSTRAINT OFFERS_NAME_CHK CHECK (LENGTH(name) > 0),
     CONSTRAINT OFFERS_DESCRIPTION_CHK CHECK (LENGTH(description) > 0),

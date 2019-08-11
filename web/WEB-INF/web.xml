@@ -20,7 +20,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletDispatcher</servlet-name>
-        <url-pattern>/book.jsp</url-pattern>
+        <url-pattern>/barber.jsp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletDispatcher</servlet-name>

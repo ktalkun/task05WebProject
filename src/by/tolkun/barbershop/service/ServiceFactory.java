@@ -1,11 +1,8 @@
 package by.tolkun.barbershop.service;
 
-import by.tolkun.barbershop.service.impl.OfferServiceImpl;
-import by.tolkun.barbershop.service.impl.ReservationServiceImpl;
-import by.tolkun.barbershop.service.impl.ReviewServiceImpl;
+import by.tolkun.barbershop.service.impl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import by.tolkun.barbershop.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
@@ -14,12 +11,14 @@ public class ServiceFactory {
             = LogManager.getLogger(ServiceFactory.class);
 
     private final UserService userService;
+    private final EmployeeService employeeService;
     private final OfferService offerService;
     private final ReviewService reviewService;
     private final ReservationService reservationService;
 
     private ServiceFactory() {
         userService = new UserServiceImpl();
+        employeeService = new EmployeeServiceImpl();
         offerService = new OfferServiceImpl();
         reviewService = new ReviewServiceImpl();
         reservationService = new ReservationServiceImpl();
@@ -34,6 +33,8 @@ public class ServiceFactory {
     public UserService getUserService() {
         return userService;
     }
+
+    public EmployeeService getEmployeeService() {return employeeService;}
 
     public OfferService getOfferService() {
         return offerService;
