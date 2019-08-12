@@ -129,7 +129,7 @@ a#log-ref {
 #user-header-nav > ul {
     position: absolute;
     top: 80px;
-    width: 286px;
+    width: 104%;
     display: none;
     height: 0px;
     padding: 0 25px 20px;
@@ -666,6 +666,23 @@ h1#promo-title {
     box-shadow: 10px 0 14px -8px #88888852;
 }
 
+#update-profile-button{
+    display: none;
+    margin-top: 20px;
+    padding: 10px 12px;
+    font-size: 1.2em;
+    border: 1px solid #242323;
+    text-align: center;
+    text-decoration: none;
+    color: #242323;
+    background: none;
+}
+
+#edit-main aside > div form {
+    display: flex;
+    flex-direction: column;
+}
+
 #edit-main aside > img {
     width: 55%;
     margin: 40px 0 60px 0;
@@ -678,13 +695,13 @@ h1#promo-title {
     width: 55%;
 }
 
-#edit-main aside > div > span {
+#edit-main aside > div span {
     font-family: Gotham;
     font-size: 0.75em;
     text-transform: uppercase;
 }
 
-#edit-main aside > div > i {
+#edit-main aside > div > form i {
     position: relative;
     top: -9px;
     right: -90%;
@@ -695,11 +712,11 @@ h1#promo-title {
     color: #717171;
 }
 
-#edit-main aside > div > i:hover {
+#edit-main aside > div > form i:hover {
     cursor: pointer;
 }
 
-#edit-main aside > div > input {
+#edit-main aside > div input {
     width: 70%;
     margin: 0 0 -20px 20px;
     padding: 0 8px;
@@ -708,7 +725,7 @@ h1#promo-title {
     color: #000000;
 }
 
-#edit-main aside > div > input:disabled {
+#edit-main aside > div input:disabled {
     border: none;
     background: none;
 }

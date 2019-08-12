@@ -72,15 +72,7 @@ public class UserServiceImpl implements UserService {
     public void save(final User user) throws LogicException {
         try {
             if (user.getId() != 0) {
-                if (user.getPassword() != null) {
-                    user.setPassword(
-                            HashGenerator
-                                    .hashPassword(
-                                            user.getPassword(),
-                                            user.getLogin()
-                                    ).get()
-                    );
-                } else {
+                if (user.getPassword() == null) {
                     User oldUser = userDao.read(user.getId());
                     user.setPassword(oldUser.getPassword());
                 }
