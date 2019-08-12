@@ -16,9 +16,6 @@
 <main>
     <section id="login-form-section">
         <form action="<c:url value="/login.jsp"/>" method="POST" accept-charset="UTF-8">
-            <c:if test="${message != null}">
-                <div id="message">${message}</div>
-            </c:if>
             <%--    TODO: user resource bundle--%>
             <h1>Войти</h1>
             <%--    TODO: user resource bundle--%>

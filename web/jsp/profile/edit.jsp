@@ -43,6 +43,7 @@
                        value="${authorizedUser.email}">
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="email"></i>
+                <input hidden name="isSent" value="sent">
                 <button type="submit" onclick="submitData()" id="update-profile-button">Update</button>
             </form>
         </div>

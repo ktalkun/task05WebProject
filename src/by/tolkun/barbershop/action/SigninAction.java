@@ -18,6 +18,8 @@ public class SigninAction extends Action {
     private static final Logger LOGGER
             = LogManager.getLogger(SigninAction.class);
 
+    private static final String MESSAGE_PAGE_URL = "/message.jsp";
+
     private final String defaultAvatarPathByAdmin
             = "upload/admin/defaultAvatar.jpg";
 
@@ -33,10 +35,8 @@ public class SigninAction extends Action {
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
         String message = null;
+        String redirectUrl = "/signin.jsp";
         Forward forward = new Forward("/signin.jsp", false);
-        request
-                .getSession()
-                .removeAttribute("message");
         if (surname != null && !surname.isEmpty()
                 && name != null && !name.isEmpty()
                 && patronymic != null && !patronymic.isEmpty()
@@ -86,6 +86,8 @@ public class SigninAction extends Action {
                                 .role(Role.CUSTOMER);
                         user = userBuilder.build();
                         userService.save(user);
+                        message = "Registration successful.";
+                        redirectUrl = "/login.jsp";
                         LOGGER.info("New user={} was saved.", user);
                     } catch (LogicException e) {
                         LOGGER.error(
@@ -94,11 +96,6 @@ public class SigninAction extends Action {
                         );
                         message = "User with such email or phone exists.";
                     }
-                    message = "Registration successful.";
-                    forward = new Forward("/login.jsp");
-                    request
-                            .getSession()
-                            .setAttribute("message", message);
                 }
             } else {
                 message = "Passwords are not match, try again.";
@@ -106,7 +103,16 @@ public class SigninAction extends Action {
         } else if (request.getParameter("isSent") != null) {
             message = "There are blank required fields";
         }
-        request.setAttribute("message", message);
+        if (message != null) {
+            forward.setValue(MESSAGE_PAGE_URL);
+            forward.setRedirect(true);
+        }
+        request
+                .getSession()
+                .setAttribute("message", message);
+        request
+                .getSession()
+                .setAttribute("redirectUrl", redirectUrl);
         return forward;
     }
 }

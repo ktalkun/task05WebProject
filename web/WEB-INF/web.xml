@@ -44,6 +44,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletDispatcher</servlet-name>
+        <url-pattern>/message.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDispatcher</servlet-name>
         <url-pattern>/profile/edit.jsp</url-pattern>
     </servlet-mapping>
     <filter>

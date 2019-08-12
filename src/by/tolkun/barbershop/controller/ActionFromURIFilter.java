@@ -25,6 +25,7 @@ public class ActionFromURIFilter implements Filter {
         actions.put("/login", LoginAction.class);
         actions.put("/signin", SigninAction.class);
         actions.put("/logout", LogoutAction.class);
+        actions.put("/message", MessageAction.class);
         actions.put("/profile/edit", ProfileEditAction.class);
     }
 

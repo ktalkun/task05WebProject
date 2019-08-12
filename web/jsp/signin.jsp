@@ -18,9 +18,6 @@
         <form action="<c:url value="/signin.jsp"/>" method="POST">
             <%--    TODO: user resource bundle--%>
             <h1>Регистрация</h1>
-            <c:if test="${message != null}">
-                <div id="message">${message}</div>
-            </c:if>
             <input required type="text" id="login" name="surname"
                    placeholder="Фамилия*"
                    pattern="[A-Za-zA-Яа-я]{5,30}">

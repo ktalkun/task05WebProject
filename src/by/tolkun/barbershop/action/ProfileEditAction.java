@@ -26,6 +26,8 @@ public class ProfileEditAction extends Action {
 
     private final String NAME_UPLOAD_DIRECTORY = "upload/avatars";
 
+    private static final String MESSAGE_PAGE_URL = "/message.jsp";
+
     @Override
     public Forward execute(final HttpServletRequest request,
                            final HttpServletResponse response) {
@@ -33,6 +35,10 @@ public class ProfileEditAction extends Action {
         User user = (User) request
                 .getSession(false)
                 .getAttribute("authorizedUser");
+
+        String message = null;
+        String redirectUrl= "/profile/edit.jsp";
+        Forward forward = new Forward("/profile/edit.jsp", false);
 
         Part avatar = null;
         try {
@@ -70,8 +76,16 @@ public class ProfileEditAction extends Action {
         }
         try {
             userService.save(user);
+            message = "Profile data was updated.";
+
         } catch (LogicException e) {
             LOGGER.error(e);
+            message = "Update is not possible with this data.";
+
+        }
+        if (request.getParameter("isSent") != null) {
+            forward.setValue(MESSAGE_PAGE_URL);
+            forward.setRedirect(true);
         }
 
 //        Handling delete reservation event
@@ -84,10 +98,14 @@ public class ProfileEditAction extends Action {
             int reservationId = Integer.parseInt(reservationDeleteParam);
             try {
                 reservationService.delete(reservationId);
+                message = "Reservation was deleted.";
                 LOGGER.info("Reservation with id = {} deleted.", reservationId);
             } catch (LogicException e) {
                 LOGGER.error("Wrong reservation id \"{}\"", e);
+                message = "Reservation cannot be deleted.";
             }
+            forward.setValue(MESSAGE_PAGE_URL);
+            forward.setRedirect(true);
         }
         try {
             List<Reservation> reservations
@@ -96,7 +114,13 @@ public class ProfileEditAction extends Action {
         } catch (LogicException e) {
             LOGGER.error(e);
         }
-        return new Forward("/profile/edit.jsp", false);
+        request
+                .getSession()
+                .setAttribute("message", message);
+        request
+                .getSession()
+                .setAttribute("redirectUrl", redirectUrl);
+        return forward;
     }
 
     public void uploadAvatar(final HttpServletRequest request,

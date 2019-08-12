@@ -22,6 +22,7 @@ public class LoginAction extends Action {
     private static final Logger LOGGER
             = LogManager.getLogger(LoginAction.class);
 
+    private static final String MESSAGE_PAGE_URL = "/message.jsp";
 
     private static Map<Role, List<MenuItem>> profileMenu = new ConcurrentHashMap<>();
 
@@ -85,10 +86,9 @@ public class LoginAction extends Action {
                            final HttpServletResponse response) {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        String message;
-        message = (String) request
-                .getSession()
-                .getAttribute("message");
+        String message = null;
+        String redirectUrl= "/login.jsp";
+        Forward forward = new Forward("/login.jsp", false);
         if (login != null && !login.isEmpty()
                 && password != null && !password.isEmpty()) {
             UserService userService = ServiceFactory
@@ -113,29 +113,30 @@ public class LoginAction extends Action {
                         request.getRemoteHost(),
                         request.getRemotePort()
                 );
-                return new Forward("/index.jsp");
-            }
+                forward.setValue("/index.jsp");
+                forward.setRedirect(true);
+            } else {
 //                TODO: replace to resource bundle
-            request.setAttribute(
-                    "loginMessage",
-                    "Имя пользователя и пароль не совпадают."
-            );
-            LOGGER.info(
-                    "User {} unsuccessfully tried to log in from {} ({}:{})",
-                    login,
-                    request.getRemoteAddr(),
-                    request.getRemoteHost(),
-                    request.getRemotePort()
-            );
+                message =  "Имя пользователя и пароль не совпадают.";
+                forward.setValue(MESSAGE_PAGE_URL);
+                forward.setRedirect(true);
+                LOGGER.info(
+                        "User {} unsuccessfully tried to log in from {} ({}:{})",
+                        login,
+                        request.getRemoteAddr(),
+                        request.getRemoteHost(),
+                        request.getRemotePort()
+                );
+            }
         } else if (request.getParameter("isSent") != null) {
-            message = "There are blank required fields";
+            message = "There are blank required fields.";
         }
-        if (message != null) {
-            request.setAttribute("message", message);
-            request
-                    .getSession()
-                    .removeAttribute("message");
-        }
-        return new Forward("/login.jsp", false);
+        request
+                .getSession()
+                .setAttribute("message", message);
+        request
+                .getSession()
+                .setAttribute("redirectUrl", redirectUrl);
+        return forward;
     }
 }
