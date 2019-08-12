@@ -1,14 +1,17 @@
-document.querySelector("#user-header-nav").onmouseover = showAdditionalMenu;
+var UserHeaderNav = document.querySelector("#user-header-nav");
+var AdditonalMenu = document.querySelector("#user-header-nav > #additional-menu");
+if (UserHeaderNav) {
+    UserHeaderNav.onmouseover = showAdditionalMenu;
+    UserHeaderNav.onmouseout = hideAdditionalMenu;
+    AdditonalMenu.onmouseout = hideAdditionalMenu;
+}
 
 function showAdditionalMenu(event) {
     document.querySelector("#user-header-nav > #additional-menu").classList.add("show")
 };
 
-document.querySelector("#user-header-nav").onmouseout
-    = document.querySelector("#user-header-nav > #additional-menu").onmouseout = hideAdditionalMenu;
-
 function hideAdditionalMenu(event) {
-    if (event.relatedTarget.id != "additional-menu") {
+    if (event.relatedTarget == null || event.relatedTarget.id != "additional-menu") {
         document.querySelector("#user-header-nav > #additional-menu").classList.remove("show")
     }
 }
