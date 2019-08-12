@@ -144,6 +144,49 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
+    public User read(String login) throws PersistentException {
+        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ?";
+        ResultSet resultSet = null;
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, login);
+            resultSet = statement.executeQuery();
+            UserBuilder userBuilder = new UserBuilder();
+            if (resultSet.next()) {
+                return userBuilder
+                        .id(resultSet.getInt("id"))
+                        .login(resultSet.getString("login"))
+                        .password(resultSet.getString("password"))
+                        .name(resultSet.getString("name"))
+                        .surname(resultSet.getString("surname"))
+                        .patronymic(resultSet.getString("patronymic"))
+                        .email(resultSet.getString("email"))
+                        .phone(resultSet.getLong("phone"))
+                        .imagePath(resultSet.getString("image_path"))
+                        .role(Role.getByIdentity(resultSet.getInt("role")))
+                        .build();
+
+            }
+            LOGGER.warn("No note with login={}", login);
+            return null;
+        } catch (SQLException e) {
+            throw new PersistentException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException | NullPointerException e) {
+                LOGGER.error(e);
+            }
+            try {
+                statement.close();
+            } catch (SQLException | NullPointerException e) {
+                LOGGER.error(e);
+            }
+        }
+    }
+
+    @Override
     public User read(String login, String password) throws PersistentException {
         final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ? AND password = ?";
         ResultSet resultSet = null;

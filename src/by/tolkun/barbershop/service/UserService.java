@@ -10,6 +10,8 @@ public interface UserService extends Service {
 
     User findByIdentity(int identity) throws LogicException;
 
+    User findByLogin(String login) throws LogicException;
+
     User findByLoginAndPassword(String login, String password)
             throws LogicException;
 

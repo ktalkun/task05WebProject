@@ -10,7 +10,7 @@ CREATE TABLE `users`
     `patronymic` VARCHAR(32)  NOT NULL,
     `email`      VARCHAR(64)  NOT NULL,
     `phone`      BIGINT       NOT NULL,
-    `image_path` VARCHAR(255) NOT NULL,
+    `image_path` VARCHAR(255),
     `role`       TINYINT      NOT NULL,
     CONSTRAINT USERS_ID_PK PRIMARY KEY (id),
     CONSTRAINT USERS_PHONE_UQ UNIQUE (phone),

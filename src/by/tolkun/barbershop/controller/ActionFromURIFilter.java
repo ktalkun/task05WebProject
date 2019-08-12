@@ -23,6 +23,7 @@ public class ActionFromURIFilter implements Filter {
         actions.put("/barber", BarberAction.class);
         actions.put("/staff", StaffAction.class);
         actions.put("/login", LoginAction.class);
+        actions.put("/signin", SigninAction.class);
         actions.put("/logout", LogoutAction.class);
         actions.put("/profile/edit", ProfileEditAction.class);
     }

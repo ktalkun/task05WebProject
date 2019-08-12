@@ -47,6 +47,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByLogin(String login) throws LogicException {
+        try {
+            return userDao.read(login);
+        } catch (PersistentException e) {
+            throw new LogicException((e));
+        }
+    }
+
+    @Override
     public User findByLoginAndPassword(final String login,
                                        final String password)
             throws LogicException {
@@ -64,14 +73,24 @@ public class UserServiceImpl implements UserService {
         try {
             if (user.getId() != 0) {
                 if (user.getPassword() != null) {
-                    user.setPassword(md5(user.getPassword()));
+                    user.setPassword(
+                            HashGenerator
+                                    .hashPassword(
+                                            user.getPassword(),
+                                            user.getLogin()
+                                    ).get()
+                    );
                 } else {
                     User oldUser = userDao.read(user.getId());
                     user.setPassword(oldUser.getPassword());
                 }
                 userDao.update(user);
             } else {
-                user.setPassword(md5(new String()));
+                user.setPassword(HashGenerator
+                        .hashPassword(
+                                user.getPassword(),
+                                user.getLogin()
+                        ).get());
                 user.setId(userDao.create(user));
             }
         } catch (PersistentException e) {
@@ -85,25 +104,6 @@ public class UserServiceImpl implements UserService {
             userDao.delete(identity);
         } catch (PersistentException e) {
             throw new LogicException((e));
-        }
-    }
-
-    private String md5(final String string) {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance("md5");
-            digest.reset();
-            digest.update(string.getBytes());
-            byte hash[] = digest.digest();
-            Formatter formatter = new Formatter();
-            for (int i = 0; i < hash.length; i++) {
-                formatter.format("%02X", hash[i]);
-            }
-            String md5summ = formatter.toString();
-            formatter.close();
-            return md5summ;
-        } catch (NoSuchAlgorithmException e) {
-            return null;
         }
     }
 }

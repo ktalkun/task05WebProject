@@ -85,7 +85,12 @@ public class LoginAction extends Action {
                            final HttpServletResponse response) {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        if (login != null && password != null) {
+        String message;
+        message = (String) request
+                .getSession()
+                .getAttribute("message");
+        if (login != null && !login.isEmpty()
+                && password != null && !password.isEmpty()) {
             UserService userService = ServiceFactory
                     .getInstance()
                     .getUserService();
@@ -122,6 +127,14 @@ public class LoginAction extends Action {
                     request.getRemoteHost(),
                     request.getRemotePort()
             );
+        } else if (request.getParameter("isSent") != null) {
+            message = "There are blank required fields";
+        }
+        if (message != null) {
+            request.setAttribute("message", message);
+            request
+                    .getSession()
+                    .removeAttribute("message");
         }
         return new Forward("/login.jsp", false);
     }
