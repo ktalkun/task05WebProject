@@ -20,7 +20,7 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
 
     @Override
     public int create(final Offer offer) throws PersistentException {
-        final String query = "INSERT INTO `offers` (`name`, `description`, `image_path`, `price`, `period`, `isMain`, `isShow`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String query = "INSERT INTO `offers` (`name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -58,7 +58,7 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
 
     @Override
     public Offer read(final int id) throws PersistentException {
-        final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `isMain`, `isShow` FROM `offers` WHERE `id` = ?";
+        final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show` FROM `offers` WHERE `id` = ?";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -74,8 +74,8 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
                         .imagePath(resultSet.getString("image_path"))
                         .price(resultSet.getFloat("price"))
                         .period(resultSet.getInt("period"))
-                        .main(resultSet.getBoolean("isMain"))
-                        .show(resultSet.getBoolean("isShow"));
+                        .main(resultSet.getBoolean("is_main"))
+                        .show(resultSet.getBoolean("is_show"));
             } else {
                 LOGGER.warn("No note with id {}", id);
             }
@@ -99,7 +99,7 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
 
     @Override
     public List<Offer> readAll() throws PersistentException {
-        final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `isMain`, `isShow` FROM `offers`";
+        final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show` FROM `offers`";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {
@@ -115,8 +115,8 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
                         .imagePath(resultSet.getString("image_path"))
                         .price(resultSet.getFloat("price"))
                         .period(resultSet.getInt("period"))
-                        .main(resultSet.getBoolean("isMain"))
-                        .show(resultSet.getBoolean("isShow"));
+                        .main(resultSet.getBoolean("is_main"))
+                        .show(resultSet.getBoolean("is_show"));
                 offers.add(offerBuilder.build());
             }
             return offers;
@@ -138,7 +138,7 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
 
     @Override
     public void update(final Offer offer) throws PersistentException {
-        final String query = "UPDATE `offers` SET `name` = ?, `description` = ?, `image_path` = ?, `price` = ?, `period` = ?, `isMain` = ?, `isShow` = ? WHERE `id` = ?";
+        final String query = "UPDATE `offers` SET `name` = ?, `description` = ?, `image_path` = ?, `price` = ?, `period` = ?, `is_main` = ?, `is_show` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(query);
