@@ -35,6 +35,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<Employee> findAll(int offset, int limit) throws LogicException {
+        try {
+            return employeeDao.readAll(offset, limit);
+        } catch (PersistentException e) {
+            throw new LogicException(e);
+        }
+    }
+
+    @Override
     public Employee findByIdentity(int identity) throws LogicException {
         try {
             return employeeDao.read(identity);
@@ -66,6 +75,15 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeDao.delete(identity);
         } catch (PersistentException e) {
             throw new LogicException((e));
+        }
+    }
+
+    @Override
+    public int noteNumber() throws LogicException {
+        try {
+            return employeeDao.noteNumber();
+        } catch (PersistentException e) {
+            throw new LogicException(e);
         }
     }
 }

@@ -51,7 +51,7 @@ public class Employee extends User {
      * @param inputExperience the experience of employee
      */
     public void setExperience(final Date inputExperience) {
-        this.experience = experience;
+        this.experience = inputExperience;
     }
 
     /**
