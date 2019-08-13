@@ -339,7 +339,6 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
                         .phone(resultSet.getLong("phone"))
                         .imagePath(resultSet.getString("image_path"))
                         .role(Role.getByIdentity(resultSet.getInt("role")));
-                LOGGER.debug(resultSet.getDate("experience"));
                 employees.add(employeeBuilder.build());
             }
             return employees;
