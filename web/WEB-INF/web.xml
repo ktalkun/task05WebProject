@@ -28,7 +28,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletDispatcher</servlet-name>
-        <url-pattern>/about_us.jsp</url-pattern>
+        <url-pattern>/about.jsp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletDispatcher</servlet-name>

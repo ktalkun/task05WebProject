@@ -991,6 +991,33 @@ h1#promo-title {
     background: none;
 }
 
+/*about page*/
+#login-form-section.about-section{
+    justify-content: space-between;
+}
+
+.about-section > div{
+    padding: 40px;
+    font-family: Gotham;
+    font-size: 1.2em;
+    color: #000000;
+}
+
+.about-unit{
+    margin: 0 0 10px 40px;
+}
+
+.about-section h1{
+    margin-bottom: 20px;
+    font-family: Hebar;
+    font-size: 1.5em;
+}
+
+.about-section iframe{
+    width: 60%;
+    height: 600px;
+}
+
 /*footer*/
 
 footer {

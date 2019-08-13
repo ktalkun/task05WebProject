@@ -11,7 +11,7 @@
             <li><a href="<c:url value = "/service.jsp"/>">Услуги</a></li>
             <li><a href="<c:url value = "/barber.jsp"/>">Барберы</a></li>
             <li><a href="<c:url value = "/staff.jsp"/>">Сотрудники</a></li>
-            <li><a href="<c:url value = "/about_us.jsp"/>">О нас</a></li>
+            <li><a href="<c:url value = "/about.jsp"/>">О нас</a></li>
         </ul>
         <c:choose>
             <c:when test="${authorizedUser != null}">
