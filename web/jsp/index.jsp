@@ -38,13 +38,17 @@
         </div>
     </section>
     <section id="contact-us-section">
-        <form>
+        <form action=" <c:url value="/index.jsp"/> ">
             <%--    TODO: user resource bundle--%>
             <h3>Связаться с нами</h3>
-            <input type="text" placeholder="Имя*">
-            <input type="email" placeholder="Почта*">
-            <input type="text" placeholder="Тема*">
-            <textarea rows="5" placeholder="Комментарий*"></textarea>
+            <input required type="text" name="name" placeholder="Имя*"
+                   pattern="[A-Za-zA-Яа-я\s]{5,30}">
+            <input required type="email" name="email" placeholder="Почта*">
+            <input required type="text" name="title" placeholder="Тема*"
+                   pattern="[A-Za-zA-Яа-я\s]{10,120}">
+            <textarea required rows="5" name="description"
+                      placeholder="Комментарий*"></textarea>
+            <input hidden name="isSent" value="sent">
             <button>Отправить</button>
         </form>
     </section>
