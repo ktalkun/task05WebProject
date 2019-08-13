@@ -1,5 +1,6 @@
-package by.tolkun.barbershop.action;
+package by.tolkun.barbershop.action.profile;
 
+import by.tolkun.barbershop.action.Action;
 import by.tolkun.barbershop.entity.Reservation;
 import by.tolkun.barbershop.entity.User;
 import by.tolkun.barbershop.exception.LogicException;

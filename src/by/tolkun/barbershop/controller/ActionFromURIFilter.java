@@ -1,6 +1,7 @@
 package by.tolkun.barbershop.controller;
 
 import by.tolkun.barbershop.action.*;
+import by.tolkun.barbershop.action.profile.ProfileEditAction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
