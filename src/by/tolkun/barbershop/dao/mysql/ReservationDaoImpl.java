@@ -26,7 +26,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
      * Logger of class {@code ReservationDaoImpl}.
      */
     private static final Logger LOGGER
-            = LogManager.getLogger(UserDaoImpl.class);
+            = LogManager.getLogger(ReservationDaoImpl.class);
 
 
     @Override

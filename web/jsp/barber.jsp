@@ -20,7 +20,7 @@
     <section id="barber-choice">
         <c:forEach items="${employees}" var="employee">
             <form action="${formHandler}">
-                <input hidden name="barber" value="${employee.id}">
+                <input hidden name="employeeId" value="${employee.id}">
                 <img src="<c:url value="${employee.imagePath}"/>">
                 <div>
                     <p>${employee.name} ${employee.surname}</p>

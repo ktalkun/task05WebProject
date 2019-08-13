@@ -1018,6 +1018,16 @@ h1#promo-title {
     height: 600px;
 }
 
+/*book page*/
+.book-panel select{
+    border: none;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-family: Hylvetica;
+    color: #333333;
+    background: #23232312;
+}
+
 /*footer*/
 
 footer {

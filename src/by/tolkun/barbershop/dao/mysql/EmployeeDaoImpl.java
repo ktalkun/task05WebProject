@@ -88,7 +88,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
                 "employees.work_week AS work_week " +
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
-                "WHERE `role` = " + Role.EMPLOYEE.getIdentity() + " `id` = ?;";
+                "WHERE `role` = " + Role.EMPLOYEE.getIdentity() + "&&" + " `id` = ?;";
         ResultSet resultSet = null;
         PreparedStatement statement = null;
         try {

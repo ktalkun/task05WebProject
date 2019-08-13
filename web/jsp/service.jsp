@@ -19,7 +19,7 @@
     <c:forEach items="${mainOffers}" var="mainOffer">
         <section class="main-service">
             <form action="${formHandler}" name="offer-${mainOffer.id}">
-                <input hidden name="name" value="${mainOffer.id}">
+                <input hidden name="offerId" value="${mainOffer.id}">
                 <div class="main-service-title">
                     <h2>${mainOffer.name}</h2>
                     <h3><fmt:formatNumber value="${mainOffer.price}" maxFractionDigits="0"/> byn</h3>
@@ -33,8 +33,8 @@
     </c:forEach>
     <section id="additional-service">
         <c:forEach items="${additionalOffers}" var="additionalOffer">
-            <form action="{formHandler}" name="offer-${additionalOffer.id}">
-                <input hidden name="name" value="${additionalOffer.id}">
+            <form action="${formHandler}" name="offer-${additionalOffer.id}">
+                <input hidden name="offerId" value="${additionalOffer.id}">
                 <img src="<c:url value="${additionalOffer.imagePath}"/>">
                 <div>
                     <h3>${additionalOffer.name}</h3>

@@ -16,7 +16,6 @@ public class ActionFromURIFilter implements Filter {
     private static Map<String, Class<? extends Action>> actions
             = new ConcurrentHashMap<>();
 
-//    TODO: use objects instead of classes like DAOFactory
     static {
         actions.put("/", MainAction.class);
         actions.put("/index", MainAction.class);
@@ -24,6 +23,7 @@ public class ActionFromURIFilter implements Filter {
         actions.put("/barber", BarberAction.class);
         actions.put("/staff", StaffAction.class);
         actions.put("/about", AboutAction.class);
+        actions.put("/book", BookAction.class);
         actions.put("/login", LoginAction.class);
         actions.put("/signin", SigninAction.class);
         actions.put("/logout", LogoutAction.class);
@@ -61,7 +61,7 @@ public class ActionFromURIFilter implements Filter {
         } catch (InstantiationException
                 | IllegalAccessException
                 | NullPointerException e) {
-            LOGGER.error("Imposible to create action object ", e);
+            LOGGER.error("Impossible to create action object", e);
 //            TODO: use multilanguages
             httpServletRequest.setAttribute("error", String.format(
                     "Запрощенный адрес %s не может быть обработан сервером.",
