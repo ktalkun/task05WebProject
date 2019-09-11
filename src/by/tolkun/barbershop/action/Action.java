@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class Action {
-    private String name;
+    protected String name;
 
-    private Set<Role> allowRoles;
+    protected Set<Role> allowRoles;
 
-    public Action(){
+    public Action() {
         allowRoles = new HashSet<>();
     }
 
@@ -26,12 +26,12 @@ public abstract class Action {
         name = inputName;
     }
 
-    public Set<Role> getAllowRoles(){
+    public Set<Role> getAllowRoles() {
         return allowRoles;
     }
 
     abstract public Action.Forward execute(final HttpServletRequest request,
-                                        final HttpServletResponse response);
+                                           final HttpServletResponse response);
 
     public static class Forward {
         private String value;
@@ -43,8 +43,8 @@ public abstract class Action {
             redirect = inputRedirect;
         }
 
-        public Forward(final String value){
-            this(value,true);
+        public Forward(final String value) {
+            this(value, true);
         }
 
         public String getValue() {
