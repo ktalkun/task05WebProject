@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -19,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-@MultipartConfig
 public class ProfileEditAction extends Action {
 
     private static final Logger LOGGER
@@ -38,53 +36,46 @@ public class ProfileEditAction extends Action {
                 .getAttribute("authorizedUser");
 
         String message = null;
-        String redirectUrl= "/profile/edit.jsp";
-        Forward forward = new Forward("/profile/edit.jsp", false);
+        String redirectUrl = "/profile/edit.jsp";
+        Forward forward = new Forward("/profile/edit.jsp",
+                false);
 
-        Part avatar = null;
-        try {
-            avatar = request.getPart("avatarImage");
-        } catch (IOException | ServletException e) {
-            LOGGER.error(e);
-        }
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
-        String patronymic = request.getParameter("patronymic");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-
-//        Handling update user provile event
-        UserService userService = ServiceFactory
-                .getInstance()
-                .getUserService();
-        if (name != null && !name.isEmpty()) {
-            user.setName(name);
-        }
-        if (surname != null && !surname.isEmpty()) {
-            user.setSurname(surname);
-        }
-        if (patronymic != null && !patronymic.isEmpty()) {
-            user.setPatronymic(patronymic);
-        }
-        if (phone != null && !phone.isEmpty()) {
-            user.setPhone(Integer.parseInt(phone));
-        }
-        if (email != null && !email.isEmpty()) {
-            user.setEmail(email);
-        }
-        if (avatar != null) {
-            uploadAvatar(request, user);
-        }
-        try {
-            userService.save(user);
-            message = "Profile data was updated.";
-
-        } catch (LogicException e) {
-            LOGGER.error(e);
-            message = "Update is not possible with this data.";
-
-        }
+//        Handling update user profile event
         if (request.getParameter("isSent") != null) {
+            Part avatar = null;
+            try {
+                avatar = request.getPart("avatarImage");
+            } catch (IOException | ServletException e) {
+                LOGGER.error(e);
+            }
+            String name = request.getParameter("name");
+            String surname = request.getParameter("surname");
+            String patronymic = request.getParameter("patronymic");
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+            LOGGER.debug("Got avatar: {};  name: {}; surname: {}; patronymic: {}; phone: {}; email: {}",
+                    avatar.getSubmittedFileName(), name, surname, patronymic, phone, email);
+
+            UserService userService = ServiceFactory
+                    .getInstance()
+                    .getUserService();
+
+            user.setName(name);
+            user.setSurname(surname);
+            user.setPatronymic(patronymic);
+            user.setPhone(Integer.parseInt(phone));
+            user.setEmail(email);
+            uploadAvatar(request, user);
+
+            try {
+                userService.save(user);
+                message = "Profile data was updated.";
+
+            } catch (LogicException e) {
+                LOGGER.error(e);
+                message = "Update is not possible with this data.";
+
+            }
             forward.setValue(MESSAGE_PAGE_URL);
             forward.setRedirect(true);
         }
@@ -100,7 +91,8 @@ public class ProfileEditAction extends Action {
             try {
                 reservationService.delete(reservationId);
                 message = "Reservation was deleted.";
-                LOGGER.info("Reservation with id = {} deleted.", reservationId);
+                LOGGER.info("Reservation with id = {} deleted.",
+                        reservationId);
             } catch (LogicException e) {
                 LOGGER.error("Wrong reservation id \"{}\"", e);
                 message = "Reservation cannot be deleted.";
