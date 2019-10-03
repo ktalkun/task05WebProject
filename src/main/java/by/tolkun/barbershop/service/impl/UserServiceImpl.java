@@ -10,9 +10,6 @@ import by.tolkun.barbershop.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Formatter;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
