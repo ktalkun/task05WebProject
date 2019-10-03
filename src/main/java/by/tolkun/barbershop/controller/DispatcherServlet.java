@@ -7,16 +7,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 
+@MultipartConfig
 public class DispatcherServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(DispatcherServlet.class);
     //    TODO: replace to resource file
     public static final String DB_DRIVER_CLASS = "com.mysql.jdbc.Driver";
-    public static final String DB_URL = "jdbc:mysql://db:3306/barbershop_db?useUnicode=true&characterEncoding=UTF-8";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/barbershop_db?useUnicode=true&characterEncoding=UTF-8";
     public static final String DB_USER = "barbershop_user";
     public static final String DB_PASSWORD = "barber";
     public static final int DB_POOL_START_SIZE = 10;
