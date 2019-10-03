@@ -16,25 +16,32 @@
         <img onclick="uploadAvatar()"
              src="<c:url value = "/${authorizedUser.imagePath}"/>">
         <div id="profile-user-description">
-            <form action="<c:url value="/profile/edit.jsp"/>" method="POST" enctype="multipart/form-data">
-                <input onchange="choosenAvatar()" hidden id="avatarImage" name="avatarImage" type="file"
+            <form action="<c:url value="/profile/edit.jsp"/>" method="POST"
+                  enctype="multipart/form-data">
+                <input onchange="choosenAvatar()" hidden id="avatarImage"
+                       name="avatarImage" type="file"
                        accept="image/jpeg,image/png">
                 <span>Фамилия</span>
-                <input required pattern="[A-Za-zA-Яа-я]{5,30}" onChange="editData()" type="text" disabled="disabled" name="surname"
+                <input required pattern="[A-Za-zA-Яа-я]{5,30}"
+                       onChange="editData()" type="text" disabled="disabled"
+                       name="surname"
                        value="${authorizedUser.surname}">
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="surname"></i>
                 <span>Имя</span>
-                <input required pattern="[A-Za-zA-Яа-я]{5,30}" type="text" disabled name="name"
+                <input required pattern="[A-Za-zA-Яа-я]{5,30}" type="text"
+                       disabled name="name"
                        value="${authorizedUser.name}">
                 <i onclick="editData(this.id)" class="fal fa-pen" id="name"></i>
                 <span>Отчество</span>
-                <input required pattern="[A-Za-zA-Яа-я]{5,30}" type="text" disabled name="patronymic"
+                <input required pattern="[A-Za-zA-Яа-я]{5,30}" type="text"
+                       disabled name="patronymic"
                        value="${authorizedUser.patronymic}">
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="patronymic"></i>
                 <span>Телефон</span>
-                <input required pattern="[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}" type="tel" disabled name="phone"
+                <input required pattern="[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}"
+                       type="tel" disabled name="phone"
                        value="${authorizedUser.phone}">
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="phone"></i>
@@ -44,7 +51,9 @@
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="email"></i>
                 <input hidden name="isSent" value="sent">
-                <button type="submit" onclick="submitData()" id="update-profile-button">Update</button>
+                <button type="submit" onclick="submitData()"
+                        id="update-profile-button">Update
+                </button>
             </form>
         </div>
         <div id="profile-menu">
@@ -90,7 +99,9 @@
                                     <span>Стоимость</span>
                                     <div>
                                         <i class="fal fa-wallet"></i>
-                                        <span>${reservation.offer.price} byn</span>
+                                        <span><fmt:formatNumber
+                                                maxFractionDigits="0"
+                                                value="${reservation.offer.price}"/> byn</span>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +136,11 @@
                         </div>
                         <div class="diagram-unit">
                             <span>Стоимость</span>
-                            <div>${reservation.offer.price} <span>byn</span></div>
+                            <div><fmt:formatNumber
+                                    maxFractionDigits="0"
+                                    value="${reservation.offer.price}"/>QQQQ!!aqqqq
+                                <span>byn</span>
+                            </div>
                         </div>
                     </div>
                 </section>

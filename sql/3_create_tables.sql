@@ -79,7 +79,7 @@ CREATE TABLE `reservations`
     `offer_id`    INTEGER  NOT NULL,
     `customer_id` INTEGER  NOT NULL,
     `employee_id` INTEGER  NOT NULL,
-    `date`        DATETIME NOT NULL,
+    `date`        TIMESTAMP NOT NULL,
     CONSTRAINT RESERVATIONS_ID_PK PRIMARY KEY (id),
     CONSTRAINT RESERVATIONS_OFFER_ID_FK
         FOREIGN KEY (offer_id) REFERENCES offers (id),

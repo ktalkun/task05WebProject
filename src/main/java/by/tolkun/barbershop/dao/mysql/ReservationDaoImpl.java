@@ -11,10 +11,12 @@ import by.tolkun.barbershop.exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +41,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
             statement.setInt(1, reservation.getOffer().getId());
             statement.setInt(2, reservation.getCustomer().getId());
             statement.setInt(3, reservation.getEmployee().getId());
-            statement.setDate(4, reservation.getDate());
+            statement.setTimestamp(4, new Timestamp(reservation.getDate().getTime()));
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -168,7 +170,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                         .offer(offerBuilder.build())
                         .customer(customerBuilder.build())
                         .employee(employeeBuilder.build())
-                        .date(resultSet.getDate("date"));
+                        .date(new Date(resultSet.getTimestamp("date").getTime()));
 
             } else {
                 LOGGER.warn("No note with id {}", id);
@@ -294,7 +296,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                         .offer(offerBuilder.build())
                         .customer(customerBuilder.build())
                         .employee(employeeBuilder.build())
-                        .date(resultSet.getDate("date"));
+                        .date(new Date(resultSet.getTimestamp("date").getTime()));
                 reservations.add(reservationBuilder.build());
             }
             return reservations;
@@ -420,7 +422,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                         .offer(offerBuilder.build())
                         .customer(customerBuilder.build())
                         .employee(employeeBuilder.build())
-                        .date(resultSet.getDate("date"));
+                        .date(new Date(resultSet.getTimestamp("date").getTime()));
                 reservations.add(reservationBuilder.build());
             }
             return reservations;
@@ -546,7 +548,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                         .offer(offerBuilder.build())
                         .customer(customerBuilder.build())
                         .employee(employeeBuilder.build())
-                        .date(resultSet.getDate("date"));
+                        .date(new Date(resultSet.getTimestamp("date").getTime()));
                 reservations.add(reservationBuilder.build());
             }
             return reservations;
@@ -575,7 +577,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
             statement.setInt(1, reservation.getOffer().getId());
             statement.setInt(2, reservation.getCustomer().getId());
             statement.setInt(3, reservation.getEmployee().getId());
-            statement.setDate(4, reservation.getDate());
+            statement.setTimestamp(4, new Timestamp(reservation.getDate().getTime()));
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistentException(e);

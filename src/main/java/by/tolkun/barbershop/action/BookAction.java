@@ -64,11 +64,13 @@ public class BookAction extends Action {
             try {
                 date = new Date(new SimpleDateFormat("yyyy-MM-dd HH:mm")
                         .parse(dateParam + " " + timeParam).getTime());
+                LOGGER.debug("dateParam: {}, timeParam: {}", dateParam, timeParam);
+                LOGGER.debug("Java Date representation: {}", date);
             } catch (ParseException e) {
                 LOGGER.error(e);
                 message = "Wrong date format.";
             }
-
+//            Get entities from database by ids
             User user = ((User) request
                     .getSession()
                     .getAttribute("authorizedUser"));
@@ -95,6 +97,8 @@ public class BookAction extends Action {
                     .date(date);
             try {
                 reservationService.save(reservationBuilder.build());
+                LOGGER.debug("Got offerId: {}, customerId: {}, employeeId: {}, date: {}",
+                        offer.getId(), user.getId(), employee.getId(), date);
                 LOGGER.info("Registration was saved.");
                 message = "Registration was saved.";
                 redirectUrl="/index.jsp";
