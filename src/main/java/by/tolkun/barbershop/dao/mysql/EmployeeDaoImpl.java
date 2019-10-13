@@ -7,8 +7,14 @@ import by.tolkun.barbershop.dao.UserDao;
 import by.tolkun.barbershop.entity.Employee;
 import by.tolkun.barbershop.entity.Role;
 import by.tolkun.barbershop.exception.PersistentException;
+import by.tolkun.barbershop.mapper.EmployeeMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,56 +23,41 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Repository
 public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
 
     private static final Logger LOGGER
             = LogManager.getLogger(EmployeeDaoImpl.class);
 
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public EmployeeDaoImpl(final JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     @Override
     public int create(Employee employee) throws PersistentException {
-        UserDao userDao = DAOFactory
-                .getInstance()
-                .getUserDao();
-        userDao.create(employee);
         final String query = "INSERT INTO `employees` (`experience`, `im`, `fb`, `vk`, `work_week`) VALUES (?, ?, ?, ?, ?)";
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setDate(1, employee.getExperience());
-            statement.setString(2, employee.getSocialRef().get("im"));
-            statement.setString(3, employee.getSocialRef().get("fb"));
-            statement.setString(4, employee.getSocialRef().get("vk"));
-            String workWeek = Arrays.stream(employee.getWorkWeek())
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection1 -> {
+            PreparedStatement ps = connection1.prepareStatement(query);
+            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setDate(1, employee.getExperience());
+            ps.setString(2, employee.getSocialRef().get("im"));
+            ps.setString(3, employee.getSocialRef().get("fb"));
+            ps.setString(4, employee.getSocialRef().get("vk"));
+            ps.setString(5, Arrays.stream(employee.getWorkWeek())
                     .mapToObj(String::valueOf)
                     .reduce(String::concat)
-                    .get();
-            statement.setString(5, workWeek);
-            statement.executeUpdate();
-            resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            } else {
-                LOGGER.error("No index autoincrement after insert into `offers`");
-                throw new PersistentException("No index autoincrement after insert into `offers`");
-            }
-        } catch (SQLException e) {
-            throw new PersistentException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-        }
+                    .get());
+            return ps;
+        }, keyHolder);
+        return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
     @Override
@@ -89,56 +80,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
                 "WHERE `role` = " + Role.EMPLOYEE.getIdentity() + "&&" + " `id` = ?;";
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
-            resultSet = statement.executeQuery();
-            EmployeeBuilder employeeBuilder = new EmployeeBuilder();
-            if (resultSet.next()) {
-                return ((EmployeeBuilder) employeeBuilder
-                        .id(resultSet.getInt("id"))
-                        .login(resultSet.getString("login"))
-                        .password(resultSet.getString("password"))
-                        .name(resultSet.getString("name"))
-                        .surname(resultSet.getString("surname"))
-                        .patronymic(resultSet.getString("patronymic"))
-                        .email(resultSet.getString("email"))
-                        .phone(resultSet.getLong("phone"))
-                        .imagePath(resultSet.getString("image_path"))
-                        .role(Role.getByIdentity(resultSet.getInt("role"))))
-                        .experience(resultSet.getDate("experience"))
-                        .socialRef(Stream.of(new String[][]{
-                                {"im", resultSet.getString("im")},
-                                {"fb", resultSet.getString("fb")},
-                                {"vk", resultSet.getString("vk")}
-                        }).collect(Collectors.toMap(e -> e[0], e -> e[1])))
-                        .workWeek(resultSet
-                                .getString("work_week")
-                                .codePoints()
-                                .map(value ->
-                                        Character.getNumericValue((char) value))
-                                .toArray())
-                        .build();
-            } else {
-                LOGGER.warn("No employee note with id {}", id);
-            }
-            return null;
-        } catch (SQLException e) {
-            throw new PersistentException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-        }
+        return jdbcTemplate.queryForObject(query, new EmployeeMapper(), id);
     }
 
     @Override
@@ -161,127 +103,34 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
                 "WHERE `role` = " + Role.EMPLOYEE.getIdentity();
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(query);
-            resultSet = statement.executeQuery();
-            EmployeeBuilder employeeBuilder = new EmployeeBuilder();
-            List<Employee> employees = new ArrayList<>();
-            while (resultSet.next()) {
-                employeeBuilder
-                        .experience(resultSet.getDate("experience"))
-                        .socialRef(Stream.of(new String[][]{
-                                {"im", resultSet.getString("im")},
-                                {"fb", resultSet.getString("fb")},
-                                {"vk", resultSet.getString("vk")}
-                        }).collect(Collectors.toMap(e -> e[0], e -> e[1])))
-                        .workWeek(resultSet
-                                .getString("work_week")
-                                .codePoints()
-                                .map(value ->
-                                        Character.getNumericValue((char) value))
-                                .toArray())
-                        .id(resultSet.getInt("id"))
-                        .login(resultSet.getString("login"))
-                        .password(resultSet.getString("password"))
-                        .name(resultSet.getString("name"))
-                        .surname(resultSet.getString("surname"))
-                        .patronymic(resultSet.getString("patronymic"))
-                        .email(resultSet.getString("email"))
-                        .phone(resultSet.getLong("phone"))
-                        .imagePath(resultSet.getString("image_path"))
-                        .role(Role.getByIdentity(resultSet.getInt("role")));
-
-                employees.add(employeeBuilder.build());
-            }
-            return employees;
-        } catch (SQLException e) {
-            throw new PersistentException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-        }
+        return jdbcTemplate.query(query, new EmployeeMapper());
     }
 
     @Override
     public void update(Employee employee) throws PersistentException {
         final String query = "UPDATE `employees` SET `experience`= ?, `im` = ?, `fb` = ?, `vk` = ?, `work_week` = ? WHERE `id` = ?";
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setDate(1, employee.getExperience());
-            statement.setString(2, employee.getSocialRef().get("im"));
-            statement.setString(3, employee.getSocialRef().get("fb"));
-            statement.setString(4, employee.getSocialRef().get("vk"));
-            String workWeek = Arrays.stream(employee.getWorkWeek())
-                    .mapToObj(String::valueOf)
-                    .reduce(String::concat)
-                    .get();
-            statement.setString(5, workWeek);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new PersistentException(e);
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-        }
+        jdbcTemplate.update(query, employee.getExperience(),
+                employee.getSocialRef().get("im"),
+                employee.getSocialRef().get("fb"),
+                employee.getSocialRef().get("vk"),
+                Arrays.stream(employee.getWorkWeek())
+                        .mapToObj(String::valueOf)
+                        .reduce(String::concat)
+                        .get(),
+                employee.getId());
     }
 
     @Override
     public void delete(int id) throws PersistentException {
         final String query = "DELETE FROM `employees` WHERE `employee_id` = ?";
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, id);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new PersistentException(e);
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-        }
+        jdbcTemplate.update(query, id);
     }
 
     @Override
     public int noteNumber() throws PersistentException {
         final String query = "SELECT COUNT(`employee_id`) AS `count` FROM `employees`;";
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(query);
-            resultSet = statement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt("count");
-        } catch (SQLException e) {
-            throw new PersistentException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-        }
+        Integer count = jdbcTemplate.queryForObject(query, Integer.class);
+        return count != null ? count : 0;
     }
 
     @Override
@@ -306,55 +155,6 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
                 "WHERE `role` = " + Role.EMPLOYEE.getIdentity() + " " +
                 "ORDER BY users.id " +
                 "LIMIT ?, ?;";
-        ResultSet resultSet = null;
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, offset);
-            statement.setInt(2, limit);
-            resultSet = statement.executeQuery();
-            EmployeeBuilder employeeBuilder = new EmployeeBuilder();
-            List<Employee> employees = new ArrayList<>();
-            while (resultSet.next()) {
-                employeeBuilder
-                        .experience(resultSet.getDate("experience"))
-                        .socialRef(Stream.of(new String[][]{
-                                {"im", resultSet.getString("im")},
-                                {"fb", resultSet.getString("fb")},
-                                {"vk", resultSet.getString("vk")}
-                        }).collect(Collectors.toMap(e -> e[0], e -> e[1])))
-                        .workWeek(resultSet
-                                .getString("work_week")
-                                .codePoints()
-                                .map(value ->
-                                        Character.getNumericValue((char) value))
-                                .toArray())
-                        .id(resultSet.getInt("id"))
-                        .login(resultSet.getString("login"))
-                        .password(resultSet.getString("password"))
-                        .name(resultSet.getString("name"))
-                        .surname(resultSet.getString("surname"))
-                        .patronymic(resultSet.getString("patronymic"))
-                        .email(resultSet.getString("email"))
-                        .phone(resultSet.getLong("phone"))
-                        .imagePath(resultSet.getString("image_path"))
-                        .role(Role.getByIdentity(resultSet.getInt("role")));
-                employees.add(employeeBuilder.build());
-            }
-            return employees;
-        } catch (SQLException e) {
-            throw new PersistentException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-            try {
-                statement.close();
-            } catch (SQLException | NullPointerException e) {
-                LOGGER.error(e);
-            }
-        }
+        return jdbcTemplate.query(query, new EmployeeMapper(), offset, limit);
     }
 }
