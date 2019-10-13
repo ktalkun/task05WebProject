@@ -1,4 +1,3 @@
-# Use root/example as user/password credentials
 version: '3.1'
 
 services:
@@ -10,39 +9,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: hofesa123/
     ports:
-      - 3306:3306
-    volumes:
-      - ../resources/db/databases:/var/lib/mysql
+    - 3306:3306
 
   adminer:
     build: ./adminer
     container_name: adminer_bs
     restart: always
     ports:
-      - 6080:8080
+    - 6080:8080
 
   phpmyadmin:
     build: ./phpmyadmin
     container_name: phpmyadmin_bs
     restart: always
     ports:
-      - 7080:80
-
-  tomcat:
-    build: ./tomcat
-    container_name: tomcat_bs
-    restart: always
-    ports:
-      - 8888:8080
-    volumes:
-#      - ../../web/:/usr/local/tomcat/webapps/task05WebProject/
-      - ../../out/artifacts/task05WebProject_war_exploded/:/usr/local/tomcat/webapps/task05WebProject/
-#      - ../../out/artifacts/task05WebProject_war/task05WebProject_war.war:/usr/local/tomcat/webapps/task05WebProject_war.war
-
-      - ../resources/tomcat/config/task05WebProject.xml:/usr/local/tomcat/conf/Catalina/localhost/task05WebProject.xml
-
-
-      - ../resources/tomcat/config/server.xml:/usr/local/tomcat/conf/servel.xml
-      - ../resources/tomcat/config/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
-      - ../resources/tomcat/config/context.xml:/usr/local/tomcat/webapps/manager/META-INF/context.xml
-      - ../resources/tomcat/log/:/usr/local/tomcat/logs/
+    - 7080:80
