@@ -1,6 +1,5 @@
 package by.tolkun.barbershop.service.impl;
 
-import by.tolkun.barbershop.dao.DAOFactory;
 import by.tolkun.barbershop.dao.EmployeeDao;
 import by.tolkun.barbershop.entity.Employee;
 import by.tolkun.barbershop.entity.User;
@@ -9,9 +8,12 @@ import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.service.EmployeeService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private static final Logger LOGGER
@@ -19,10 +21,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeDao employeeDao;
 
-    public EmployeeServiceImpl(){
-        employeeDao = DAOFactory
-                .getInstance()
-                .getEmployeeDao();
+    @Autowired
+    public EmployeeServiceImpl(final EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
     }
 
     @Override

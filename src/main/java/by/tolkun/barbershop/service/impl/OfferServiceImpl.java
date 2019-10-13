@@ -1,20 +1,23 @@
 package by.tolkun.barbershop.service.impl;
 
-import by.tolkun.barbershop.dao.DAOFactory;
 import by.tolkun.barbershop.dao.OfferDao;
 import by.tolkun.barbershop.entity.Offer;
 import by.tolkun.barbershop.exception.LogicException;
 import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.service.OfferService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OfferServiceImpl implements OfferService {
 
     private OfferDao offerDao;
 
-    public OfferServiceImpl(){
-        offerDao = DAOFactory.getInstance().getOfferDao();
+    @Autowired
+    public OfferServiceImpl(final OfferDao offerDao) {
+        this.offerDao = offerDao;
     }
 
     @Override

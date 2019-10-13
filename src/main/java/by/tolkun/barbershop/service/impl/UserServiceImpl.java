@@ -1,6 +1,5 @@
 package by.tolkun.barbershop.service.impl;
 
-import by.tolkun.barbershop.dao.DAOFactory;
 import by.tolkun.barbershop.dao.UserDao;
 import by.tolkun.barbershop.entity.User;
 import by.tolkun.barbershop.exception.LogicException;
@@ -9,9 +8,12 @@ import by.tolkun.barbershop.password.HashGenerator;
 import by.tolkun.barbershop.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER
@@ -19,10 +21,9 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
 
-    public UserServiceImpl() {
-        userDao = DAOFactory
-                .getInstance()
-                .getUserDao();
+    @Autowired
+    public UserServiceImpl(final UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
