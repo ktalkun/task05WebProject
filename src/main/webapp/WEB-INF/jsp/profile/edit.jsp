@@ -67,7 +67,7 @@
             <c:forEach items="${userReservations}" var="reservation">
                 <section class="current-service">
                     <div>
-                        <img src="<c:url value="/img/service/service-7.png"/>">
+                        <img src="<c:url value="/resources/img/service/service-7.png"/>">
                         <div class="current-service-description">
                             <h2>${reservation.offer.name}</h2>
                             <div class="current-service-description-units">
@@ -149,7 +149,7 @@
     </div>
 </main>
 <u:footer>
-    <script src="<c:url value="/js/progileEdit.js"/>"></script>
+    <script src="<c:url value="/resources/js/progileEdit.js"/>"></script>
 </u:footer>
 </body>
 </html>

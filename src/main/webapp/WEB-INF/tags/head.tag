@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="<c:url value = "/css/fontawesome.min.css"/>">
-    <link rel="stylesheet" href="<c:url value = "/css/light.min.css"/>">
-    <link rel="stylesheet" href="<c:url value = "/css/brands.min.css"/>">
-    <link rel="stylesheet" href="<c:url value = "/css/style.css"/>">
+    <link rel="stylesheet" href="<c:url value = "/resources/css/fontawesome.min.css"/>">
+    <link rel="stylesheet" href="<c:url value = "/resources/css/light.min.css"/>">
+    <link rel="stylesheet" href="<c:url value = "/resources/css/brands.min.css"/>">
+    <link rel="stylesheet" href="<c:url value = "/resources/css/style.css"/>">
 </head>

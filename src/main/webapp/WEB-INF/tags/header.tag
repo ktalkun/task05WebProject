@@ -3,7 +3,7 @@
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
 <header>
-    <img src="<c:url value = "/img/short-logo.png"/>">
+    <img src="<c:url value = "/resources/img/short-logo.png"/>">
     <%--    TODO: user resource bundle--%>
     <div id="nav-bar">
         <ul>

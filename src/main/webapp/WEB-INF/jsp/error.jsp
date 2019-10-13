@@ -10,7 +10,7 @@
 <body>
 <u:header/>
 <main id="error-page">
-    <img src="<c:url value="/img/404.jpg"/>">
+    <img src="<c:url value="/resources/img/404.jpg"/>">
 </main>
 <u:footer></u:footer>
 </body>

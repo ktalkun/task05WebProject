@@ -3,11 +3,11 @@
 
 <footer>
     <div id="footer-logo">
-        <img src="<c:url value = "/img/short-logo.png"/>">
+        <img src="<c:url value = "/resources/img/short-logo.png"/>">
     </div>
     <%--    TODO: make autoupdate--%>
     <p id="copyright">Copyright CityBarber, 2019</p>
 
     <jsp:doBody/>
-    <script src="<c:url value="/js/view.js"/>"></script>
+    <script src="<c:url value="/resources/js/view.js"/>"></script>
 </footer>

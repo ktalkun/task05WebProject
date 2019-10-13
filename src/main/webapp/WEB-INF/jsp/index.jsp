@@ -10,8 +10,8 @@
 <body>
 <u:header/>
 <div id="promo">
-    <img id="promo-background" src="<c:url value = "/img/promo.png"/>">
-    <img id="promo-title" src="<c:url value = "/img/logo.png"/>">
+    <img id="promo-background" src="<c:url value = "/resources/img/promo.png"/>">
+    <img id="promo-title" src="<c:url value = "/resources/img/logo.png"/>">
 </div>
 <main>
     <section id="work-example-section">
@@ -29,12 +29,12 @@
             </p>
         </div>
         <div id="work-example-preview">
-            <img src="<c:url value = "/img/main/work-example-1.png"/>">
-            <img src="<c:url value = "/img/main/work-example-2.png"/>">
-            <img src="<c:url value = "/img/main/work-example-3.png"/>">
-            <img src="<c:url value = "/img/main/work-example-4.png"/>">
-            <img src="<c:url value = "/img/main/work-example-5.png"/>">
-            <img src="<c:url value = "/img/main/work-example-6.png"/>">
+            <img src="<c:url value = "/resources/img/main/work-example-1.png"/>">
+            <img src="<c:url value = "/resources/img/main/work-example-2.png"/>">
+            <img src="<c:url value = "/resources/img/main/work-example-3.png"/>">
+            <img src="<c:url value = "/resources/img/main/work-example-4.png"/>">
+            <img src="<c:url value = "/resources/img/main/work-example-5.png"/>">
+            <img src="<c:url value = "/resources/img/main/work-example-6.png"/>">
         </div>
     </section>
     <section id="contact-us-section">
