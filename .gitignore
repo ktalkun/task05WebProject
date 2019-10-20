@@ -3,4 +3,5 @@
 *.plantuml
 .idea/
 out/
-log/
+logs/
+target/
