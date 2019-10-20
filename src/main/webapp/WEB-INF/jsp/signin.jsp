@@ -10,12 +10,12 @@
 <body>
 <u:header/>
 <div id="promo">
-    <img id="promo-background" src="img/promo.png">
-    <img id="promo-title" src="img/logo.png">
+    <img id="promo-background" src="resources/img/promo.png">
+    <img id="promo-title" src="resources/img/logo.png">
 </div>
 <main>
     <section id="login-form-section">
-        <form action="<c:url value="/signin.jsp"/>" method="POST">
+        <form action="<c:url value="/signin.html"/>" method="POST">
             <%--    TODO: user resource bundle--%>
             <h1>Регистрация</h1>
             <input required type="text" id="login" name="surname"

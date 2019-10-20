@@ -7,11 +7,11 @@
     <%--    TODO: user resource bundle--%>
     <div id="nav-bar">
         <ul>
-            <li><a href="<c:url value = "/index.jsp"/>">Главная</a></li>
-            <li><a href="<c:url value = "/service.jsp"/>">Услуги</a></li>
-            <li><a href="<c:url value = "/barber.jsp"/>">Барберы</a></li>
-            <li><a href="<c:url value = "/staff.jsp"/>">Сотрудники</a></li>
-            <li><a href="<c:url value = "/about.jsp"/>">О нас</a></li>
+            <li><a href="<c:url value = "/index.html"/>">Главная</a></li>
+            <li><a href="<c:url value = "/service.html"/>">Услуги</a></li>
+            <li><a href="<c:url value = "/barber.html"/>">Барберы</a></li>
+            <li><a href="<c:url value = "/staff.html"/>">Сотрудники</a></li>
+            <li><a href="<c:url value = "/about.html"/>">О нас</a></li>
         </ul>
         <c:choose>
             <c:when test="${authorizedUser != null}">
@@ -23,13 +23,13 @@
                     </div>
                     <u:menu>
                         <li>
-                            <a href="<c:url value = "/logout.jsp"/>">Выход</a>
+                            <a href="<c:url value = "/logout.html"/>">Выход</a>
                         </li>
                     </u:menu>
                 </div>
             </c:when>
             <c:otherwise>
-                <a id="log-ref" href="<c:url value = "/login.jsp"/>">Log in</a>
+                <a id="log-ref" href="<c:url value = "/login.html"/>">Log in</a>
             </c:otherwise>
         </c:choose>
     </div>

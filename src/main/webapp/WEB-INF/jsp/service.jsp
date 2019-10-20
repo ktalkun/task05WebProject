@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
-<c:url value="/book.jsp" var="formHandler"/>
+<c:url value="/book.html" var="formHandler"/>
 <html>
 <u:head>
     <%--    TODO: user resource bundle--%>
@@ -12,7 +12,7 @@
 <body>
 <u:header/>
 <div id="promo">
-    <img id="promo-background" src="img/promo.png">
+    <img id="promo-background" src="resources/img/promo.png">
     <h1 id="promo-title">Услуги</h1>
 </div>
 <main>

@@ -10,8 +10,8 @@
 <body>
 <u:header/>
 <div id="promo">
-    <img id="promo-background" src="img/promo.png">
-    <img id="promo-title" src="img/logo.png">
+    <img id="promo-background" src="resources/img/promo.png">
+    <img id="promo-title" src="resources/img/logo.png">
 </div>
 <main>
     <section id="login-form-section" class="about-section">

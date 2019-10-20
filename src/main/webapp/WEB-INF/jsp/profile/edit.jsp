@@ -16,7 +16,7 @@
         <img onclick="uploadAvatar()"
              src="<c:url value = "/${authorizedUser.imagePath}"/>">
         <div id="profile-user-description">
-            <form action="<c:url value="/profile/edit.jsp"/>" method="POST"
+            <form action="<c:url value="/profile/edit.html"/>" method="POST"
                   enctype="multipart/form-data">
                 <input onchange="choosenAvatar()" hidden id="avatarImage"
                        name="avatarImage" type="file"
@@ -116,7 +116,7 @@
                                 </form>
                                 <form action="<c:url value="edit.jsp"/>"
                                       method="POST">
-                                    <input name="reservation-delete" hidden
+                                    <input name="reservation-id" hidden
                                            value="${reservation.id}">
                                     <button><i class="fal fa-times"></i>
                                     </button>
@@ -138,7 +138,7 @@
                             <span>Стоимость</span>
                             <div><fmt:formatNumber
                                     maxFractionDigits="0"
-                                    value="${reservation.offer.price}"/>QQQQ!!aqqqq
+                                    value="${reservation.offer.price}"/>
                                 <span>byn</span>
                             </div>
                         </div>

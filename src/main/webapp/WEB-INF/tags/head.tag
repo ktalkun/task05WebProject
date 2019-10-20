@@ -3,7 +3,7 @@
 
 <head>
     <jsp:doBody/>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="<c:url value = "/resources/css/fontawesome.min.css"/>">

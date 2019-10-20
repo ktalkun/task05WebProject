@@ -10,12 +10,12 @@
 <body>
 <u:header/>
 <div id="promo">
-    <img id="promo-background" src="img/promo.png">
-    <img id="promo-title" src="img/logo.png">
+    <img id="promo-background" src="resources/img/promo.png">
+    <img id="promo-title" src="resources/img/logo.png">
 </div>
 <main>
     <section id="login-form-section">
-        <form action="<c:url value="/login.jsp"/>" method="POST" accept-charset="UTF-8">
+        <form action="<c:url value="/login.html"/>" method="POST" accept-charset="UTF-8">
             <%--    TODO: user resource bundle--%>
             <h1>Войти</h1>
             <%--    TODO: user resource bundle--%>
@@ -27,7 +27,7 @@
                    pattern="(?=.*[0-9])(?=.*[!@#$%^&*\/])[a-zA-Z0-9!@#$%^&\/*]{6,30}">
             <input hidden name="isSent" value="sent">
             <button type="submit">Войти</button>
-            <a href="<c:url value="/signin.jsp"/> ">Регистрация</a>
+            <a href="<c:url value="/signin.html"/> ">Регистрация</a>
         </form>
     </section>
 </main>

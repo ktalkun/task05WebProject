@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
 <html>
@@ -38,7 +38,7 @@
         </div>
     </section>
     <section id="contact-us-section">
-        <form action=" <c:url value="/index.jsp"/> ">
+        <form action=" <c:url value="/index.html"/> " accept-charset="utf-8">
             <%--    TODO: user resource bundle--%>
             <h3>Связаться с нами</h3>
             <input required type="text" name="name" placeholder="Имя*"

@@ -10,12 +10,12 @@
 <body>
 <u:header/>
 <div id="promo">
-    <img id="promo-background" src="img/promo.png">
-    <img id="promo-title" src="img/logo.png">
+    <img id="promo-background" src="resources/img/promo.png">
+    <img id="promo-title" src="resources/img/logo.png">
 </div>
 <main>
     <section id="login-form-section" class="book-panel">
-        <form action="<c:url value="/book.jsp"/>" method="POST" accept-charset="UTF-8">
+        <form action="<c:url value="/book.html"/>" method="POST" accept-charset="UTF-8">
             <select required name="offer">
                 <c:forEach items="${offers}" var="offer">
                     <option <c:if test="${param.offerId == offer.id}">selected</c:if> value="${offer.id}">${offer.name}</option>
