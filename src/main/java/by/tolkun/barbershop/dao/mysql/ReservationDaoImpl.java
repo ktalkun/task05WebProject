@@ -4,15 +4,18 @@ import by.tolkun.barbershop.dao.ReservationDao;
 import by.tolkun.barbershop.entity.Reservation;
 import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.mapper.ReservationMapper;
+import by.tolkun.barbershop.mapper.UserMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
@@ -37,8 +40,9 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     public int create(final Reservation reservation) throws PersistentException {
         final String query = "INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`) VALUES (?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection1 -> {
-            PreparedStatement ps = connection1.prepareStatement(query);
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(query,
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, reservation.getOffer().getId());
             ps.setInt(2, reservation.getCustomer().getId());
             ps.setInt(3, reservation.getEmployee().getId());
@@ -92,7 +96,11 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 "JOIN users AS employees ON employees.id = reservations.employee_id " +
                 "JOIN employees AS employees_info ON employees.id = employees.id " +
                 "WHERE `id` = ?;";
-        return jdbcTemplate.queryForObject(query, new ReservationMapper(), id);
+        try {
+            return jdbcTemplate.queryForObject(query, new ReservationMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -187,7 +195,11 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 "JOIN employees AS employees_info ON employees.id = employees.id " +
                 "WHERE reservations.customer_id = ? " +
                 "GROUP BY `id`;";
-        return jdbcTemplate.query(query, new ReservationMapper(), customerId);
+        try {
+            return jdbcTemplate.query(query, new ReservationMapper(), customerId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -235,7 +247,11 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
                 "JOIN employees AS employees_info ON employees.id = employees.id " +
                 "WHERE reservations.employee_id = ? " +
                 "GROUP BY `id`;";
-        return jdbcTemplate.query(query, new ReservationMapper(), employeeId);
+        try {
+            return jdbcTemplate.query(query, new ReservationMapper(), employeeId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

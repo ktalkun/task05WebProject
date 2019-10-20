@@ -7,12 +7,14 @@ import by.tolkun.barbershop.mapper.UserMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,8 +35,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     public int create(final User user) throws PersistentException {
         final String query = "INSERT INTO `users` (`login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role`) VALUES (?,?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection1 -> {
-            PreparedStatement ps = connection1.prepareStatement(query);
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(query,
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getName());
@@ -52,7 +55,11 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     @Override
     public User read(int id) throws PersistentException {
         final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `id` = ?";
-        return jdbcTemplate.queryForObject(query, new UserMapper(), id);
+        try {
+            return jdbcTemplate.queryForObject(query, new UserMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -64,13 +71,22 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     @Override
     public User read(String login) throws PersistentException {
         final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ?";
-        return jdbcTemplate.queryForObject(query, new UserMapper(), login);
+        try {
+            return jdbcTemplate.queryForObject(query, new UserMapper(), login);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public User read(String login, String password) throws PersistentException {
         final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ? AND password = ?";
-        return jdbcTemplate.queryForObject(query, new UserMapper(), login, password);
+        try {
+            return jdbcTemplate.queryForObject(query, new UserMapper(), login,
+                    password);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

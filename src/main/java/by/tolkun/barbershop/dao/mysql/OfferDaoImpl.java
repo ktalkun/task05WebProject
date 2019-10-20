@@ -4,9 +4,11 @@ import by.tolkun.barbershop.dao.OfferDao;
 import by.tolkun.barbershop.entity.Offer;
 import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.mapper.OfferMapper;
+import by.tolkun.barbershop.mapper.UserMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,8 +37,9 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
     public int create(final Offer offer) throws PersistentException {
         final String query = "INSERT INTO `offers` (`name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection1 -> {
-            PreparedStatement ps = connection1.prepareStatement(query);
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(query,
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, offer.getName());
             ps.setString(2, offer.getDescription());
             ps.setString(3, offer.getImagePath());
@@ -51,7 +55,11 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
     @Override
     public Offer read(final int id) throws PersistentException {
         final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show` FROM `offers` WHERE `id` = ?";
-        return jdbcTemplate.queryForObject(query, new OfferMapper(), id);
+        try {
+            return jdbcTemplate.queryForObject(query, new OfferMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

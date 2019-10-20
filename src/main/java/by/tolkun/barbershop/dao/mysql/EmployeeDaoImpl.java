@@ -1,31 +1,25 @@
 package by.tolkun.barbershop.dao.mysql;
 
-import by.tolkun.barbershop.builder.EmployeeBuilder;
-import by.tolkun.barbershop.dao.DAOFactory;
 import by.tolkun.barbershop.dao.EmployeeDao;
-import by.tolkun.barbershop.dao.UserDao;
 import by.tolkun.barbershop.entity.Employee;
 import by.tolkun.barbershop.entity.Role;
 import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.mapper.EmployeeMapper;
+import by.tolkun.barbershop.mapper.UserMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Repository
 public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
@@ -44,9 +38,9 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
     public int create(Employee employee) throws PersistentException {
         final String query = "INSERT INTO `employees` (`experience`, `im`, `fb`, `vk`, `work_week`) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection1 -> {
-            PreparedStatement ps = connection1.prepareStatement(query);
-            ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(query,
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setDate(1, employee.getExperience());
             ps.setString(2, employee.getSocialRef().get("im"));
             ps.setString(3, employee.getSocialRef().get("fb"));
@@ -80,7 +74,11 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
                 "WHERE `role` = " + Role.EMPLOYEE.getIdentity() + "&&" + " `id` = ?;";
-        return jdbcTemplate.queryForObject(query, new EmployeeMapper(), id);
+        try {
+            return jdbcTemplate.queryForObject(query, new EmployeeMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
