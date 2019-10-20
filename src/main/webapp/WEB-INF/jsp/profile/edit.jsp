@@ -108,13 +108,13 @@
                         </div>
                         <div class="current-service-buttons-bar">
                             <div>
-                                <form action="<c:url value = "edit.jsp"/>"
+                                <form action="<c:url value = "edit.html"/>"
                                       method="POST">
                                     <input name="reservation-edit" hidden
                                            value="${reservation.id}">
                                     <button><i class="fal fa-pen"></i></button>
                                 </form>
-                                <form action="<c:url value="edit.jsp"/>"
+                                <form action="<c:url value="edit.html"/>"
                                       method="POST">
                                     <input name="reservation-id" hidden
                                            value="${reservation.id}">
