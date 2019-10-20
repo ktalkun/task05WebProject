@@ -19,7 +19,11 @@ public enum Role {
     /**
      * Barbershop's customer.
      */
-    CUSTOMER("клиент");
+    CUSTOMER("клиент"),
+    /**
+     * Barbershop's guest.
+     */
+    GUEST("гость");
 
     /**
      * Value of enum.
