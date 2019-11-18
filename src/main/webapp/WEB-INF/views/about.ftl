@@ -1,14 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<#include "tags/head.ftl"/>
+<#include "tags/header.ftl"/>
+<#include "tags/footer.ftl"/>
 
 <html>
-<u:head>
-    <%--    TODO: user resource bundle--%>
+<@head>
+    <#--TODO: user resource bundle-->
     <title>О нас</title>
-</u:head>
+</@head>
 <body>
-<u:header/>
+<@header/>
 <div id="promo">
     <img id="promo-background" src="resources/img/promo.png">
     <img id="promo-title" src="resources/img/logo.png">
@@ -29,6 +29,6 @@
                 allowfullscreen></iframe>
     </section>
 </main>
-<u:footer></u:footer>
+<@footer></@footer>
 </body>
 </html>

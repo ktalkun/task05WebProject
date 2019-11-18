@@ -1,22 +1,21 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
+<#import "/spring.ftl" as spring />
+<#include "../tags/head.ftl"/>
+<#include "../tags/header.ftl"/>
+<#include "../tags/footer.ftl"/>
 
 <html>
-<u:head>
-    <%--    TODO: user resource bundle--%>
+<@head>
+    <#--TODO: user resource bundle-->
     <title>Профиль</title>
-</u:head>
+</@head>
 <body>
-<u:header/>
+<@header/>
 <main id="edit-main">
     <aside>
-
         <img onclick="uploadAvatar()"
-             src="<c:url value = "/${authorizedUser.imagePath}"/>">
+             src="<@spring.url "/${authorizedUser.imagePath}"/>">
         <div id="profile-user-description">
-            <form action="<c:url value="/profile/edit.html"/>" method="POST"
+            <form action="<@spring.url "/profile/edit.html"/>" method="POST"
                   enctype="multipart/form-data">
                 <input onchange="choosenAvatar()" hidden id="avatarImage"
                        name="avatarImage" type="file"
@@ -42,7 +41,7 @@
                 <span>Телефон</span>
                 <input required pattern="[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}"
                        type="tel" disabled name="phone"
-                       value="${authorizedUser.phone}">
+                       value="${authorizedUser.phone?c}">
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="phone"></i>
                 <span>Email</span>
@@ -50,7 +49,6 @@
                        value="${authorizedUser.email}">
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="email"></i>
-                <input hidden name="isSent" value="sent">
                 <button type="submit" onclick="submitData()"
                         id="update-profile-button">Update
                 </button>
@@ -58,16 +56,16 @@
         </div>
         <div id="profile-menu">
             <span>Меню</span>
-            <u:menu/>
+            <@menu/>
         </div>
     </aside>
     <div>
         <h1>Текущие заказы</h1>
         <div id="current-services">
-            <c:forEach items="${userReservations}" var="reservation">
+            <#list userReservations as reservation>
                 <section class="current-service">
                     <div>
-                        <img src="<c:url value="/resources/img/service/service-7.png"/>">
+                        <img src="<@spring.url "/resources/img/service/service-7.png"/>">
                         <div class="current-service-description">
                             <h2>${reservation.offer.name}</h2>
                             <div class="current-service-description-units">
@@ -75,17 +73,14 @@
                                     <span>Дата</span>
                                     <div>
                                         <i class="fal fa-calendar"></i>
-                                        <span><fmt:formatDate
-                                                pattern="dd.MM.yyyy"
-                                                value="${reservation.date}"/></span>
+                                        <span>${reservation.date?string["dd.MM.yyyy"]}</span>
                                     </div>
                                 </div>
                                 <div>
                                     <span>Время</span>
                                     <div>
                                         <i class="fal fa-clock"></i>
-                                        <span><fmt:formatDate pattern="HH:mm"
-                                                              value="${reservation.date}"/></span>
+                                        <span>${reservation.date?string["HH:mm"]}</span>
                                     </div>
                                 </div>
                                 <div>
@@ -99,22 +94,20 @@
                                     <span>Стоимость</span>
                                     <div>
                                         <i class="fal fa-wallet"></i>
-                                        <span><fmt:formatNumber
-                                                maxFractionDigits="0"
-                                                value="${reservation.offer.price}"/> byn</span>
+                                        <span>${reservation.offer.price?string["0"]} byn</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="current-service-buttons-bar">
                             <div>
-                                <form action="<c:url value = "edit.html"/>"
+                                <form action="<@spring.url "/edit.html"/>"
                                       method="POST">
                                     <input name="reservation-edit" hidden
                                            value="${reservation.id}">
                                     <button><i class="fal fa-pen"></i></button>
                                 </form>
-                                <form action="<c:url value="edit.html"/>"
+                                <form action="<@spring.url "/edit.html"/>"
                                       method="POST">
                                     <input name="reservation-id" hidden
                                            value="${reservation.id}">
@@ -136,20 +129,17 @@
                         </div>
                         <div class="diagram-unit">
                             <span>Стоимость</span>
-                            <div><fmt:formatNumber
-                                    maxFractionDigits="0"
-                                    value="${reservation.offer.price}"/>
-                                <span>byn</span>
+                            <div>${reservation.offer.price?string["0"]}<span>byn</span>
                             </div>
                         </div>
                     </div>
                 </section>
-            </c:forEach>
+            </#list>
         </div>
     </div>
 </main>
-<u:footer>
-    <script src="<c:url value="/resources/js/progileEdit.js"/>"></script>
-</u:footer>
+<@footer>
+    <script src="<@spring.url "/resources/js/progileEdit.js"/>"></script>
+</@footer>
 </body>
 </html>

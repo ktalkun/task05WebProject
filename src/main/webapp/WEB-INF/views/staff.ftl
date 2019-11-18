@@ -1,22 +1,24 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib tagdir="/WEB-INF/tags" prefix="u" %>
+<#import "/spring.ftl" as spring />
+<#include "tags/head.ftl"/>
+<#include "tags/header.ftl"/>
+<#include "tags/footer.ftl"/>
 
 <html>
-<u:head>
-    <%--    TODO: user resource bundle--%>
+<@head>
+<#--TODO: user resource bundle-->
     <title>Сотрудники</title>
-</u:head>
+</@head>
 <body>
-<u:header/>
+<@header/>
 <div id="promo">
-    <img id="promo-background" src="resources/img/promo.png">
+    <img id="promo-background" src="<@spring.url "/resources/img/promo.png"/>">
     <h1 id="promo-title">Сотрудники</h1>
 </div>
 <main>
     <section id="staff-list">
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="daniilzahar">
-            <img src="resources/img/book/staff-1.png">
+            <img src="<@spring.url "/resources/img/book/staff-1.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Даниил Захаров</p>
@@ -36,9 +38,9 @@
                 </div>
             </div>
         </form>
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.html"/>">
             <input hidden name="barber" value="sergeyjuk">
-            <img src="resources/img/book/staff-2.png">
+            <img src="<@spring.url "/resources/img/book/staff-2.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Сергей Жук</p>
@@ -58,9 +60,9 @@
                 </div>
             </div>
         </form>
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="anastasykalin">
-            <img src="resources/img/book/staff-3.png">
+            <img src="<@spring.url "/resources/img/book/staff-3.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Анастасия Калинина</p>
@@ -80,9 +82,9 @@
                 </div>
             </div>
         </form>
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="andreyponama">
-            <img src="resources/img/book/staff-4.png">
+            <img src="<@spring.url "resources/img/book/staff-4.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Андрей Понаморёв</p>
@@ -102,9 +104,9 @@
                 </div>
             </div>
         </form>
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="artemezerskiy">
-            <img src="resources/img/book/staff-5.png">
+            <img src="<@spring.url "/resources/img/book/staff-5.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Артём Езерский</p>
@@ -124,9 +126,9 @@
                 </div>
             </div>
         </form>
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="maryradin">
-            <img src="resources/img/book/staff-6.png">
+            <img src="<@spring.url "/resources/img/book/staff-6.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Мария Радина</p>
@@ -146,9 +148,9 @@
                 </div>
             </div>
         </form>
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="antonfilatov">
-            <img src="resources/img/book/staff-7.png">
+            <img src="<@spring.url "/resources/img/book/staff-7.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Антон Филатов</p>
@@ -168,9 +170,9 @@
                 </div>
             </div>
         </form>
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="mihailaugust">
-            <img src="resources/img/book/staff-8.png">
+            <img src="<@spring.url "/resources/img/book/staff-8.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Михаил Август</p>
@@ -190,9 +192,9 @@
                 </div>
             </div>
         </form>
-        <form action="profile.jsp">
+        <form action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="daryanova">
-            <img src="resources/img/book/staff-9.png">
+            <img src="<@spring.url "/resources/img/book/staff-9.png"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Дарья Новацкая</p>
@@ -214,6 +216,6 @@
         </form>
     </section>
 </main>
-<u:footer></u:footer>
+<@footer></@footer>
 </body>
 </html>
