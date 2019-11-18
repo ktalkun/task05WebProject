@@ -32,8 +32,11 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 
         context.addFilter("securityFilter", new SecurityFilter()).addMappingForUrlPatterns(null, true, "/*" );
 
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(
+                new GenericWebApplicationContext());
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
         ServletRegistration.Dynamic appServlet =
-                context.addServlet("mvc", new DispatcherServlet(new GenericWebApplicationContext()));
+                context.addServlet("mvc", dispatcherServlet);
         appServlet.setLoadOnStartup(1);
         appServlet.addMapping("/");
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement(TMP_FOLDER,
