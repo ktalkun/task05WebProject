@@ -110,7 +110,7 @@ public class BookController {
             message = "Wrong date format.";
         }
         attributes.addFlashAttribute("message", message);
-        attributes.addFlashAttribute("redirectUrl", "/index.html");
+        attributes.addFlashAttribute("redirectUrl", AllowPageURL.ROOT);
         return "redirect:" + AllowPageURL.MESSAGE;
     }
 }

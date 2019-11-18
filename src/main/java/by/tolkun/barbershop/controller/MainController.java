@@ -36,7 +36,6 @@ public class MainController {
         Mail mail = new Mail();
         LOGGER.error(name + email + title + description);
         String message;
-        String redirectUrl = "index.html";
         try {
             mail.createMessage(RECIPIENT, name, email, title, description);
             mail.sendEmail();
@@ -46,7 +45,7 @@ public class MainController {
             message = "Email wasn't sent.";
         }
         attributes.addFlashAttribute("message", message);
-        attributes.addFlashAttribute("redirectUrl", redirectUrl);
+        attributes.addFlashAttribute("redirectUrl", AllowPageURL.ROOT);
         return "redirect:" + AllowPageURL.MESSAGE;
     }
 }
