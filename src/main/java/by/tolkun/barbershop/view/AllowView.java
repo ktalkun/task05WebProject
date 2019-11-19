@@ -2,6 +2,7 @@ package by.tolkun.barbershop.view;
 
 public final class AllowView {
     public static final String MESSAGE = "message";
+    public static final String EXCEPTION = "exception";
     public static final String NOT_FOUND = "404";
     public static final String LOGIN = "login";
     public static final String SIGNIN = "signin";

@@ -33,6 +33,7 @@ public final class AllowRole {
 
     static {
         ALLOW_ROLES.put(AllowPageURL.MESSAGE, EVERYONE);
+        ALLOW_ROLES.put(AllowPageURL.EXCEPTION, EVERYONE);
         ALLOW_ROLES.put(AllowPageURL.NOT_FOUND, EVERYONE);
         ALLOW_ROLES.put(AllowPageURL.LOGIN,
                 new HashSet<>(Collections.singletonList(Role.GUEST)));
