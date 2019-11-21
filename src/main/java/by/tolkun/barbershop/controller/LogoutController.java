@@ -2,7 +2,6 @@ package by.tolkun.barbershop.controller;
 
 import by.tolkun.barbershop.entity.User;
 import by.tolkun.barbershop.url.AllowPageURL;
-import by.tolkun.barbershop.view.AllowView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -21,6 +20,6 @@ public class LogoutController {
         LOGGER.info(String.format("user \"%s\" is logged out",
                 ((User) session.getAttribute("authorizedUser")).getLogin()));
         session.invalidate();
-        return AllowView.LOGIN;
+        return "redirect:" + AllowPageURL.LOGIN;
     }
 }
