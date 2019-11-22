@@ -121,7 +121,7 @@ public class ProfileController {
         attributes.addFlashAttribute("message", message);
         attributes.addFlashAttribute("redirectUrl",
                 AllowPageURL.PROFILE_EDIT);
-        return "redirect:/" + AllowPageURL.MESSAGE;
+        return "redirect:" + AllowPageURL.MESSAGE;
     }
 
     private void uploadAvatar(final MultipartFile file,
