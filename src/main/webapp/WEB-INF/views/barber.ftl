@@ -5,7 +5,7 @@
 <#assign formHandler = "book.html"/>
 <html>
 <@head>
-    <#--TODO: user resource bundle-->
+<#--TODO: user resource bundle-->
     <title>Барберы</title>
 </@head>
 <body>
@@ -25,32 +25,39 @@
                 <div>
                     <p>${employee.name} ${employee.surname}</p>
                     <ul>
-                        <li <#if employee.workWeek[0] == 1>class="active-day"</#if> >Пн</li>
-                        <li <#if employee.workWeek[1] == 1>class="active-day"</#if> >Вт</li>
-                        <li <#if employee.workWeek[2] == 1>class="active-day"</#if> >Ср</li>
-                        <li <#if employee.workWeek[3] == 1>class="active-day"</#if> >Чт</li>
-                        <li <#if employee.workWeek[4] == 1>class="active-day"</#if> >Пт</li>
-                        <li <#if employee.workWeek[5] == 1>class="active-day"</#if> >Сб</li>
-                        <li <#if employee.workWeek[6] == 1>class="active-day"</#if> >Вс</li>
+                        <li class="uui-label <#if employee.workWeek[0] == 1>active-day</#if>" >Пн</li>
+                        <li class="uui-label <#if employee.workWeek[1] == 1>active-day</#if>" >Вт</li>
+                        <li class="uui-label <#if employee.workWeek[2] == 1>active-day</#if>" >Ср</li>
+                        <li class="uui-label <#if employee.workWeek[3] == 1>active-day</#if>" >Чт</li>
+                        <li class="uui-label <#if employee.workWeek[4] == 1>active-day</#if>" >Пт</li>
+                        <li class="uui-label <#if employee.workWeek[5] == 1>active-day</#if>" >Сб</li>
+                        <li class="uui-label <#if employee.workWeek[6] == 1>active-day</#if>" >Вс</li>
                     </ul>
                     <div class="barber-social">
-                        <a href="${employee.socialRef["im"]}"><i class="fab fa-instagram"></i></a>
-                        <a href="${employee.socialRef["fb"]}"><i class="fab fa-facebook-f"></i></a>
-                        <a href="${employee.socialRef["vk"]}"><i class="fab fa-vk"></i></a>
+                        <a href="${employee.socialRef["im"]}"><i
+                                    class="fab fa-instagram"></i></a>
+                        <a href="${employee.socialRef["fb"]}"><i
+                                    class="fab fa-facebook-f"></i></a>
+                        <a href="${employee.socialRef["vk"]}"><i
+                                    class="fab fa-vk"></i></a>
                     </div>
-                    <button>Выбрать</button>
+                    <button class="uui-button large transparent">Выбрать</button>
                 </div>
             </form>
         </#list>
     </section>
-    <ul id="pagination">
-        <#list 1..pageNumber as i>
-                <#if currentPage == i>
-                    <li id="current-page">${i}</li>
-                <#else>
-                    <li><a href="?page=${i}">${i}</a></li>
-                </#if>
-        </#list>
+    <ul id="pagination" class="uui-pagination dark-gray">
+        <li class="actions-wrapper">
+            <ul class="pagination-items">
+                <#list 1..pageNumber as i>
+                    <#if currentPage == i>
+                        <li class="active"><a href="#">${i}</a></li>
+                    <#else>
+                        <li><a href="?page=${i}">${i}</a></li>
+                    </#if>
+                </#list>
+            </ul>
+        </li>
     </ul>
 </main>
 <@footer></@footer>

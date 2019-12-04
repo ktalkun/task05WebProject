@@ -379,9 +379,9 @@ main{
 /*barber choice page*/
 
 #barber-choice-title {
-    margin: 38px 0;
-    font-family: Raleway;
+    padding: 38px 0 22px 0;
     font-size: 2.3em;
+    letter-spacing: 8px;
     text-align: center;
 }
 
@@ -399,8 +399,6 @@ main{
     position: relative;
     width: 49.3%;
     margin-bottom: 1.3%;
-    font-family: Hebar;
-    color: #111111;
     background: #FFFFFF;
 }
 
@@ -422,8 +420,6 @@ main{
 
 #barber-choice ul {
     display: flex;
-    justify-content: space-between;
-    max-width: 180px;
     margin-bottom: 35px;
     font-size: 0.8em;
     text-transform: uppercase;
@@ -432,13 +428,12 @@ main{
 }
 
 #barber-choice ul li {
-    padding: 2px 5px;
-    background: #D6D5D2;
+    margin-right: 5px;
+    color: #464547 !important;
 }
 
 #barber-choice .active-day {
-    color: #FFFFFF;
-    background: #1E7C04;
+    background: #A3C644;
 }
 
 .barber-social {
@@ -456,19 +451,14 @@ main{
     position: absolute;
     right: 20px;
     bottom: 20px;
-    padding: 10px 25px;
-    font-family: Arial;
-    font-size: 1.2em;
-    border: 1px solid #242323;
-    color: #242323;
-    background: none;
+    width: 160px;
 }
 
 #pagination{
     display: flex;
     justify-content: center;
     list-style: none;
-    margin-bottom: 1.3%;
+    padding-bottom: 1.3%;
 }
 
 #pagination li{
@@ -482,7 +472,7 @@ main{
     flex-direction: column;
     max-width: 1660px;
     width: 100%;
-    margin: 25px auto;
+    margin: 0 auto;
     padding: 0 45px;
     background: #FFFFFF;
 }
