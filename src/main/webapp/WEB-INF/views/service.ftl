@@ -25,7 +25,7 @@
                 </div>
                 <p>${mainOffer.description}</p>
                 <#--TODO: user resource bundle-->
-                <button>Записаться</button>
+                <button class="uui-button large transparent">Записаться</button>
             </form>
             <img src="<@spring.url "/${mainOffer.imagePath}"/>">
         </section>
@@ -39,7 +39,7 @@
                     <h3>${additionalOffer.name}</h3>
                     <h4>${additionalOffer.price?string["0"]} byn</h4>
                 </div>
-                <button>Записаться</button>
+                <button class="uui-button large transparent black">Записаться</button>
             </form>
         </#list>
     </section>

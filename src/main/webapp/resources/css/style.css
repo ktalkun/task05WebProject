@@ -169,13 +169,11 @@ a#log-ref {
 
 h1#promo-title {
     position: absolute;
-    top: 50%;
+    top: 52%;
     left: 9.5%;
     width: 25%;
-    font-family: Impact;
     font-size: 3.2vw;
     text-align: center;
-    text-transform: uppercase;
     letter-spacing: 9px;
     color: #232327;
 
@@ -266,15 +264,15 @@ main{
     width: 100%;
     margin: 0 auto;
     padding: 60px;
-    background: #232322;
+    background: #333333;
     font-size: 1em;
-    color: #EFEFF1;
+    color: #CCCCCC;
 }
 
 .main-service:nth-child(even) {
     flex-direction: row-reverse;
     background: #FFFFFF;
-    color: #242323;
+    color: #333333;
 }
 
 .main-service form {
@@ -291,11 +289,9 @@ main{
 
 .main-service-title h2,
 .main-service-title h3 {
-    font-family: Impact;
-    font-size: 3em;
-    font-weight: 100;
+    font-size: 3.25em;
+    line-height: 60px;
     letter-spacing: 10px;
-    text-transform: uppercase;
 }
 
 .main-service-title h3 {
@@ -309,25 +305,17 @@ main{
     flex-grow: 1;
     margin-top: 20px;
     line-height: 30px;
-    font-family: Hebar;
     font-size: 1.3em;
-    color: #a9a9a9;
+    color: #999999;
 }
 
 .main-service button {
-    display: block;
-    padding: 15px;
     width: 190px;
-    border: 1px solid #EFEFF1;
-    background: none;
-    font-family: Arial;
-    font-size: 1.4em;
-    color: #EFEFF1;
 }
 
 .main-service:nth-child(even) button {
-    border-color: #242323;
-    color: #242323;
+    border-color: #333333;
+    color: #333333;
 }
 
 .main-service img {
@@ -364,7 +352,7 @@ main{
     width: 85%;
     margin: 30px 0 20px 0;
     font-family: Impact;
-    color: #46464B;
+    color: #333333;
 }
 
 #additional-service form > div h3 {
@@ -384,12 +372,8 @@ main{
 #additional-service form button {
     width: 85%;
     margin-bottom: 30px;
-    padding: 15px;
-    font-family: Arial;
-    font-size: 1.4em;
-    border: 1px solid #242323;
-    color: #242323;
-    background: none;
+    border-color: #333333;
+    color: #333333;
 }
 
 /*barber choice page*/
@@ -1018,6 +1002,7 @@ main{
 
 footer {
     display: flex;
+    margin-top: 0 !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
