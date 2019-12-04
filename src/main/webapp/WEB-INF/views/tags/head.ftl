@@ -9,5 +9,7 @@
     <link rel="stylesheet" href="<@spring.url "/resources/css/light.min.css"/>">
     <link rel="stylesheet" href="<@spring.url "/resources/css/brands.min.css"/>">
     <link rel="stylesheet" href="<@spring.url "/resources/css/style.css"/>">
+    <!-- EPAM UUI Styles Core -->
+    <link rel="stylesheet" href="<@spring.url "/resources/uui/css/uui-all.css"/>"/>
 </head>
 </#macro>

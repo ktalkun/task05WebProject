@@ -49,7 +49,7 @@
                pattern="[A-Za-zA-Яа-я\s]{10,120}">
         <textarea required rows="5" name="description"
                   placeholder="Комментарий*"></textarea>
-        <button>Отправить</button>
+        <button class="uui-button large dark-gray">Отправить</button>
         </form>
     </section>
 </main>

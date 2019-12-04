@@ -38,7 +38,6 @@
 body, html {
     height: 100%;
     font-family: sans-serif;
-    background: #D6D6D6;
 }
 
 button:hover {
@@ -54,14 +53,14 @@ header {
     position: fixed;
     padding: 0 20px;
     z-index: 999;
-    opacity: 0.97;
-    box-shadow: #111111 0px 3px 4px -2px;
-    background: #f1f1f2;
+    background: #464547;
 }
 
 header > img {
     width: 60px;
     height: 60px;
+    padding: 10px;
+    background: #CCCCCC;
 }
 
 #nav-bar {
@@ -80,19 +79,14 @@ header > img {
     display: block;
     padding: 10px 25px;
     text-decoration: none;
-    color: #111111;
-    font-family: Arial;
+    color: #FFFFFF;
+    font-family: "Source Sans Pro Regular";
     font-size: 1.4em;
-}
-
-#nav-bar li a:hover {
-    border-bottom: 1px solid #b1b1b1;
 }
 
 a#log-ref {
     margin-left: 160px;
     padding: 10px 15px;
-    border: 1px solid #111111;
 }
 
 #user-header-nav {
@@ -187,6 +181,10 @@ h1#promo-title {
 
 }
 
+main{
+    background: #CCCCCC;
+}
+
 #work-example-section {
     display: flex;
     flex-direction: column;
@@ -202,7 +200,7 @@ h1#promo-title {
     margin: 0 auto;
     text-align: center;
     color: #715E53;
-    font-family: Hylvetica;
+    font-size: 16px;
 }
 
 #work-example-description h2 {
@@ -241,9 +239,8 @@ h1#promo-title {
 
 #contact-us-section form h3 {
     margin-bottom: 20px;
-    font-family: Raleway;
     font-size: 2em;
-    color: #111111;
+    color: #464547;
 }
 
 #contact-us-section form input,
@@ -251,24 +248,13 @@ h1#promo-title {
     border: none;
     margin-bottom: 20px;
     padding: 15px;
-    font-family: Hylvetica;
-    color: #333333;
-    background: #23232312;
+    color: #464547;
+    background: #999999;
+    font-family: "Source Sans Pro Regular";
 }
 
 #contact-us-section form textarea {
     resize: none;
-}
-
-#contact-us-section button {
-    display: block;
-    padding: 10px 15px;
-    border: 1px solid #111111;
-    text-decoration: none;
-    color: #111111;
-    font-family: Arial;
-    font-size: 1.4em;
-    background: none;
 }
 
 /*Service*/
@@ -1036,7 +1022,7 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background: #111111;
+    background: #333333;
 }
 
 #footer-logo {
