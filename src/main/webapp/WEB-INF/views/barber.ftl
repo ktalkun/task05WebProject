@@ -11,7 +11,7 @@
 <body>
 <@header/>
 <div id="promo">
-    <img id="promo-background" src="resources/img/promo.png">
+    <img id="promo-background" src="<@spring.url "/resources/img/promo.png"/> ">
     <h1 id="promo-title">Запись</h1>
 </div>
 <main>
@@ -21,7 +21,7 @@
         <#list employees as employee>
             <form action="${formHandler}">
                 <input hidden name="employeeId" value="${employee.id}">
-                <img src="${employee.imagePath}">
+                <img src="<@spring.url "${employee.imagePath}"/>">
                 <div>
                     <p>${employee.name} ${employee.surname}</p>
                     <ul>
