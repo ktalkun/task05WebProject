@@ -477,32 +477,30 @@ main{
     background: #FFFFFF;
 }
 
-#staff-list form:last-child {
+#staff-list div:last-child {
     border-bottom: none;
 }
 
-#staff-list form {
+#staff-list > div {
     display: flex;
     justify-content: space-between;
     padding: 45px 0;
     border-bottom: 1px solid #111111;
-    font-family: Hebar;
 }
 
-#staff-list form img {
+#staff-list div img {
     width: 210px;
     height: 210px;
     border-radius: 100%;
 }
 
-#staff-list form > div {
-    padding-left: 50px;
+#staff-list > div > div {
+    padding: 25px 0 0 50px;
 }
 
 .staff-list-description {
     display: flex;
-    margin-bottom: 15px;
-    color: #111111;
+    margin-bottom: 25px;
 }
 
 .staff-list-description > p {
@@ -510,36 +508,30 @@ main{
 
 }
 
-.staff-list-description > i {
-    margin-left: 45px;
-    font-size: 1.8em;
-    line-height: 40px;
+.staff-list-description > div {
+    margin-left: 30px;
 }
 
-.staff-list-description > span {
-    margin-left: 10px;
-    font-size: 2.1em;
-    line-height: 45px;
+.staff-list-description > div > span {
+    font-size: 1.7em !important;
 }
 
-#staff-list form > div > blockquote {
-    margin: 0 0 15px 15px;
-    font-family: Hylvetica;
+#staff-list > div > div > blockquote {
+    margin-bottom: 15px;
     font-size: 1em;
     font-style: italic;
     line-height: 30px;
-    color: #99999A;
 }
 
 .staff-nav-bar {
     display: flex;
 }
 
-#staff-list form i {
+#staff-list > div i {
     font-size: 1.5em;
 }
 
-#staff-list form button {
+#staff-list > div button {
     padding: 10px 12px;
     font-size: 1.2em;
     border: 1px solid #242323;
@@ -547,13 +539,10 @@ main{
     background: none;
 }
 
-#staff-list form a {
+#staff-list > div a {
     padding: 10px;
-    margin-left: 20px;
+    margin-right: 20px;
     font-size: 1.2em;
-    border: 1px solid #242323;
-    color: #242323;
-    background: none;
 }
 
 /*login page*/

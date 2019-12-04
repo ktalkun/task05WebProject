@@ -2,11 +2,12 @@
 <#include "tags/head.ftl"/>
 <#include "tags/header.ftl"/>
 <#include "tags/footer.ftl"/>
-
 <html>
 <@head>
 <#--TODO: user resource bundle-->
     <title>Сотрудники</title>
+    <link rel="stylesheet" href="<@spring.url "/resources/uui/fonts/font-awesome/css/font-awesome.min.css"/>"/>
+    <script src="<@spring.url "/resources/uui/js/uui-rating.min.js"/>"></script>
 </@head>
 <body>
 <@header/>
@@ -16,14 +17,13 @@
 </div>
 <main>
     <section id="staff-list">
-        <form action="<@spring.url "/profile.jsp"/>">
+        <div action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="daniilzahar">
-            <img src="<@spring.url "/resources/img/book/staff-1.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/13.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Даниил Захаров</p>
-                    <i class="fal fa-star"></i>
-                    <span>3.25</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -33,19 +33,18 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
-        <form action="<@spring.url "/profile.html"/>">
+        </div>
+        <div action="<@spring.url "/profile.html"/>">
             <input hidden name="barber" value="sergeyjuk">
-            <img src="<@spring.url "/resources/img/book/staff-2.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/11.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Сергей Жук</p>
-                    <i class="fal fa-star"></i>
-                    <span>3.12</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -55,19 +54,18 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
-        <form action="<@spring.url "/profile.jsp"/>">
+        </div>
+        <div action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="anastasykalin">
-            <img src="<@spring.url "/resources/img/book/staff-3.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/73.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Анастасия Калинина</p>
-                    <i class="fal fa-star"></i>
-                    <span>2.18</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -77,19 +75,18 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
-        <form action="<@spring.url "/profile.jsp"/>">
+        </div>
+        <div action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="andreyponama">
-            <img src="<@spring.url "resources/img/book/staff-4.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/20.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Андрей Понаморёв</p>
-                    <i class="fal fa-star"></i>
-                    <span>3.12</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -99,19 +96,18 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
-        <form action="<@spring.url "/profile.jsp"/>">
+        </div>
+        <div action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="artemezerskiy">
-            <img src="<@spring.url "/resources/img/book/staff-5.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/5.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Артём Езерский</p>
-                    <i class="fal fa-star"></i>
-                    <span>4.15</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -121,19 +117,18 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
-        <form action="<@spring.url "/profile.jsp"/>">
+        </div>
+        <div action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="maryradin">
-            <img src="<@spring.url "/resources/img/book/staff-6.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/70.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Мария Радина</p>
-                    <i class="fal fa-star"></i>
-                    <span>1.02</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -143,19 +138,18 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
-        <form action="<@spring.url "/profile.jsp"/>">
+        </div>
+        <div action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="antonfilatov">
-            <img src="<@spring.url "/resources/img/book/staff-7.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/7.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Антон Филатов</p>
-                    <i class="fal fa-star"></i>
-                    <span>4.00</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -165,19 +159,18 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
-        <form action="<@spring.url "/profile.jsp"/>">
+        </div>
+        <div action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="mihailaugust">
-            <img src="<@spring.url "/resources/img/book/staff-8.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/5.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Михаил Август</p>
-                    <i class="fal fa-star"></i>
-                    <span>2.05</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -187,19 +180,18 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
-        <form action="<@spring.url "/profile.jsp"/>">
+        </div>
+        <div action="<@spring.url "/profile.jsp"/>">
             <input hidden name="barber" value="daryanova">
-            <img src="<@spring.url "/resources/img/book/staff-9.png"/>">
+            <img src="<@spring.url "/resources/upload/avatars/66.jpg"/>">
             <div>
                 <div class="staff-list-description">
                     <p>Дарья Новацкая</p>
-                    <i class="fal fa-star"></i>
-                    <span>1.39</span>
+                    <div class="uui-rating medium-gray"></div>
                 </div>
                 <blockquote>
                     "Я взял своего 3-летнего сына на его первую мужскую стрижку,
@@ -209,13 +201,17 @@
                     без действительно красивой стрижки."
                 </blockquote>
                 <div class="staff-nav-bar">
-                    <button><i class="fal fa-arrow-up"></i></button>
-                    <a href=""><i class="fal fa-comment-alt"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-arrow-up"></i></a>
+                    <a href="#" class="uui-button large transparent"><i class="fal fa-comment-alt"></i></a>
                 </div>
             </div>
-        </form>
+        </div>
     </section>
 </main>
-<@footer></@footer>
+<@footer>
+    <script>
+        $('.uui-rating').uui_rating();
+    </script>
+</@footer>
 </body>
 </html>
