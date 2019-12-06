@@ -5,21 +5,6 @@ initialFieldValues.set("patronymic", document.querySelector("input[name=patronym
 initialFieldValues.set("phone", document.querySelector("input[name=phone]").value);
 initialFieldValues.set("email", document.querySelector("input[name=email]").value);
 
-var isUpdate = false;
-var updateProfileButton = document.getElementById("update-profile-button");
-
-function uploadAvatar() {
-    document.querySelector("input[name=avatarImage]").click();
-
-}
-
-function choosenAvatar() {
-    if (document.querySelector("input[name=avatarImage]").value != "") {
-        isUpdate = true;
-        updateProfileButton.style.display = "block";
-    }
-}
-
 var previousElementId = null;
 
 function editData(elementId) {
@@ -27,10 +12,6 @@ function editData(elementId) {
     if (previousElementId) {
         var previousElement = document.querySelector("input[name=\"" + previousElementId + "\"]");
         previousElement.disabled = true;
-        if (previousElement.value != initialFieldValues.get(previousElementId)) {
-            isUpdate = true;
-            updateProfileButton.style.display = "block";
-        }
     }
     if (previousElementId != elementId) {
         previousElementId = elementId;

@@ -5,26 +5,44 @@
 
 <html>
 <@head>
-    <#--TODO: user resource bundle-->
+<#--TODO: user resource bundle-->
     <title>Профиль</title>
+    <link rel="stylesheet"
+          href="<@spring.url "/resources/uui/css/lib/components/jasny-bootstrap.min.css"/>"/>
+    <script src="<@spring.url "/resources/uui/js/lib/components/jasny-bootstrap.min.js"/>"></script>
 </@head>
 <body>
 <@header/>
 <main id="edit-main">
     <aside>
-        <img onclick="uploadAvatar()"
-             src="<@spring.url "/${authorizedUser.imagePath}"/>">
+        <img src="<@spring.url "/${authorizedUser.imagePath}"/>">
         <div id="profile-user-description">
             <form action="<@spring.url "/profile/edit.html"/>" method="POST"
                   enctype="multipart/form-data">
-                <input onchange="choosenAvatar()" hidden id="avatarImage"
-                       name="avatarImage" type="file"
-                       accept="image/jpeg,image/png">
+
+
+                <div class="uui-file-uploader fileinput fileinput-new"
+                     data-provides="fileinput">
+                    <span class="btn btn-file uui-button">
+                        <span class="fileinput-new">Choose...</span>
+                        <span class="fileinput-exists">Change...</span>
+                        <input id="avatarImage"
+                               name="avatarImage"
+                               type="file"
+                               accept="image/jpeg,image/png">
+                    </span>
+                    <span class="fileinput-filename"></span>
+                    <a href="#" class="close fileinput-exists"
+                       data-dismiss="fileinput">×</a>
+                </div>
+
+
                 <span>Фамилия</span>
                 <input required pattern="[A-Za-zA-Яа-я]{5,30}"
                        onChange="editData()" type="text" disabled="disabled"
                        name="surname"
-                       value="${authorizedUser.surname}">
+                       value="${authorizedUser.surname}"
+                       class=".uui-form-element">
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="surname"></i>
                 <span>Имя</span>
@@ -49,8 +67,9 @@
                        value="${authorizedUser.email}">
                 <i onclick="editData(this.id)" class="fal fa-pen"
                    id="email"></i>
-                <button type="submit" onclick="submitData()"
-                        id="update-profile-button">Update
+                    <button type="submit" onclick="submitData()"
+                        id="update-profile-button"
+                        class="uui-button transparent large ">Update
                 </button>
             </form>
         </div>
@@ -101,35 +120,21 @@
                         </div>
                         <div class="current-service-buttons-bar">
                             <div>
-                                <form action="<@spring.url "/edit.html"/>"
+                                <form action="<@spring.url "/profile/edit.html"/>"
                                       method="POST">
                                     <input name="reservation-edit" hidden
                                            value="${reservation.id}">
-                                    <button><i class="fal fa-pen"></i></button>
+                                    <button class="uui-button transparent large">
+                                        <i class="fal fa-pen"></i></button>
                                 </form>
-                                <form action="<@spring.url "/edit.html"/>"
+                                <form action="<@spring.url "/profile/edit.html"/>"
                                       method="POST">
                                     <input name="reservation-id" hidden
                                            value="${reservation.id}">
-                                    <button><i class="fal fa-times"></i>
+                                    <button class="uui-button transparent large">
+                                        <i class="fal fa-times"></i>
                                     </button>
                                 </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="diagram-unit">
-                            <span>Очередь</span>
-                            <div>2</div>
-                        </div>
-                        <div class="diagram-unit">
-                            <span>Осталось примерно</span>
-                            <div>2<span class="hours-title">часа</span></div>
-                            <div>32<span>минуты</span></div>
-                        </div>
-                        <div class="diagram-unit">
-                            <span>Стоимость</span>
-                            <div>${reservation.offer.price?string["0"]}<span>byn</span>
                             </div>
                         </div>
                     </div>
@@ -140,6 +145,9 @@
 </main>
 <@footer>
     <script src="<@spring.url "/resources/js/progileEdit.js"/>"></script>
+    <script>
+        $('.fileinput').fileinput();
+    </script>
 </@footer>
 </body>
 </html>
