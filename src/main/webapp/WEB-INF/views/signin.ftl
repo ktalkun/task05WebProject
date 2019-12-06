@@ -5,7 +5,7 @@
 
 <html>
 <@head>
-    <#--TODO: user resource bundle-->
+<#--TODO: user resource bundle-->
     <title>Регистриция</title>
 </@head>
 <body>
@@ -21,26 +21,39 @@
             <h1>Регистрация</h1>
             <input required type="text" id="login" name="surname"
                    placeholder="Фамилия*"
-                   pattern="[A-Za-zA-Яа-я]{5,30}">
-            <input required type="text" id="login" name="name" placeholder="Имя*"
-                   pattern="[A-Za-zA-Яа-я]{5,30}">
+                   pattern="[A-Za-zA-Яа-я]{5,30}"
+                   class="uui-form-element large">
+            <input required type="text" id="login" name="name"
+                   placeholder="Имя*"
+                   pattern="[A-Za-zA-Яа-я]{5,30}"
+                   class="uui-form-element large">
             <input required type="text" id="login" name="patronymic"
                    placeholder="Отчество*"
-                   pattern="[A-Za-zA-Яа-я]{5,30}">
-            <input required type="email" name="email" placeholder="Почта*">
+                   pattern="[A-Za-zA-Яа-я]{5,30}"
+                   class="uui-form-element large">
+            <input required type="email" name="email" placeholder="Почта*"
+                   class="uui-form-element large">
             <input required type="text" name="phone"
                    placeholder="Телефон* +375_________"
-                   pattern="[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}">
-            <input required type="text" id="login" name="login" placeholder="Логин*"
-                   pattern="[A-Za-z]{5,20}">
+                   pattern="[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}"
+                   class="uui-form-element large">
+            <input required type="text" id="login" name="login"
+                   placeholder="Логин*"
+                   pattern="[A-Za-z]{5,20}"
+                   class="uui-form-element large">
             <#--TODO: user resource bundle-->
             <input required type="password" id="password" name="password"
                    placeholder="Пароль*"
-                   pattern="(?=.*[0-9])(?=.*[!@#$%^&*\/])[a-zA-Z0-9!@#$%^&\/*]{6,30}">
-            <input required type="password" id="repeatPassword" name="repeatPassword"
+                   pattern="(?=.*[0-9])(?=.*[!@#$%^&*\/])[a-zA-Z0-9!@#$%^&\/*]{6,30}"
+                   class="uui-form-element large">
+            <input required type="password" id="repeatPassword"
+                   name="repeatPassword"
                    placeholder="Повторить пароль**"
-                   pattern="(?=.*[0-9])(?=.*[!@#$%^&*\/])[a-zA-Z0-9!@#$%^&\/*]{6,30}">
-            <button type="submit">Зарегистрироваться</button>
+                   pattern="(?=.*[0-9])(?=.*[!@#$%^&*\/])[a-zA-Z0-9!@#$%^&\/*]{6,30}"
+                   class="uui-form-element large">
+            <button type="submit" class="uui-button transparent large">
+                Зарегистрироваться
+            </button>
         </form>
     </section>
 </main>
