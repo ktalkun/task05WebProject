@@ -567,34 +567,26 @@ main{
 
 #login-form-section form h1 {
     margin-bottom: 20px;
-    font-family: Hebar;
     font-size: 2em;
 }
 
 /*TODO: update for login form*/
 
-/*#login-form-section form input {*/
-/*    border: none;*/
-/*    margin-bottom: 20px;*/
-/*    padding: 15px;*/
-/*    font-family: Hylvetica;*/
-/*    color: #333333;*/
-/*    background: #23232312;*/
-/*}*/
+#login-form-section form input {
+    margin-bottom: 20px;
+}
 
-/*#login-form-section form > button,*/
-/*#login-form-section form > a {*/
-/*    margin-bottom: 20px;*/
-/*    padding: 10px 12px;*/
-/*    font-size: 1.2em;*/
-/*    border: 1px solid #242323;*/
-/*    text-align: center;*/
-/*    text-decoration: none;*/
-/*    color: #242323;*/
-/*    background: none;*/
-/*}*/
+#login-form-section form > button,
+#login-form-section form > a {
+    margin-bottom: 20px;
+}
 
-/*edit profile page*/
+#login-form-section form > button:last-child,
+#login-form-section form > a:last-child {
+    margin-bottom: 0;
+}
+
+    /*edit profile page*/
 
 #edit-main {
     position: relative;

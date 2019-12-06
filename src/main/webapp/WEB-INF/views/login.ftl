@@ -16,19 +16,24 @@
 </div>
 <main>
     <section id="login-form-section">
-        <form action="<@spring.url "/login.html"/>" method="POST" accept-charset="UTF-8">
-        <#--TODO: user resource bundle-->
+        <form action="<@spring.url "/login.html"/>" method="POST"
+              accept-charset="UTF-8">
+            <#--TODO: user resource bundle-->
             <h1>Войти</h1>
-        <#--TODO: user resource bundle-->
+            <#--TODO: user resource bundle-->
             <input required type="text" id="login" name="login"
                    placeholder="Имя*"
-                   pattern="[A-Za-z]{5,20}">
-        <#--TODO: user resource bundle-->
+                   pattern="[A-Za-z]{5,20}"
+                   class="uui-form-element large">
+            <#--TODO: user resource bundle-->
             <input required type="password" id="password" name="password"
                    placeholder="Пароль*"
-                   pattern="(?=.*[0-9])(?=.*[!@#$%^&*\/])[a-zA-Z0-9!@#$%^&\/*]{6,30}">
-            <button type="submit">Войти</button>
-            <a href="<@spring.url "/signin.html"/>">Регистрация</a>
+                   pattern="(?=.*[0-9])(?=.*[!@#$%^&*\/])[a-zA-Z0-9!@#$%^&\/*]{6,30}"
+                   class="uui-form-element large">
+            <button type="submit" class="uui-button transparent large">Войти
+            </button>
+            <a href="<@spring.url "/signin.html"/>"
+               class="uui-button transparent large">Регистрация</a>
         </form>
     </section>
 </main>
