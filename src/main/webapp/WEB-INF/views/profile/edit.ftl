@@ -144,7 +144,7 @@
     </div>
 </main>
 <@footer>
-    <script src="<@spring.url "/resources/js/progileEdit.js"/>"></script>
+    <script src="<@spring.url "/resources/js/profileEdit.js"/>"></script>
     <script>
         $('.fileinput').fileinput();
     </script>
