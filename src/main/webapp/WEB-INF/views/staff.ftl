@@ -6,7 +6,6 @@
 <@head>
 <#--TODO: user resource bundle-->
     <title>Сотрудники</title>
-    <link rel="stylesheet" href="<@spring.url "/resources/uui/fonts/font-awesome/css/font-awesome.min.css"/>"/>
     <script src="<@spring.url "/resources/uui/js/uui-rating.min.js"/>"></script>
 </@head>
 <body>
