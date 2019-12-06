@@ -20,7 +20,7 @@
             <div id="message-panel">
                 <h1>Message</h1>
                 <span>${message}</span>
-                <a href="<@spring.url "${redirectUrl}"/>">Back</a>
+                <a class="uui-button transparent large" href="<@spring.url "${redirectUrl}"/>">Back</a>
             </div>
         </#if>
     </section>
