@@ -46,8 +46,7 @@ button:hover {
 
 header {
     width: 100%;
-    height: 80px;
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
     align-items: center;
     position: fixed;
@@ -73,6 +72,7 @@ header > img {
     display: flex;
     align-items: center;
     list-style: none;
+    margin-bottom: 0;
 }
 
 #nav-bar a {
@@ -571,26 +571,28 @@ main{
     font-size: 2em;
 }
 
-#login-form-section form input {
-    border: none;
-    margin-bottom: 20px;
-    padding: 15px;
-    font-family: Hylvetica;
-    color: #333333;
-    background: #23232312;
-}
+/*TODO: update for login form*/
 
-#login-form-section form button,
-#login-form-section form > a {
-    margin-bottom: 20px;
-    padding: 10px 12px;
-    font-size: 1.2em;
-    border: 1px solid #242323;
-    text-align: center;
-    text-decoration: none;
-    color: #242323;
-    background: none;
-}
+/*#login-form-section form input {*/
+/*    border: none;*/
+/*    margin-bottom: 20px;*/
+/*    padding: 15px;*/
+/*    font-family: Hylvetica;*/
+/*    color: #333333;*/
+/*    background: #23232312;*/
+/*}*/
+
+/*#login-form-section form > button,*/
+/*#login-form-section form > a {*/
+/*    margin-bottom: 20px;*/
+/*    padding: 10px 12px;*/
+/*    font-size: 1.2em;*/
+/*    border: 1px solid #242323;*/
+/*    text-align: center;*/
+/*    text-decoration: none;*/
+/*    color: #242323;*/
+/*    background: none;*/
+/*}*/
 
 /*edit profile page*/
 
@@ -947,9 +949,7 @@ main{
 
 .about-section > div{
     padding: 40px;
-    font-family: Gotham;
     font-size: 1.2em;
-    color: #000000;
 }
 
 .about-unit{
@@ -958,7 +958,6 @@ main{
 
 .about-section h1{
     margin-bottom: 20px;
-    font-family: Hebar;
     font-size: 1.5em;
 }
 
@@ -968,19 +967,22 @@ main{
 }
 
 /*book page*/
-.book-panel select{
-    border: none;
+#login-form-section > form > .bootstrap-select {
+    width: 100%;
     margin-bottom: 20px;
-    padding: 15px;
-    font-family: Hylvetica;
-    color: #333333;
-    background: #23232312;
+}
+
+.book-timepicker,
+.book-datepicker {
+    width: 100% !important;
+    height:  46px !important;
+    margin-bottom: 20px;
 }
 
 /*footer*/
 
 footer {
-    display: flex;
+    display: flex !important;
     margin-top: 0 !important;
     flex-direction: column;
     justify-content: center;

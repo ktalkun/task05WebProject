@@ -77,10 +77,16 @@ public class BookController {
         int employeeId = Integer.parseInt(allParams.get("employee"));
         String dateParam = allParams.get("date");
         String timeParam = allParams.get("time");
+
         Date date;
         try {
-            date = new Date(new SimpleDateFormat("yyyy-MM-dd HH:mm")
-                    .parse(dateParam + " " + timeParam).getTime());
+            java.util.Date dateTwelveTime = new java.util.Date(
+                    new SimpleDateFormat("dd/MM/yyyy HH:mm a")
+                            .parse(dateParam + " " + timeParam)
+                            .getTime());
+            date = new Date(new java.util.Date(
+                    new SimpleDateFormat("dd/MM/yyyy HH:mm")
+                            .format(dateTwelveTime)).getTime());
 
             User user = (User) session.getAttribute("authorizedUser");
 
@@ -105,7 +111,7 @@ public class BookController {
         } catch (LogicException e) {
             LOGGER.error("Reservation wasn't saved.", e);
             message = "Reservation wasn't saved. Selected offer or employee does not exist.";
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             LOGGER.error(e);
             message = "Wrong date format.";
         }
