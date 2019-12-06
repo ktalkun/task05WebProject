@@ -4,6 +4,7 @@ import by.tolkun.barbershop.view.AllowView;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class ExceptionController {
@@ -11,5 +12,10 @@ public class ExceptionController {
     public String handleException(Model model, Exception ex) {
         model.addAttribute("exceptionStackTrace", ex.getMessage());
         return AllowView.EXCEPTION;
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public String showPage() {
+        return AllowView.NOT_FOUND;
     }
 }
