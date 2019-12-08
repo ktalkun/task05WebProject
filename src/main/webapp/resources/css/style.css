@@ -256,12 +256,8 @@ main{
 
 #contact-us-section form input,
 #contact-us-section form textarea {
-    border: none;
     margin-bottom: 20px;
     padding: 15px;
-    color: #464547;
-    background: #999999;
-    font-family: "Source Sans Pro Regular";
 }
 
 #contact-us-section form textarea {

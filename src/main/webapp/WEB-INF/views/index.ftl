@@ -43,12 +43,12 @@
         <#--TODO: user resource bundle-->
         <h3>Связаться с нами</h3>
         <input required type="text" name="name" placeholder="Имя*"
-               pattern="[A-Za-zA-Яа-я\s]{5,30}">
-        <input required type="email" name="email" placeholder="Почта*">
+               pattern="[A-Za-zA-Яа-я\s]{5,30}" class="uui-form-element large">
+        <input required type="email" name="email" placeholder="Почта*" class="uui-form-element large">
         <input required type="text" name="title" placeholder="Тема*"
-               pattern="[A-Za-zA-Яа-я\s]{10,120}">
+               pattern="[A-Za-zA-Яа-я\s]{10,120}" class="uui-form-element large">
         <textarea required rows="5" name="description"
-                  placeholder="Комментарий*"></textarea>
+                  placeholder="Комментарий*" class="uui-form-element"></textarea>
         <button class="uui-button large dark-gray">Отправить</button>
         </form>
     </section>
