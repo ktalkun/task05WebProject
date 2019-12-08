@@ -322,11 +322,6 @@ main{
     width: 190px;
 }
 
-.main-service:nth-child(even) button {
-    border-color: #333333;
-    color: #333333;
-}
-
 .main-service img {
     width: 23%;
     height: 23%;
@@ -381,8 +376,6 @@ main{
 #additional-service form button {
     width: 85%;
     margin-bottom: 30px;
-    border-color: #333333;
-    color: #333333;
 }
 
 /*barber choice page*/
