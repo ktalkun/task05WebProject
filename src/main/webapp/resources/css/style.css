@@ -44,22 +44,39 @@ button:hover {
     cursor: pointer;
 }
 
-header {
-    width: 100%;
-    display: flex !important;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    padding: 0 20px;
-    z-index: 999;
-    background: #464547;
-}
-
 header > img {
     width: 60px;
     height: 60px;
     padding: 10px;
     background: #CCCCCC;
+}
+
+header .navbar-nav > li > ul {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    list-style: none;
+}
+
+header .navbar-nav > li > ul > li {
+    margin-right: 60px;
+}
+
+header .navbar-nav > li > ul > li a {
+    font-size: 1.3em;
+    color: #FFFFFF;
+}
+
+header .navbar-nav > li > ul > li a:hover {
+    text-decoration: none;
+}
+
+header .menu-arrow{
+    right: 22% !important;
+}
+
+header .dropdown-menu{
+    margin-right: -29px !important;
 }
 
 #nav-bar {
@@ -82,11 +99,6 @@ header > img {
     color: #FFFFFF;
     font-family: "Source Sans Pro Regular";
     font-size: 1.4em;
-}
-
-a#log-ref {
-    margin-left: 160px;
-    padding: 10px 15px;
 }
 
 #user-header-nav {

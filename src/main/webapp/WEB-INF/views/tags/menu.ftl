@@ -1,7 +1,7 @@
 <#import "/spring.ftl" as spring />
 <#macro menu>
     <#if authorizedUser??>
-    <ul id="additional-menu">
+    <ul id="additional-menu" class="profile-links">
         <#list profileMenu as item>
             <li>
                 <a href="<@spring.url "${item.url}"/>">
