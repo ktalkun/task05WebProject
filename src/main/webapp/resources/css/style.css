@@ -12,7 +12,7 @@
 
 @font-face {
     font-family: 'Raleway';
-    src: url('../font/Raleway Thin.ttf') format('truetype');
+    src: url('../font/Ralfootereway Thin.ttf') format('truetype');
     font-weight: normal;
 }
 
@@ -192,6 +192,7 @@ h1#promo-title {
 }
 
 main{
+    margin-bottom: 57px;
     background: #CCCCCC;
 }
 
@@ -953,13 +954,13 @@ main{
 /*footer*/
 
 footer {
-    display: flex !important;
-    margin-top: 0 !important;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background: #333333;
+    /*display: flex !important;*/
+    /*margin-top: 0 !important;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*padding: 20px;*/
+    /*background: #333333;*/
 }
 
 #footer-logo {
