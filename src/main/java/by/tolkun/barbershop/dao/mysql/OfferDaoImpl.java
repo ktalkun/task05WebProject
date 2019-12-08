@@ -2,11 +2,7 @@ package by.tolkun.barbershop.dao.mysql;
 
 import by.tolkun.barbershop.dao.OfferDao;
 import by.tolkun.barbershop.entity.Offer;
-import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.mapper.OfferMapper;
-import by.tolkun.barbershop.mapper.UserMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,16 +11,12 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
-
-    private static final Logger LOGGER
-            = LogManager.getLogger(OfferDaoImpl.class);
+public class OfferDaoImpl implements OfferDao {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -34,7 +26,7 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
     }
 
     @Override
-    public int create(final Offer offer) throws PersistentException {
+    public int create(final Offer offer) {
         final String query = "INSERT INTO `offers` (`name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -53,7 +45,7 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
     }
 
     @Override
-    public Offer read(final int id) throws PersistentException {
+    public Offer read(final int id) {
         final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show` FROM `offers` WHERE `id` = ?";
         try {
             return jdbcTemplate.queryForObject(query, new OfferMapper(), id);
@@ -63,13 +55,13 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
     }
 
     @Override
-    public List<Offer> readAll() throws PersistentException {
+    public List<Offer> readAll() {
         final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show` FROM `offers`";
         return jdbcTemplate.query(query, new OfferMapper());
     }
 
     @Override
-    public void update(final Offer offer) throws PersistentException {
+    public void update(final Offer offer) {
         final String query = "UPDATE `offers` SET `name` = ?, `description` = ?, `image_path` = ?, `price` = ?, `period` = ?, `is_main` = ?, `is_show` = ? WHERE `id` = ?";
         jdbcTemplate.update(query, offer.getName(), offer.getDescription(),
                 offer.getImagePath(), offer.getPrice(), offer.getPeriod(),
@@ -77,7 +69,7 @@ public class OfferDaoImpl extends BaseDaoImpl implements OfferDao {
     }
 
     @Override
-    public void delete(final int id) throws PersistentException {
+    public void delete(final int id) {
         final String query = "DELETE FROM `offers` WHERE `id` = ?";
         jdbcTemplate.update(query, id);
     }

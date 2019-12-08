@@ -3,11 +3,7 @@ package by.tolkun.barbershop.dao.mysql;
 import by.tolkun.barbershop.dao.EmployeeDao;
 import by.tolkun.barbershop.entity.Employee;
 import by.tolkun.barbershop.entity.Role;
-import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.mapper.EmployeeMapper;
-import by.tolkun.barbershop.mapper.UserMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,10 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
-
-    private static final Logger LOGGER
-            = LogManager.getLogger(EmployeeDaoImpl.class);
+public class EmployeeDaoImpl implements EmployeeDao {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -35,7 +28,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public int create(Employee employee) throws PersistentException {
+    public int create(Employee employee) {
         final String query = "INSERT INTO `employees` (`experience`, `im`, `fb`, `vk`, `work_week`) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -55,7 +48,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee read(int id) throws PersistentException {
+    public Employee read(int id) {
         final String query = "SELECT users.id," +
                 "users.login," +
                 "users.password," +
@@ -82,7 +75,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> readAll() throws PersistentException {
+    public List<Employee> readAll() {
         final String query = "SELECT users.id,\n" +
                 "users.login," +
                 "users.password," +
@@ -105,7 +98,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void update(Employee employee) throws PersistentException {
+    public void update(Employee employee) {
         final String query = "UPDATE `employees` SET `experience`= ?, `im` = ?, `fb` = ?, `vk` = ?, `work_week` = ? WHERE `id` = ?";
         jdbcTemplate.update(query, employee.getExperience(),
                 employee.getSocialRef().get("im"),
@@ -119,20 +112,20 @@ public class EmployeeDaoImpl extends BaseDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void delete(int id) throws PersistentException {
+    public void delete(int id) {
         final String query = "DELETE FROM `employees` WHERE `employee_id` = ?";
         jdbcTemplate.update(query, id);
     }
 
     @Override
-    public int noteNumber() throws PersistentException {
+    public int noteNumber() {
         final String query = "SELECT COUNT(`employee_id`) AS `count` FROM `employees`;";
         Integer count = jdbcTemplate.queryForObject(query, Integer.class);
         return count != null ? count : 0;
     }
 
     @Override
-    public List<Employee> readAll(int offset, int limit) throws PersistentException {
+    public List<Employee> readAll(int offset, int limit) {
         final String query = "SELECT users.id,\n" +
                 "users.login," +
                 "users.password," +

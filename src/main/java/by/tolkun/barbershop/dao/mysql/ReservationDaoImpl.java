@@ -2,11 +2,7 @@ package by.tolkun.barbershop.dao.mysql;
 
 import by.tolkun.barbershop.dao.ReservationDao;
 import by.tolkun.barbershop.entity.Reservation;
-import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.mapper.ReservationMapper;
-import by.tolkun.barbershop.mapper.UserMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,13 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
-
-    /**
-     * Logger of class {@code ReservationDaoImpl}.
-     */
-    private static final Logger LOGGER
-            = LogManager.getLogger(ReservationDaoImpl.class);
+public class ReservationDaoImpl implements ReservationDao {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -37,7 +27,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     }
 
     @Override
-    public int create(final Reservation reservation) throws PersistentException {
+    public int create(final Reservation reservation) {
         final String query = "INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`) VALUES (?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -53,7 +43,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     }
 
     @Override
-    public Reservation read(final int id) throws PersistentException {
+    public Reservation read(final int id) {
         final String query = "SELECT " +
                 "reservations.id, " +
                 "offers.id AS offer_id, " +
@@ -104,7 +94,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     }
 
     @Override
-    public List<Reservation> readAll() throws PersistentException {
+    public List<Reservation> readAll() {
         final String query = "SELECT " +
                 "reservations.id, " +
                 "offers.id AS offer_id, " +
@@ -151,7 +141,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     }
 
     @Override
-    public List<Reservation> readByCustomer(final int customerId) throws PersistentException {
+    public List<Reservation> readByCustomer(final int customerId) {
         final String query = "SELECT " +
                 "reservations.id, " +
                 "offers.id AS offer_id, " +
@@ -203,7 +193,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     }
 
     @Override
-    public List<Reservation> readByEmployee(final int employeeId) throws PersistentException {
+    public List<Reservation> readByEmployee(final int employeeId) {
         final String query = "SELECT " +
                 "reservations.id, " +
                 "offers.id AS offer_id, " +
@@ -255,7 +245,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     }
 
     @Override
-    public void update(final Reservation reservation) throws PersistentException {
+    public void update(final Reservation reservation) {
         final String query = "UPDATE `reservations` SET `offer_id` = ?, `customer_id` = ?, `employee_id` = ?, `date` = ? WHERE `id` = ?";
         jdbcTemplate.update(query, reservation.getOffer().getId(),
                 reservation.getCustomer().getId(),
@@ -265,7 +255,7 @@ public class ReservationDaoImpl extends BaseDaoImpl implements ReservationDao {
     }
 
     @Override
-    public void delete(final int id) throws PersistentException {
+    public void delete(final int id) {
         final String query = "DELETE FROM `reservations` WHERE `id` = ?";
         jdbcTemplate.update(query, id);
     }

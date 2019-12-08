@@ -2,10 +2,7 @@ package by.tolkun.barbershop.dao.mysql;
 
 import by.tolkun.barbershop.dao.UserDao;
 import by.tolkun.barbershop.entity.User;
-import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.mapper.UserMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,10 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class UserDaoImpl extends BaseDaoImpl implements UserDao {
-
-    private static final Logger LOGGER
-            = LogManager.getLogger(UserDaoImpl.class);
+public class UserDaoImpl implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -32,7 +26,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public int create(final User user) throws PersistentException {
+    public int create(final User user) {
         final String query = "INSERT INTO `users` (`login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role`) VALUES (?,?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -53,7 +47,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public User read(int id) throws PersistentException {
+    public User read(int id) {
         final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `id` = ?";
         try {
             return jdbcTemplate.queryForObject(query, new UserMapper(), id);
@@ -63,13 +57,13 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> readAll() throws PersistentException {
+    public List<User> readAll() {
         final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users`";
         return jdbcTemplate.query(query, new UserMapper());
     }
 
     @Override
-    public User read(String login) throws PersistentException {
+    public User read(String login) {
         final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ?";
         try {
             return jdbcTemplate.queryForObject(query, new UserMapper(), login);
@@ -79,7 +73,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public User read(String login, String password) throws PersistentException {
+    public User read(String login, String password) {
         final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ? AND password = ?";
         try {
             return jdbcTemplate.queryForObject(query, new UserMapper(), login,
@@ -90,7 +84,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(User user) throws PersistentException {
+    public void update(User user) {
         final String query = "UPDATE `users` SET `login` = ?, `password` = ?, `name`  = ?, `surname` = ?, `patronymic` = ?, `email` = ?, `phone` = ?, `image_path` = ?, `role` = ? WHERE `id` = ?";
         jdbcTemplate.update(query, user.getLogin(), user.getPassword(),
                 user.getName(), user.getSurname(), user.getPatronymic(),
@@ -99,7 +93,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(int id) throws PersistentException {
+    public void delete(int id) {
         final String query = "DELETE FROM `users` WHERE `id` = ?";
         jdbcTemplate.update(query, id);
     }

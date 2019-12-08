@@ -1,18 +1,17 @@
 package by.tolkun.barbershop.dao;
 
 import by.tolkun.barbershop.entity.Entity;
-import by.tolkun.barbershop.exception.PersistentException;
 
 import java.util.List;
 
 public interface Dao<T extends Entity> {
-    int create(T entity) throws PersistentException;
+    int create(T entity);
 
-    T read(int id) throws PersistentException;
+    T read(int id);
 
-    List<T> readAll() throws PersistentException;
+    List<T> readAll();
 
-    void update(T entity) throws PersistentException;
+    void update(T entity);
 
-    void delete(int id) throws PersistentException;
+    void delete(int id);
 }
