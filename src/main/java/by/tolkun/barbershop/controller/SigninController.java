@@ -3,7 +3,6 @@ package by.tolkun.barbershop.controller;
 import by.tolkun.barbershop.builder.UserBuilder;
 import by.tolkun.barbershop.entity.Role;
 import by.tolkun.barbershop.entity.User;
-import by.tolkun.barbershop.exception.LogicException;
 import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
@@ -62,11 +61,7 @@ public class SigninController {
         String redirectUrl = AllowPageURL.SIGNIN;
         if (password.equals(repeatPassword)) {
             User user = null;
-            try {
-                user = userService.findByLogin(login);
-            } catch (LogicException e) {
-                LOGGER.error(e);
-            }
+            user = userService.findByLogin(login);
             if (user != null) {
                 message = "User with such login \"" + login + "\" exists.";
                 LOGGER.warn(
@@ -74,38 +69,30 @@ public class SigninController {
                         login
                 );
             } else {
-                try {
-                    UserBuilder userBuilder = new UserBuilder();
-                    File file = new File(request.getContextPath()
-                            + DEFAULT_ADMIN_AVATAR_JPG);
-                    String defaultAvatarPath;
-                    if (file.exists()) {
-                        defaultAvatarPath = DEFAULT_ADMIN_AVATAR_JPG;
-                    } else {
-                        defaultAvatarPath = DEFAULT_AVATAR_JPG;
-                    }
-                    userBuilder
-                            .surname(surname)
-                            .name(name)
-                            .patronymic(patronymic)
-                            .email(email)
-                            .phone(Integer.parseInt(phone))
-                            .login(login)
-                            .password(password)
-                            .imagePath(defaultAvatarPath)
-                            .role(Role.CUSTOMER);
-                    user = userBuilder.build();
-                    userService.save(user);
-                    message = "Registration successful.";
-                    redirectUrl = AllowPageURL.LOGIN;
-                    LOGGER.info("New user={} was saved.", user);
-                } catch (LogicException e) {
-                    LOGGER.error(
-                            "User with such email or phone exists: {}",
-                            e
-                    );
-                    message = "User with such email or phone exists.";
+                UserBuilder userBuilder = new UserBuilder();
+                File file = new File(request.getContextPath()
+                        + DEFAULT_ADMIN_AVATAR_JPG);
+                String defaultAvatarPath;
+                if (file.exists()) {
+                    defaultAvatarPath = DEFAULT_ADMIN_AVATAR_JPG;
+                } else {
+                    defaultAvatarPath = DEFAULT_AVATAR_JPG;
                 }
+                userBuilder
+                        .surname(surname)
+                        .name(name)
+                        .patronymic(patronymic)
+                        .email(email)
+                        .phone(Integer.parseInt(phone))
+                        .login(login)
+                        .password(password)
+                        .imagePath(defaultAvatarPath)
+                        .role(Role.CUSTOMER);
+                user = userBuilder.build();
+                userService.save(user);
+                message = "Registration successful.";
+                redirectUrl = AllowPageURL.LOGIN;
+                LOGGER.info("New user={} was saved.", user);
             }
         } else {
             message = "Passwords are not match, try again.";

@@ -1,7 +1,6 @@
 package by.tolkun.barbershop.controller;
 
 import by.tolkun.barbershop.entity.Offer;
-import by.tolkun.barbershop.exception.LogicException;
 import by.tolkun.barbershop.service.OfferService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
@@ -31,12 +30,11 @@ public class OfferController {
     @RequestMapping(path = AllowPageURL.SERVICE)
     public String showPage(Model model) {
         List<Offer> availableOffers;
-        try {
-            availableOffers = offerService
-                    .findAll()
-                    .stream()
-                    .filter(Offer::isShow)
-                    .collect(Collectors.toList());
+        availableOffers = offerService
+                .findAll()
+                .stream()
+                .filter(Offer::isShow)
+                .collect(Collectors.toList());
         model.addAttribute("mainOffers", availableOffers
                 .stream()
                 .filter(Offer::isMain)
@@ -45,9 +43,6 @@ public class OfferController {
                 .stream()
                 .filter(offer -> !offer.isMain())
                 .collect(Collectors.toList()));
-        } catch (LogicException e) {
-            LOGGER.error(e);
-        }
         return AllowView.SERVICE;
     }
 }

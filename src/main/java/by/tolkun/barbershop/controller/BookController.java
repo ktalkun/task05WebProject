@@ -4,7 +4,6 @@ import by.tolkun.barbershop.builder.ReservationBuilder;
 import by.tolkun.barbershop.entity.Employee;
 import by.tolkun.barbershop.entity.Offer;
 import by.tolkun.barbershop.entity.User;
-import by.tolkun.barbershop.exception.LogicException;
 import by.tolkun.barbershop.service.EmployeeService;
 import by.tolkun.barbershop.service.OfferService;
 import by.tolkun.barbershop.service.ReservationService;
@@ -24,7 +23,6 @@ import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -50,20 +48,8 @@ public class BookController {
 
     @RequestMapping(path = AllowPageURL.BOOK)
     public String showPage(Model model) {
-        try {
-            model.addAttribute("offers", offerService.findAll());
-        } catch (LogicException e) {
-            LOGGER.error("Offers can't be read: {}", e);
-            model.addAttribute("offers", new ArrayList<>());
-        }
-
-        try {
-            model.addAttribute("employees", employeeService.findAll());
-        } catch (LogicException e) {
-            LOGGER.error("Employees can't be read: {}", e);
-            model.addAttribute("employees", new ArrayList<>());
-        }
-
+        model.addAttribute("offers", offerService.findAll());
+        model.addAttribute("employees", employeeService.findAll());
         return AllowView.BOOK;
     }
 
@@ -108,9 +94,6 @@ public class BookController {
                     offer.getId(), user.getId(), employee.getId(), date);
             LOGGER.info("Reservation was saved.");
             message = "Reservation was saved.";
-        } catch (LogicException e) {
-            LOGGER.error("Reservation wasn't saved.", e);
-            message = "Reservation wasn't saved. Selected offer or employee does not exist.";
         } catch (ParseException e) {
             LOGGER.error(e);
             message = "Wrong date format.";

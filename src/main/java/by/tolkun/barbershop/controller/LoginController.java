@@ -3,7 +3,6 @@ package by.tolkun.barbershop.controller;
 import by.tolkun.barbershop.entity.MenuItem;
 import by.tolkun.barbershop.entity.Role;
 import by.tolkun.barbershop.entity.User;
-import by.tolkun.barbershop.exception.LogicException;
 import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
@@ -107,12 +106,8 @@ public class LoginController {
         String password = allParams.get("password");
         LOGGER.debug("It's LoginController \"login\" login={}", login);
         User user = null;
-        try {
-            user = userService.findByLoginAndPassword(login, password);
-            LOGGER.debug(user);
-        } catch (LogicException e) {
-            LOGGER.error(e);
-        }
+        user = userService.findByLoginAndPassword(login, password);
+        LOGGER.debug(user);
         String redirectURL;
         if (user != null) {
             HttpSession session = request.getSession();

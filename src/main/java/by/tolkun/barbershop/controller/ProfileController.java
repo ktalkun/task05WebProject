@@ -2,7 +2,6 @@ package by.tolkun.barbershop.controller;
 
 import by.tolkun.barbershop.entity.Reservation;
 import by.tolkun.barbershop.entity.User;
-import by.tolkun.barbershop.exception.LogicException;
 import by.tolkun.barbershop.service.ReservationService;
 import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
@@ -48,13 +47,9 @@ public class ProfileController {
     @RequestMapping(path = AllowPageURL.PROFILE_EDIT)
     public String showEditPage(final Model model,
                                final HttpSession session) {
-        try {
-            List<Reservation> reservations = reservationService.findByCustomer(
-                    ((User) session.getAttribute("authorizedUser")).getId());
-            model.addAttribute("userReservations", reservations);
-        } catch (LogicException e) {
-            LOGGER.error(e);
-        }
+        List<Reservation> reservations = reservationService.findByCustomer(
+                ((User) session.getAttribute("authorizedUser")).getId());
+        model.addAttribute("userReservations", reservations);
         return AllowView.PROFILE_EDIT;
     }
 
@@ -65,7 +60,6 @@ public class ProfileController {
                                      required = false) MultipartFile file,
                              final RedirectAttributes attributes,
                              final HttpServletRequest request) {
-        String message;
         String name = allParams.get("name");
         String surname = allParams.get("surname");
         String patronymic = allParams.get("patronymic");
@@ -88,15 +82,8 @@ public class ProfileController {
                             .getServletContext()
                             .getRealPath(NAME_UPLOAD_DIRECTORY)), user);
         }
-        try {
-            userService.save(user);
-            message = "Profile data was updated.";
-
-        } catch (LogicException e) {
-            LOGGER.error(e);
-            message = "Update is not possible with this data.";
-
-        }
+        userService.save(user);
+        String message = "Profile data was updated.";
         attributes.addFlashAttribute("message", message);
         attributes.addFlashAttribute("redirectUrl",
                 AllowPageURL.PROFILE_EDIT);
@@ -108,16 +95,11 @@ public class ProfileController {
     public String removeReservation(@RequestParam(name = "reservation-id")
                                             int reservationId,
                                     final RedirectAttributes attributes) {
-        String message;
-        try {
-            reservationService.delete(reservationId);
-            message = "Reservation was deleted.";
-            LOGGER.info("Reservation with id = {} deleted.",
-                    reservationId);
-        } catch (LogicException e) {
-            LOGGER.error("Wrong reservation id \"{}\"", e);
-            message = "Reservation cannot be deleted.";
-        }
+
+        reservationService.delete(reservationId);
+        String message = "Reservation was deleted.";
+        LOGGER.info("Reservation with id = {} deleted.",
+                reservationId);
         attributes.addFlashAttribute("message", message);
         attributes.addFlashAttribute("redirectUrl",
                 AllowPageURL.PROFILE_EDIT);
