@@ -1,16 +1,15 @@
 package by.tolkun.barbershop.service;
 
 import by.tolkun.barbershop.entity.Offer;
-import by.tolkun.barbershop.exception.LogicException;
 
 import java.util.List;
 
 public interface OfferService extends Service {
-    List<Offer> findAll() throws LogicException;
+    List<Offer> findAll();
 
-    Offer findByIdentity(int identity) throws LogicException;
+    Offer findByIdentity(int identity);
 
-    void save(Offer user) throws LogicException;
+    void save(Offer user);
 
-    void delete(int identity) throws LogicException;
+    void delete(int identity);
 }

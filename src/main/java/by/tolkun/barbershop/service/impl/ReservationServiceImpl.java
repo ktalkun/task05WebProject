@@ -2,8 +2,6 @@ package by.tolkun.barbershop.service.impl;
 
 import by.tolkun.barbershop.dao.ReservationDao;
 import by.tolkun.barbershop.entity.Reservation;
-import by.tolkun.barbershop.exception.LogicException;
-import by.tolkun.barbershop.exception.PersistentException;
 import by.tolkun.barbershop.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,60 +19,36 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> findAll() throws LogicException {
-        try {
-            return reservationDao.readAll();
-        } catch (PersistentException e) {
-            throw new LogicException((e));
+    public List<Reservation> findAll() {
+        return reservationDao.readAll();
+    }
+
+    @Override
+    public Reservation findByIdentity(final int identity) {
+        return reservationDao.read(identity);
+    }
+
+    @Override
+    public List<Reservation> findByCustomer(final int identity) {
+        return reservationDao.readByCustomer(identity);
+    }
+
+    @Override
+    public List<Reservation> findByEmployee(final int identity) {
+        return reservationDao.readByEmployee(identity);
+    }
+
+    @Override
+    public void save(final Reservation reservation) {
+        if (reservation.getId() != 0) {
+            reservationDao.update(reservation);
+        } else {
+            reservation.setId(reservationDao.create(reservation));
         }
     }
 
     @Override
-    public Reservation findByIdentity(final int identity) throws LogicException {
-        try {
-            return reservationDao.read(identity);
-        } catch (PersistentException e) {
-            throw new LogicException((e));
-        }
-    }
-
-    @Override
-    public List<Reservation> findByCustomer(final int identity) throws LogicException {
-        try {
-            return reservationDao.readByCustomer(identity);
-        } catch (PersistentException e) {
-            throw new LogicException(e);
-        }
-    }
-
-    @Override
-    public List<Reservation> findByEmployee(final int identity) throws LogicException {
-        try {
-            return reservationDao.readByEmployee(identity);
-        } catch (PersistentException e) {
-            throw new LogicException(e);
-        }
-    }
-
-    @Override
-    public void save(final Reservation reservation) throws LogicException {
-        try {
-            if (reservation.getId() != 0) {
-                reservationDao.update(reservation);
-            } else {
-                reservation.setId(reservationDao.create(reservation));
-            }
-        } catch (PersistentException e) {
-            throw new LogicException((e));
-        }
-    }
-
-    @Override
-    public void delete(final int identity) throws LogicException {
-        try {
-            reservationDao.delete(identity);
-        } catch (PersistentException e) {
-            throw new LogicException((e));
-        }
+    public void delete(final int identity) {
+        reservationDao.delete(identity);
     }
 }

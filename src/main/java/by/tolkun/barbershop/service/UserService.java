@@ -1,21 +1,19 @@
 package by.tolkun.barbershop.service;
 
 import by.tolkun.barbershop.entity.User;
-import by.tolkun.barbershop.exception.LogicException;
 
 import java.util.List;
 
 public interface UserService extends Service {
-    List<User> findAll() throws LogicException;
+    List<User> findAll();
 
-    User findByIdentity(int identity) throws LogicException;
+    User findByIdentity(int identity);
 
-    User findByLogin(String login) throws LogicException;
+    User findByLogin(String login);
 
-    User findByLoginAndPassword(String login, String password)
-            throws LogicException;
+    User findByLoginAndPassword(String login, String password);
 
-    void save(User user) throws LogicException;
+    void save(User user);
 
-    void delete(int identity) throws LogicException;
+    void delete(int identity);
 }
