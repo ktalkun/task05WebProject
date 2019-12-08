@@ -637,6 +637,7 @@ main{
 
 #edit-main aside > img {
     width: 55%;
+    max-width: 200px;
     margin: 40px 0 40px 0;
     border-radius: 70%;
 }
