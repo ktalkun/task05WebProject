@@ -2,8 +2,6 @@ package by.tolkun.barbershop.controller;
 
 import by.tolkun.barbershop.mail.Mail;
 import by.tolkun.barbershop.url.AllowPageURL;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +13,6 @@ import java.util.Map;
 @Controller
 public class MainController {
 
-    private static final Logger LOGGER
-            = LogManager.getLogger(MainController.class);
-
     private static final String RECIPIENT = "tolkun_14@inbox.ru";
 
     @RequestMapping(path = {AllowPageURL.ROOT, AllowPageURL.INDEX})
@@ -27,23 +22,17 @@ public class MainController {
 
     @RequestMapping(path = {AllowPageURL.ROOT, AllowPageURL.INDEX},
             params = {"name", "email", "title", "description"})
-    public String sendEmail(@RequestParam Map<String,String> allParams,
-                            final RedirectAttributes attributes) {
+    public String sendEmail(@RequestParam Map<String, String> allParams,
+                            final RedirectAttributes attributes) throws MessagingException {
         String name = allParams.get("name");
         String email = allParams.get("email");
         String title = allParams.get("title");
         String description = allParams.get("description");
         Mail mail = new Mail();
-        LOGGER.error(name + email + title + description);
         String message;
-        try {
-            mail.createMessage(RECIPIENT, name, email, title, description);
-            mail.sendEmail();
-            message = "Email was sent.";
-        } catch (MessagingException e) {
-            LOGGER.error("Email of \"{}\" wasn't sent.", name);
-            message = "Email wasn't sent.";
-        }
+        mail.createMessage(RECIPIENT, name, email, title, description);
+        mail.sendEmail();
+        message = "Email was sent.";
         attributes.addFlashAttribute("message", message);
         attributes.addFlashAttribute("redirectUrl", AllowPageURL.ROOT);
         return "redirect:" + AllowPageURL.MESSAGE;

@@ -3,11 +3,10 @@ package by.tolkun.barbershop.controller;
 import by.tolkun.barbershop.builder.UserBuilder;
 import by.tolkun.barbershop.entity.Role;
 import by.tolkun.barbershop.entity.User;
+import by.tolkun.barbershop.exception.ControllerException;
 import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +20,6 @@ import java.util.Map;
 
 @Controller
 public class SigninController {
-    private static final Logger LOGGER
-            = LogManager.getLogger(SigninController.class);
 
     private static final String DEFAULT_ADMIN_AVATAR_JPG
             = "/upload/admin/defaultAvatar.jpg";
@@ -46,7 +43,7 @@ public class SigninController {
             "repeatPassword"})
     public String signin(@RequestParam Map<String, String> allParams,
                          final HttpServletRequest request,
-                         final RedirectAttributes attributes) {
+                         final RedirectAttributes attributes) throws ControllerException {
         String surname = allParams.get("surname");
         String name = allParams.get("name");
         String patronymic = allParams.get("patronymic");
@@ -55,19 +52,13 @@ public class SigninController {
         String login = allParams.get("login");
         String password = allParams.get("password");
         String repeatPassword = allParams.get("repeatPassword");
-        LOGGER.debug("Try to register: surname={}, name={}, patronymic={}, email={}, phone={}, login={}",
-                surname, name, patronymic, email, phone, login);
         String message;
-        String redirectUrl = AllowPageURL.SIGNIN;
+        String redirectUrl;
         if (password.equals(repeatPassword)) {
             User user = null;
             user = userService.findByLogin(login);
             if (user != null) {
-                message = "User with such login \"" + login + "\" exists.";
-                LOGGER.warn(
-                        "Attempt to register a user with an existing login={}",
-                        login
-                );
+                throw new ControllerException("Attempt to register a user with an existing login=" + login);
             } else {
                 UserBuilder userBuilder = new UserBuilder();
                 File file = new File(request.getContextPath()
@@ -92,10 +83,9 @@ public class SigninController {
                 userService.save(user);
                 message = "Registration successful.";
                 redirectUrl = AllowPageURL.LOGIN;
-                LOGGER.info("New user={} was saved.", user);
             }
         } else {
-            message = "Passwords are not match, try again.";
+            throw new ControllerException("Passwords are not match");
         }
         attributes.addFlashAttribute("message", message);
         attributes.addFlashAttribute("redirectUrl", redirectUrl);

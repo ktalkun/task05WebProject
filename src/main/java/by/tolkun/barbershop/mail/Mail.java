@@ -1,8 +1,5 @@
 package by.tolkun.barbershop.mail;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -12,7 +9,6 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class Mail {
-    private static final Logger LOGGER = LogManager.getLogger(Mail.class);
 
     private static final String PORT = "587";   // gmail's smtp port
     private static final String MAIL_HOST = "smtp.gmail.com";
@@ -46,8 +42,8 @@ public class Mail {
         mailMessage.setSubject(title);
         String mailBody =
                 "Name: " + name + " " +
-                "Email: " + email + "   " +
-                "Description: " + description;
+                        "Email: " + email + "   " +
+                        "Description: " + description;
         mailMessage.setContent(mailBody, "text/html; charset=UTF-8");  // for a html email
     }
 
@@ -56,7 +52,6 @@ public class Mail {
         transport.connect(MAIL_HOST, FROM_USER, FROM_USER_PASSWORD);
         transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
         transport.close();
-        LOGGER.debug("Email sent successfully.");
     }
 
 }

@@ -9,8 +9,6 @@ import by.tolkun.barbershop.service.OfferService;
 import by.tolkun.barbershop.service.ReservationService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +25,6 @@ import java.util.Map;
 
 @Controller
 public class BookController {
-
-    private static final Logger LOGGER
-            = LogManager.getLogger(BookController.class);
 
     private OfferService offerService;
 
@@ -57,7 +52,7 @@ public class BookController {
             params = {"offer", "employee", "date", "time"})
     public String makeReservation(@RequestParam Map<String, String> allParams,
                                   HttpSession session,
-                                  RedirectAttributes attributes) {
+                                  RedirectAttributes attributes) throws ParseException {
         String message;
         int offerId = Integer.parseInt(allParams.get("offer"));
         int employeeId = Integer.parseInt(allParams.get("employee"));
@@ -65,39 +60,30 @@ public class BookController {
         String timeParam = allParams.get("time");
 
         Date date;
-        try {
-            java.util.Date dateTwelveTime = new java.util.Date(
-                    new SimpleDateFormat("dd/MM/yyyy HH:mm a")
-                            .parse(dateParam + " " + timeParam)
-                            .getTime());
-            date = new Date(new java.util.Date(
-                    new SimpleDateFormat("dd/MM/yyyy HH:mm")
-                            .format(dateTwelveTime)).getTime());
+        java.util.Date dateTwelveTime = new java.util.Date(
+                new SimpleDateFormat("dd/MM/yyyy HH:mm a")
+                        .parse(dateParam + " " + timeParam)
+                        .getTime());
+        date = new Date(new java.util.Date(
+                new SimpleDateFormat("dd/MM/yyyy HH:mm")
+                        .format(dateTwelveTime)).getTime());
 
-            User user = (User) session.getAttribute("authorizedUser");
+        User user = (User) session.getAttribute("authorizedUser");
 
-            Offer offer;
-            offer = offerService.findByIdentity(offerId);
+        Offer offer;
+        offer = offerService.findByIdentity(offerId);
 
-            Employee employee;
-            employee = employeeService.findByIdentity(employeeId);
+        Employee employee;
+        employee = employeeService.findByIdentity(employeeId);
 
-            ReservationBuilder reservationBuilder = new ReservationBuilder();
-            reservationBuilder
-                    .offer(offer)
-                    .customer(user)
-                    .employee(employee)
-                    .date(date);
-            LOGGER.debug(offerId + " " + employeeId + " " + date);
-            reservationService.save(reservationBuilder.build());
-            LOGGER.debug("Got offerId: {}, customerId: {}, employeeId: {}, date: {}",
-                    offer.getId(), user.getId(), employee.getId(), date);
-            LOGGER.info("Reservation was saved.");
-            message = "Reservation was saved.";
-        } catch (ParseException e) {
-            LOGGER.error(e);
-            message = "Wrong date format.";
-        }
+        ReservationBuilder reservationBuilder = new ReservationBuilder();
+        reservationBuilder
+                .offer(offer)
+                .customer(user)
+                .employee(employee)
+                .date(date);
+        reservationService.save(reservationBuilder.build());
+        message = "Reservation was saved.";
         attributes.addFlashAttribute("message", message);
         attributes.addFlashAttribute("redirectUrl", AllowPageURL.ROOT);
         return "redirect:" + AllowPageURL.MESSAGE;

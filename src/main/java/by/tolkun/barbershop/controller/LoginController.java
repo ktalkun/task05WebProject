@@ -6,8 +6,6 @@ import by.tolkun.barbershop.entity.User;
 import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 public class LoginController {
-    private static final Logger LOGGER
-            = LogManager.getLogger(LoginController.class);
 
     private static Map<Role, List<MenuItem>> profileMenu = new ConcurrentHashMap<>();
 
@@ -94,7 +90,6 @@ public class LoginController {
 
     @RequestMapping(path = AllowPageURL.LOGIN)
     public String showPage() {
-        LOGGER.debug("It's LoginController");
         return AllowView.LOGIN;
     }
 
@@ -104,33 +99,16 @@ public class LoginController {
                         final RedirectAttributes attributes) {
         String login = allParams.get("login");
         String password = allParams.get("password");
-        LOGGER.debug("It's LoginController \"login\" login={}", login);
         User user = null;
         user = userService.findByLoginAndPassword(login, password);
-        LOGGER.debug(user);
         String redirectURL;
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("authorizedUser", user);
             session.setAttribute("profileMenu",
                     profileMenu.get(user.getRole()));
-            LOGGER.info(
-                    "User {} logged in from {} ({}:{})",
-                    login,
-                    request.getRemoteAddr(),
-                    request.getRemoteHost(),
-                    request.getRemotePort()
-            );
             redirectURL = AllowPageURL.INDEX;
         } else {
-//                TODO: replace to resource bundle
-            LOGGER.info(
-                    "User {} unsuccessfully tried to log in from {} ({}:{})",
-                    login,
-                    request.getRemoteAddr(),
-                    request.getRemoteHost(),
-                    request.getRemotePort()
-            );
             attributes.addFlashAttribute("message", "Имя пользователя и пароль не совпадают.");
             attributes.addFlashAttribute("redirectUrl", AllowPageURL.LOGIN);
             redirectURL = AllowPageURL.MESSAGE;

@@ -6,8 +6,6 @@ import by.tolkun.barbershop.service.ReservationService;
 import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +25,6 @@ import java.util.Objects;
 
 @Controller
 public class ProfileController {
-
-    private static final Logger LOGGER
-            = LogManager.getLogger(ProfileController.class);
 
     private static final String NAME_UPLOAD_DIRECTORY = "resources/upload/avatars";
 
@@ -59,7 +54,7 @@ public class ProfileController {
                              @RequestParam(name = "avatarImage",
                                      required = false) MultipartFile file,
                              final RedirectAttributes attributes,
-                             final HttpServletRequest request) {
+                             final HttpServletRequest request) throws IOException {
         String name = allParams.get("name");
         String surname = allParams.get("surname");
         String patronymic = allParams.get("patronymic");
@@ -68,9 +63,6 @@ public class ProfileController {
         User user = (User) request
                 .getSession(false)
                 .getAttribute("authorizedUser");
-        LOGGER.debug("Got avatar: {},  name: {}, surname: {}, patronymic: {}, phone: {}, email: {}",
-                file != null ? file.getOriginalFilename() : null, name, surname, patronymic, phone,
-                email);
         user.setName(name);
         user.setSurname(surname);
         user.setPatronymic(patronymic);
@@ -98,8 +90,6 @@ public class ProfileController {
 
         reservationService.delete(reservationId);
         String message = "Reservation was deleted.";
-        LOGGER.info("Reservation with id = {} deleted.",
-                reservationId);
         attributes.addFlashAttribute("message", message);
         attributes.addFlashAttribute("redirectUrl",
                 AllowPageURL.PROFILE_EDIT);
@@ -108,23 +98,19 @@ public class ProfileController {
 
     private void uploadAvatar(final MultipartFile file,
                               final File uploadDir,
-                              final User user) {
-        try {
-            if (!uploadDir.exists() && !uploadDir.mkdir()) {
-                throw new IOException("Directory wasn't created.");
-            }
-            String submittedFileName = file.getOriginalFilename();
-            if (Objects.equals(submittedFileName, "")) {
-                return;
-            }
-            String fileName = user.getLogin() +
-                    submittedFileName.substring(Objects
-                            .requireNonNull(submittedFileName).indexOf('.'));
-            file.transferTo(new File(uploadDir.getPath()
-                    + File.separator + fileName));
-            user.setImagePath(NAME_UPLOAD_DIRECTORY + File.separator + fileName);
-        } catch (IOException e) {
-            LOGGER.error(e);
+                              final User user) throws IOException {
+        if (!uploadDir.exists() && !uploadDir.mkdir()) {
+            throw new IOException("Directory wasn't created.");
         }
+        String submittedFileName = file.getOriginalFilename();
+        if (Objects.equals(submittedFileName, "")) {
+            return;
+        }
+        String fileName = user.getLogin() +
+                submittedFileName.substring(Objects
+                        .requireNonNull(submittedFileName).indexOf('.'));
+        file.transferTo(new File(uploadDir.getPath()
+                + File.separator + fileName));
+        user.setImagePath(NAME_UPLOAD_DIRECTORY + File.separator + fileName);
     }
 }
