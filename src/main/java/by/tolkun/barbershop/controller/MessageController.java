@@ -16,15 +16,8 @@ public class MessageController {
     public String shopPage(@ModelAttribute("message") String message,
                            @ModelAttribute("redirectUrl") String redirectUrl,
                            Model model, HttpServletRequest request) {
-//        TODO: delete checking null after refactor SecurityFilter.class
-        if (message != null && !message.isEmpty()
-                && redirectUrl != null && !redirectUrl.isEmpty()) {
-            model.addAttribute("message", message);
-            model.addAttribute("redirectUrl", redirectUrl);
-        } else {
-            model.addAttribute("message", request.getAttribute("message"));
-            model.addAttribute("redirectUrl", request.getAttribute("redirectUrl"));
-        }
+        model.addAttribute("message", message);
+        model.addAttribute("redirectUrl", redirectUrl);
         return AllowView.MESSAGE;
     }
 }
