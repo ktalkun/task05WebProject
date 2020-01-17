@@ -1,6 +1,7 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 <#import "/spring.ftl" as spring />
 <#macro menu>
-    <#if authorizedUser??>
+    <@security.authorize access="isAuthenticated()">
     <ul id="additional-menu" class="profile-links">
         <#list profileMenu as item>
             <li>
@@ -11,5 +12,5 @@
         </#list>
         <#nested>
     </ul>
-    </#if>
+    </@security.authorize>
 </#macro>

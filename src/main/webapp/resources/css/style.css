@@ -79,6 +79,13 @@ header .dropdown-menu{
     margin-right: -29px !important;
 }
 
+header .user-details{
+    display: flex !important;
+    align-items: center;
+    height: 60px;
+    color: #FFFFFF;
+}
+
 #nav-bar {
     display: flex;
     justify-content: space-between;
