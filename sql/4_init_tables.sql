@@ -9,7 +9,7 @@ INSERT INTO users (login,
                    image_path,
                    role)
 VALUES ("admin",
-        "72phEFttR6ik1wYYLBk0iRjIr5DpWoSJTNo4A6QXY+PlfjuFnjfGguvvtUDlvKtPmUSu8jXwrRCADXR5FHkB7w==",
+        "$2a$10$nEu7exwosM3vsWzVmJeobuD257U.II8xK6tGyRpcSqjJpuoC58Gwq",
         "admin",
         "admin",
         "admin",
