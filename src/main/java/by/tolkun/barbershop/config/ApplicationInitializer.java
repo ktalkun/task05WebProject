@@ -1,11 +1,11 @@
 package by.tolkun.barbershop.config;
 
-import by.tolkun.barbershop.filter.SecurityFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.FilterRegistration;
@@ -30,7 +30,9 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         encodingFilter.setInitParameter("forceEncoding", "true");
         encodingFilter.addMappingForUrlPatterns(null, true, "/*");
 
-        context.addFilter("securityFilter", new SecurityFilter()).addMappingForUrlPatterns(null, true, "/*" );
+        context.addFilter("springSecurityFilterChain",
+                new DelegatingFilterProxy("springSecurityFilterChain"))
+                .addMappingForUrlPatterns(null, false, "/*");
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(
                 new GenericWebApplicationContext());

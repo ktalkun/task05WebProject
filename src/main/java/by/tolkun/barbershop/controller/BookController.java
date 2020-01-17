@@ -7,6 +7,7 @@ import by.tolkun.barbershop.entity.User;
 import by.tolkun.barbershop.service.EmployeeService;
 import by.tolkun.barbershop.service.OfferService;
 import by.tolkun.barbershop.service.ReservationService;
+import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,15 +29,19 @@ public class BookController {
 
     private OfferService offerService;
 
+    private UserService userService;
+
     private EmployeeService employeeService;
 
     private ReservationService reservationService;
 
     @Autowired
     public BookController(OfferService offerService,
+                          UserService userService,
                           EmployeeService employeeService,
                           ReservationService reservationService) {
         this.offerService = offerService;
+        this.userService = userService;
         this.employeeService = employeeService;
         this.reservationService = reservationService;
     }
@@ -51,7 +56,7 @@ public class BookController {
     @PostMapping(path = AllowPageURL.BOOK,
             params = {"offer", "employee", "date", "time"})
     public String makeReservation(@RequestParam Map<String, String> allParams,
-                                  HttpSession session,
+                                  Principal principal,
                                   RedirectAttributes attributes) throws ParseException {
         String message;
         int offerId = Integer.parseInt(allParams.get("offer"));
@@ -68,7 +73,7 @@ public class BookController {
                 new SimpleDateFormat("dd/MM/yyyy HH:mm")
                         .format(dateTwelveTime)).getTime());
 
-        User user = (User) session.getAttribute("authorizedUser");
+        User user = userService.findByLogin(principal.getName());
 
         Offer offer;
         offer = offerService.findByIdentity(offerId);

@@ -7,6 +7,7 @@ import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,9 +42,11 @@ public class ProfileController {
 
     @RequestMapping(path = AllowPageURL.PROFILE_EDIT)
     public String showEditPage(final Model model,
-                               final HttpSession session) {
-        List<Reservation> reservations = reservationService.findByCustomer(
-                ((User) session.getAttribute("authorizedUser")).getId());
+                               final Principal principal) {
+        User authenticatedUser = userService.findByLogin(principal.getName());
+        List<Reservation> reservations = reservationService
+                .findByCustomer(authenticatedUser.getId());
+        model.addAttribute("authenticatedUser", authenticatedUser);
         model.addAttribute("userReservations", reservations);
         return AllowView.PROFILE_EDIT;
     }
@@ -53,6 +56,7 @@ public class ProfileController {
     public String updateUser(@RequestParam Map<String, String> allParams,
                              @RequestParam(name = "avatarImage",
                                      required = false) MultipartFile file,
+                             final Authentication authentication,
                              final RedirectAttributes attributes,
                              final HttpServletRequest request) throws IOException {
         String name = allParams.get("name");
@@ -60,9 +64,7 @@ public class ProfileController {
         String patronymic = allParams.get("patronymic");
         String phone = allParams.get("phone");
         String email = allParams.get("email");
-        User user = (User) request
-                .getSession(false)
-                .getAttribute("authorizedUser");
+        User user = (User) authentication.getPrincipal();
         user.setName(name);
         user.setSurname(surname);
         user.setPatronymic(patronymic);
@@ -87,7 +89,6 @@ public class ProfileController {
     public String removeReservation(@RequestParam(name = "reservation-id")
                                             int reservationId,
                                     final RedirectAttributes attributes) {
-
         reservationService.delete(reservationId);
         String message = "Reservation was deleted.";
         attributes.addFlashAttribute("message", message);
