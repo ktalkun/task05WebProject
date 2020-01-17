@@ -1,13 +1,20 @@
 package by.tolkun.barbershop.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Class for user representation of web application.
  *
  * @author Kirill Tolkun
  */
-public class User extends Entity {
+public class User extends Entity implements UserDetails {
 
     /**
      * Login of user.
@@ -82,12 +89,76 @@ public class User extends Entity {
     }
 
     /**
+     * Get granted authorities
+     *
+     * @return granted authorities
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(role.toString()));
+        return authorities;
+    }
+
+    /**
      * Get password.
      *
      * @return password of user
      */
+    @Override
     public String getPassword() {
         return password;
+    }
+
+    /**
+     * Get username (login)
+     *
+     * @return username (login)
+     */
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    /**
+     * Check account isn't expired.
+     *
+     * @return {@code true} if account isn't expired, {@code false} otherwise
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * Check account isn't locked.
+     *
+     * @return {@code true} id account is locked, {@code false} otherwise
+     */
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * Check the credentials isn't expired.
+     *
+     * @return {@code true} if credentials isn't expired, {@code false}
+     * otherwise
+     */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * Check the user is enabled.
+     *
+     * @return {@code true} is user is enabled and {@code false} otherwise
+     */
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     /**
@@ -289,7 +360,7 @@ public class User extends Entity {
     public String toString() {
         return "User{"
                 + "login='" + login + '\''
-                + ", password='" + password + '\''
+                + ", password=[PROTECTED]"
                 + ", name='" + name + '\''
                 + ", surname='" + surname + '\''
                 + ", patronymic='" + patronymic + '\''
@@ -298,6 +369,12 @@ public class User extends Entity {
                 + ", imagePath='" + imagePath + '\''
                 + ", role=" + role
                 + " " + super.toString()
+                + "UserDetails{"
+                + "enabled='" + isEnabled() + '\''
+                + "accountNonExpired='" + isAccountNonExpired() + '\''
+                + "credentialsNonExpired='" + isCredentialsNonExpired() + '\''
+                + "accountNonLocked='" + isAccountNonLocked() + '\''
+                + "grantedAuthorities='" + getAuthorities() + '\''
                 + "} ";
     }
 }

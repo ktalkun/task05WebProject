@@ -13,12 +13,15 @@ public abstract class Entity {
      */
     private int id;
 
+    Entity() {
+    }
+
     /**
      * Constructor with parameters.
      *
      * @param inputId of new entity
      */
-    public Entity(final int inputId) {
+    Entity(final int inputId) {
         id = inputId;
     }
 
