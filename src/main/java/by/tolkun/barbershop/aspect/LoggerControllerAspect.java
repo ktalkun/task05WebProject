@@ -1,16 +1,15 @@
 package by.tolkun.barbershop.aspect;
 
-import by.tolkun.barbershop.entity.User;
-import by.tolkun.barbershop.url.AllowPageURL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Aspect
@@ -30,41 +29,6 @@ public class LoggerControllerAspect {
     @AfterReturning("execution(* by.tolkun.barbershop.controller.BookController.makeReservation(..))")
     public void logMakeReservationBookControllerAfterReturning(JoinPoint joinPoint) {
         LOGGER.debug("{}. Reservation was saved.", joinPoint.getTarget().getClass());
-    }
-
-    //    LoginController
-    @Before("execution(* by.tolkun.barbershop.controller.LoginController.login(..))")
-    public void logLoginLoginControllerBefore(JoinPoint joinPoint) {
-        LOGGER.debug("{}. Login user with login: {}.",
-                joinPoint.getTarget().getClass(),
-                ((Map<String, String>) joinPoint.getArgs()[0]).get("login"));
-    }
-
-    @AfterReturning(value = "execution(* by.tolkun.barbershop.controller.LoginController.login(..))",
-            returning = "returnValue")
-    public void logLoginLoginControllerAfterReturning(JoinPoint joinPoint,
-                                                      String returnValue) {
-        String login = ((Map<String, String>) joinPoint.getArgs()[0]).get("login");
-        HttpServletRequest request
-                = (HttpServletRequest) joinPoint.getArgs()[1];
-        String logMessage;
-        if (returnValue.equals("redirect:" + AllowPageURL.INDEX)) {
-            logMessage = "{}. User \"{}\" logged in from {} ({}:{})";
-        } else {
-            logMessage = "{}. User \"{}\" unsuccessfully tried to log in from {} ({}:{})";
-        }
-        LOGGER.info(logMessage, joinPoint.getTarget().getClass(), login,
-                request.getRemoteAddr(), request.getRemoteHost(),
-                request.getRemotePort());
-    }
-
-    //    LogoutController
-    @Before("execution(* by.tolkun.barbershop.controller.LogoutController.showPage(..))")
-    public void logShowPageLogoutControllerBefore(JoinPoint joinPoint) {
-        String login = ((User) ((HttpSession) joinPoint.getArgs()[0])
-                .getAttribute("authorizedUser")).getLogin();
-        LOGGER.info("{}. User \"{}\" is logged out.",
-                joinPoint.getTarget().getClass(), login);
     }
 
     //    MainController
