@@ -1,4 +1,4 @@
-<#include "tags/head.ftl"/>
+f<#include "tags/head.ftl"/>
 <#include "tags/header.ftl"/>
 <#include "tags/footer.ftl"/>
 
@@ -21,7 +21,7 @@
         <#list employees as employee>
             <form action="${formHandler}">
                 <input hidden name="employeeId" value="${employee.id}">
-                <img src="<@spring.url "${employee.imagePath}"/>">
+                <img src="<@spring.url "/${employee.imagePath}"/>">
                 <div>
                     <p>${employee.name} ${employee.surname}</p>
                     <ul>
