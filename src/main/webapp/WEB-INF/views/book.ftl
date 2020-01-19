@@ -58,7 +58,6 @@
         // Enable date picker
         $('#datepicker').uui_datepicker({ todayHighlight: true });
     </script>
-    </script>
 </@footer>
 </body>
 </html>
