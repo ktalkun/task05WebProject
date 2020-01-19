@@ -15,7 +15,7 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
-    public String showPage() {
+    public String handlePageNotFound() {
         return AllowView.NOT_FOUND;
     }
 }
