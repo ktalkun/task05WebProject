@@ -16,8 +16,14 @@ public class MessageController {
     public String shopPage(@ModelAttribute("message") String message,
                            @ModelAttribute("redirectUrl") String redirectUrl,
                            Model model, HttpServletRequest request) {
-        model.addAttribute("message", message);
-        model.addAttribute("redirectUrl", redirectUrl);
+        if (message != null && !message.isEmpty()
+                && redirectUrl != null && !redirectUrl.isEmpty()) {
+            model.addAttribute("message", message);
+            model.addAttribute("redirectUrl", redirectUrl);
+        } else {
+            model.addAttribute("message", request.getAttribute("message"));
+            model.addAttribute("redirectUrl", request.getAttribute("redirectUrl"));
+        }
         return AllowView.MESSAGE;
     }
 }

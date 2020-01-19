@@ -1,6 +1,7 @@
 package by.tolkun.barbershop.config;
 
 import by.tolkun.barbershop.entity.Role;
+import by.tolkun.barbershop.url.AllowPageURL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -52,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/login.html", "/signin.html").anonymous()
                 .antMatchers("/book.html").hasAuthority(
-                        Role.ROLE_CUSTOMER.toString())
+                Role.ROLE_CUSTOMER.toString())
                 .antMatchers("/profile/**").authenticated()
                 .anyRequest().permitAll();
 
@@ -65,13 +66,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login.html")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/index.html");
+                .defaultSuccessUrl("/index.html")
+                .failureHandler((request, response, e) -> {
+                    request.setAttribute("message",
+                            "User with such login or password isn't existed.");
+                    request.setAttribute("redirectUrl", AllowPageURL.LOGIN);
+                    request
+                            .getRequestDispatcher(AllowPageURL.MESSAGE)
+                            .forward(request, response);
+                });
 
         security
                 .logout()
                 .logoutUrl("/logout.html")
                 .logoutSuccessUrl("/index.html")
                 .invalidateHttpSession(true);
+
+        security
+                .exceptionHandling()
+                .accessDeniedHandler((request, response, e) -> {
+                    request.setAttribute("message",
+                            "Access to the resource denied.");
+                    request.setAttribute("redirectUrl", AllowPageURL.INDEX);
+                    request
+                            .getRequestDispatcher(AllowPageURL.MESSAGE)
+                            .forward(request, response);
+                });
     }
 
     @Bean
