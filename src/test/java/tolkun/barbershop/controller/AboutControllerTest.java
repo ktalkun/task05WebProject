@@ -1,5 +1,6 @@
 package tolkun.barbershop.controller;
 
+import by.tolkun.barbershop.config.SecurityConfig;
 import by.tolkun.barbershop.config.SpringConfig;
 import by.tolkun.barbershop.config.WebConfig;
 import by.tolkun.barbershop.url.AllowPageURL;
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SpringConfig.class, WebConfig.class})
+@ContextConfiguration(classes = {SpringConfig.class, WebConfig.class, SecurityConfig.class})
 @WebAppConfiguration
 public class AboutControllerTest {
 

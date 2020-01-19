@@ -1,6 +1,7 @@
 package tolkun.barbershop.controller;
 
 import by.tolkun.barbershop.builder.UserBuilder;
+import by.tolkun.barbershop.config.SecurityConfig;
 import by.tolkun.barbershop.config.SpringConfig;
 import by.tolkun.barbershop.config.WebConfig;
 import by.tolkun.barbershop.controller.LoginController;
@@ -34,26 +35,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebConfig.class, SpringConfig.class})
+@ContextConfiguration(classes = {WebConfig.class, SpringConfig.class, SecurityConfig.class})
 @WebAppConfiguration
 public class LoginControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @Mock
-    private UserService userServiceMock;
-
-    @Autowired
-    @InjectMocks
     private LoginController loginController;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
+                .standaloneSetup(loginController)
                 .build();
     }
 
@@ -63,50 +57,5 @@ public class LoginControllerTest {
                 .perform(get(AllowPageURL.LOGIN))
                 .andExpect(status().isOk())
                 .andExpect(view().name(AllowView.LOGIN));
-    }
-
-    @Test
-    public void login_ShouldAddUserAndAddMenuToSessionAndRedirectAndRenderIndexView()
-            throws Exception {
-        User testUser = new UserBuilder()
-                .login("TestLogin")
-                .password("TestPassword")
-                .role(Role.EMPLOYEE)
-                .build();
-        when(userServiceMock.findByLoginAndPassword(testUser.getLogin(),
-                testUser.getPassword()))
-                .thenReturn(testUser);
-        mockMvc
-                .perform(post(AllowPageURL.LOGIN)
-                        .param("login", testUser.getLogin())
-                        .param("password", testUser.getPassword())
-                )
-                .andExpect(status().is(302))
-                .andExpect(redirectedUrl(AllowPageURL.INDEX))
-                .andExpect(view().name("redirect:"
-                        + AllowPageURL.INDEX))
-                .andExpect(request().sessionAttribute("authorizedUser",
-                        testUser))
-                .andExpect(request().sessionAttribute("profileMenu",
-                        new ArrayList<>(Arrays.asList(
-                                new MenuItem(
-                                        AllowPageURL.PROFILE_EDIT,
-                                        "Profile",
-                                        "fal fa-shopping-bag"
-                                ),
-                                new MenuItem(
-                                        "profile/reviews.jsp",
-                                        "Reviews",
-                                        "fal fa-comment-alt"
-                                ),
-                                new MenuItem(
-                                        "profile/history.jsp",
-                                        "History",
-                                        "fal fa-history"
-                                )))));
-        verify(userServiceMock, times(1))
-                .findByLoginAndPassword(testUser.getLogin(),
-                        testUser.getPassword());
-        verifyNoMoreInteractions(userServiceMock);
     }
 }

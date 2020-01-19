@@ -1,7 +1,9 @@
 package tolkun.barbershop.controller;
 
+import by.tolkun.barbershop.config.SecurityConfig;
 import by.tolkun.barbershop.config.SpringConfig;
 import by.tolkun.barbershop.config.WebConfig;
+import by.tolkun.barbershop.controller.MainController;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
 import org.junit.Before;
@@ -20,19 +22,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebConfig.class, SpringConfig.class})
+@ContextConfiguration(classes = {WebConfig.class, SpringConfig.class, SecurityConfig.class})
 @WebAppConfiguration
 public class MainControllerTest {
 
     private MockMvc mockMvc;
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
+    private MainController mainController;
 
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
+                .standaloneSetup(mainController)
                 .build();
     }
 

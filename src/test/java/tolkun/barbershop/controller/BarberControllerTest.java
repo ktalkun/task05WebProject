@@ -1,6 +1,7 @@
 package tolkun.barbershop.controller;
 
 import by.tolkun.barbershop.builder.EmployeeBuilder;
+import by.tolkun.barbershop.config.SecurityConfig;
 import by.tolkun.barbershop.config.SpringConfig;
 import by.tolkun.barbershop.config.WebConfig;
 import by.tolkun.barbershop.controller.BarberController;
@@ -15,13 +16,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.sql.Date;
 import java.util.AbstractMap;
@@ -37,19 +36,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebConfig.class, SpringConfig.class})
+@ContextConfiguration(classes = {WebConfig.class, SpringConfig.class, SecurityConfig.class})
 @WebAppConfiguration
 public class BarberControllerTest {
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
     @Mock
     private EmployeeService employeeServiceMock;
 
-    @Autowired
     @InjectMocks
     private BarberController barberController;
 
@@ -57,7 +52,7 @@ public class BarberControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
+                .standaloneSetup(barberController)
                 .build();
     }
 
@@ -74,7 +69,7 @@ public class BarberControllerTest {
                         .email("testemail@email.com")
                         .phone(123456789)
                         .imagePath("TestImagePath")
-                        .role(Role.EMPLOYEE))
+                        .role(Role.ROLE_EMPLOYEE))
                         .experience(new Date(0))
                         .socialRef(Stream.of(
                                 new AbstractMap.SimpleEntry<>("im", "testIm"),

@@ -1,5 +1,6 @@
 package tolkun.barbershop.controller;
 
+import by.tolkun.barbershop.config.SecurityConfig;
 import by.tolkun.barbershop.config.SpringConfig;
 import by.tolkun.barbershop.config.WebConfig;
 import by.tolkun.barbershop.controller.SigninController;
@@ -13,13 +14,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -29,19 +28,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SpringConfig.class, WebConfig.class})
+@ContextConfiguration(classes = {SpringConfig.class, WebConfig.class, SecurityConfig.class})
 @WebAppConfiguration
 public class SigninControllerTest {
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
     @Mock
     private UserService userServiceMock;
 
-    @Autowired
     @InjectMocks
     private SigninController signinController;
 
@@ -49,7 +44,7 @@ public class SigninControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
+                .standaloneSetup(signinController)
                 .build();
     }
 
@@ -60,7 +55,6 @@ public class SigninControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(AllowView.SIGNIN));
     }
-
 
 
     @Test
