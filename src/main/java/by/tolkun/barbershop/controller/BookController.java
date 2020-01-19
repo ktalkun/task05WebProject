@@ -11,6 +11,7 @@ import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 
 @Controller
+@Secured({"ROLE_CUSTOMER"})
 public class BookController {
 
     private OfferService offerService;

@@ -7,6 +7,7 @@ import by.tolkun.barbershop.service.UserService;
 import by.tolkun.barbershop.url.AllowPageURL;
 import by.tolkun.barbershop.view.AllowView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 public class ProfileController {
 
     private static final String NAME_UPLOAD_DIRECTORY = "resources/upload/avatars";
