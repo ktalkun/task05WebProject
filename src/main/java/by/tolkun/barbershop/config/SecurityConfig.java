@@ -1,10 +1,12 @@
 package by.tolkun.barbershop.config;
 
+import by.tolkun.barbershop.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,6 +18,11 @@ import org.springframework.web.filter.GenericFilterBean;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,  // @PreAuthorize, @PostAuthorize
+        securedEnabled = true,  // @Secured
+        jsr250Enabled = true    // @RoleAllowed
+)
 @ComponentScan("by.tolkun.barbershop")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -44,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/login.html", "/signin.html").anonymous()
-                .antMatchers("/book.html").hasAuthority("CUSTOMER")
+                .antMatchers("/book.html").hasAuthority(
+                        Role.ROLE_CUSTOMER.toString())
                 .antMatchers("/profile/**").authenticated()
                 .anyRequest().permitAll();
 

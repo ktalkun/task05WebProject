@@ -20,12 +20,12 @@ public class ReservationBuilder extends EntityBuilder {
     private Offer offer;
 
     /**
-     * User with {@code Role.CUSTOMER}.
+     * User with {@code Role.ROLE_CUSTOMER}.
      */
     private User customer;
 
     /**
-     * User with {@code Role.EMPLOYEE}.
+     * User with {@code Role.ROLE_EMPLOYEE}.
      */
     private Employee employee;
 

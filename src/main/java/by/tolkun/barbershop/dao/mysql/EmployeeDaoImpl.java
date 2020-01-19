@@ -66,7 +66,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 "employees.work_week AS work_week " +
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
-                "WHERE `role` = " + Role.EMPLOYEE.getIdentity() + "&&" + " `id` = ?;";
+                "WHERE `role` = " + Role.ROLE_EMPLOYEE.getIdentity() + "&&" + " `id` = ?;";
         try {
             return jdbcTemplate.queryForObject(query, new EmployeeMapper(), id);
         } catch (EmptyResultDataAccessException e) {
@@ -93,7 +93,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 "employees.work_week AS work_week " +
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
-                "WHERE `role` = " + Role.EMPLOYEE.getIdentity();
+                "WHERE `role` = " + Role.ROLE_EMPLOYEE.getIdentity();
         return jdbcTemplate.query(query, new EmployeeMapper());
     }
 
@@ -143,7 +143,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 "employees.work_week AS work_week " +
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
-                "WHERE `role` = " + Role.EMPLOYEE.getIdentity() + " " +
+                "WHERE `role` = " + Role.ROLE_EMPLOYEE.getIdentity() + " " +
                 "ORDER BY users.id " +
                 "LIMIT ?, ?;";
         return jdbcTemplate.query(query, new EmployeeMapper(), offset, limit);

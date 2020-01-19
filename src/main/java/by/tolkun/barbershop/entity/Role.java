@@ -7,23 +7,23 @@ public enum Role {
     /**
      * Administrator of the web application.
      */
-    ADMINISTRATOR("администратор"),
+    ROLE_ADMINISTRATOR("администратор"),
     /**
      * Barbershop's director.
      */
-    DIRECTOR("директор"),
+    ROLE_DIRECTOR("директор"),
     /**
      * Barbershop's employee.
      */
-    EMPLOYEE("сотрудник"),
+    ROLE_EMPLOYEE("сотрудник"),
     /**
      * Barbershop's customer.
      */
-    CUSTOMER("клиент"),
+    ROLE_CUSTOMER("клиент"),
     /**
      * Barbershop's guest.
      */
-    GUEST("гость");
+    ROLE_GUEST("гость");
 
     /**
      * Value of enum.

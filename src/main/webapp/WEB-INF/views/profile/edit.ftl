@@ -80,7 +80,7 @@
         </div>
     </aside>
     <div>
-        <@security.authorize access="hasAuthority('CUSTOMER')">
+        <@security.authorize access="hasRole('ROLE_CUSTOMER')">
             <h1>Текущие заказы</h1>
             <div id="current-services">
                 <#list userReservations as reservation>

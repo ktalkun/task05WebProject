@@ -78,7 +78,7 @@ public class SigninController {
                         .login(login)
                         .password(password)
                         .imagePath(defaultAvatarPath)
-                        .role(Role.CUSTOMER);
+                        .role(Role.ROLE_CUSTOMER);
                 user = userBuilder.build();
                 userService.save(user);
                 message = "Registration successful.";

@@ -28,7 +28,7 @@ public class MenuInitFilter extends GenericFilterBean {
 
     static {
 //        TODO: user resources
-        profileMenu.put(Role.ADMINISTRATOR, new ArrayList<>(Arrays.asList(
+        profileMenu.put(Role.ROLE_ADMINISTRATOR, new ArrayList<>(Arrays.asList(
                 new MenuItem(
                         AllowPageURL.PROFILE_EDIT,
                         "Profile",
@@ -45,7 +45,7 @@ public class MenuInitFilter extends GenericFilterBean {
                         "fal fa-history"
                 )
         )));
-        profileMenu.put(Role.CUSTOMER, new ArrayList<>(Arrays.asList(
+        profileMenu.put(Role.ROLE_CUSTOMER, new ArrayList<>(Arrays.asList(
                 new MenuItem(
                         AllowPageURL.PROFILE_EDIT,
                         "Profile",
@@ -62,7 +62,7 @@ public class MenuInitFilter extends GenericFilterBean {
                         "fal fa-history"
                 )
         )));
-        profileMenu.put(Role.EMPLOYEE, new ArrayList<>(Arrays.asList(
+        profileMenu.put(Role.ROLE_EMPLOYEE, new ArrayList<>(Arrays.asList(
                 new MenuItem(
                         AllowPageURL.PROFILE_EDIT,
                         "Profile",
