@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring />
 <#include "tags/head.ftl"/>
 <#include "tags/header.ftl"/>
 <#include "tags/footer.ftl"/>
@@ -10,8 +11,8 @@
 <body>
 <@header/>
 <div id="promo">
-    <img id="promo-background" src="resources/img/promo.png">
-    <img id="promo-title" src="resources/img/logo.png">
+    <img id="promo-background" src="<@spring.url "/resources/img/promo.png"/>">
+    <img id="promo-title" src="<@spring.url "/resources/img/logo.png"/>">
 </div>
 <main>
     <section id="login-form-section" class="about-section">
