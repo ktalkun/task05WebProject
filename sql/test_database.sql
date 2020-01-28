@@ -1,24 +1,24 @@
-# Table `users`
-    ## Insert
-        INSERT INTO `users` (`login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `imagePath`, `role`)
-        VALUES ("example", "pcztZ2JSKi/irUYAtxwYXfqsdfOTid1uf7f3fFmHwQnMdGXxuy5ilg/sjLX0Z50ZHIIUdKb0L9C4UsEmbgITHw==", "Кетевань", "Николахина", "Аркадьевна", "example@gmail.com", 572370606,"path/smth/img.jpg",1);
-    ## Select   all
-        SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `imagePath`, `role` FROM `users`;
-    ## Select by `id`
-        SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `imagePath`, `role` FROM `users` WHERE `id` = 1;
-    ## Select by `login` and `password`
-        SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `imagePath`, `role` FROM `users` WHERE `login` = "admin" AND password = "NHt98jzAzqNdGDlWvcqHy6UfFIQxm9mQ7sPS8o2Me/rqSjQ2qwzGFkhIkmIeVFVp7ZIChXlVd9g7gG3s838qFw==";
-    ## Update
-        UPDATE `users` SET `login` = "eyeblacks", `password` = "CC+nsAOlBsD1qp2nTj5W0hh6lj/avLt2LI8gu4Lg56XV+SxBgbF8Q8ZwQ79Xl/VCzdBP9Z+MMTb6m5RgSp/rCw==", `name`  = "Максим", `surname` = "Стульба", `patronymic` = "Валерьевич", `email` = "example@inbox.ru", `phone` = 12345612345, `imagePath` = "path", `role` = 1 WHERE `id` = 1;
-    ## Delete
-#         DELETE FROM `users` WHERE `id` = 2;
+--  Table users
+    -- --  Insert
+        INSERT INTO users (login, password, name, surname, patronymic, email, phone, imagePath, role)
+        VALUES ('example', 'pcztZ2JSKi/irUYAtxwYXfqsdfOTid1uf7f3fFmHwQnMdGXxuy5ilg/sjLX0Z50ZHIIUdKb0L9C4UsEmbgITHw==', 'Кетевань', 'Николахина', 'Аркадьевна', 'example@gmail.com', 572370606,'path/smth/img.jpg',1);
+    -- --  Select   all
+        SELECT id, login, password, name, surname, patronymic, email, phone, imagePath, role FROM users;
+    -- --  Select by id
+        SELECT id, login, password, name, surname, patronymic, email, phone, imagePath, role FROM users WHERE id = 1;
+    -- --  Select by login and password
+        SELECT id, login, password, name, surname, patronymic, email, phone, imagePath, role FROM users WHERE login = 'admin' AND password = 'NHt98jzAzqNdGDlWvcqHy6UfFIQxm9mQ7sPS8o2Me/rqSjQ2qwzGFkhIkmIeVFVp7ZIChXlVd9g7gG3s838qFw==';
+    -- --  Update
+        UPDATE users SET login = 'eyeblacks', password = 'CC+nsAOlBsD1qp2nTj5W0hh6lj/avLt2LI8gu4Lg56XV+SxBgbF8Q8ZwQ79Xl/VCzdBP9Z+MMTb6m5RgSp/rCw==', name  = 'Максим', surname = 'Стульба', patronymic = 'Валерьевич', email = 'example@inbox.ru', phone = 12345612345, imagePath = 'path', role = 1 WHERE id = 1;
+    -- --  Delete
+--          DELETE FROM users WHERE id = 2;
 
-#Table `reservations`
-    ## Insert
-        INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`)
+-- Table reservations
+    -- --  Insert
+        INSERT INTO reservations (offer_id, customer_id, employee_id, date)
         VALUES
-        (1, 10, 28, "1970-01-01");
-    ## Select all
+        (1, 10, 28, '1970-01-01');
+    -- --  Select all
         SELECT
             reservations.id,
             offers.id AS offer_id,
@@ -52,7 +52,7 @@
                  JOIN offers ON offers.id = reservations.offer_id
                  JOIN users AS customers ON customers.id = reservations.customer_id
                  JOIN users AS employees ON employees.id = reservations.employee_id;
-    ## Select by customer
+    -- --  Select by customer
         SELECT
             reservations.id,
             offers.id AS offer_id,
@@ -87,7 +87,7 @@
                  JOIN users AS customers ON customers.id = reservations.customer_id
                  JOIN users AS employees ON employees.id = reservations.employee_id
         WHERE reservations.customer_id = 1;
-    ## Select by employee
+    -- --  Select by employee
         SELECT
             reservations.id,
             offers.id AS offer_id,
@@ -122,31 +122,31 @@
                  JOIN users AS customers ON customers.id = reservations.customer_id
                  JOIN users AS employees ON employees.id = reservations.employee_id
         WHERE reservations.employee_id = 2;
-    ## Update
-        UPDATE `reservations`
+    -- --  Update
+        UPDATE reservations
         SET
-            `offer_id` = 2,
-            `customer_id` = 1,
-            `employee_id` = 2,
-            `date` = "2018-02-17"
-        WHERE `id` = 1;
-    ## Delete
-        DELETE FROM `reservations` WHERE `id` = 2;
-#Table `offers`
-    ## Insert
-        INSERT INTO `offers` (`name`, `description`, `price`, `period`)
-        VALUES ("Мытьё волос", "Мытьё волос. Укладка волос", 9.99, 25);
-    ## Select
-        SELECT `id`, `name`, `description`, `price`, `period`
-        FROM `offers`
-        WHERE `id` = 1;
-    ## Update
-    UPDATE `offers`
+            offer_id = 2,
+            customer_id = 1,
+            employee_id = 2,
+            date = '2018-02-17'
+        WHERE id = 1;
+    -- --  Delete
+        DELETE FROM reservations WHERE id = 2;
+-- Table offers
+    -- --  Insert
+        INSERT INTO offers (name, description, price, period)
+        VALUES ('Мытьё волос', 'Мытьё волос. Укладка волос', 9.99, 25);
+    -- --  Select
+        SELECT id, name, description, price, period
+        FROM offers
+        WHERE id = 1;
+    -- --  Update
+    UPDATE offers
     SET
-        `name` = "Мытьё волос",
-        `description` = "Мытьё волос. Укладка волос",
-        `price` = 9.99,
-        `period` = "25"
-    WHERE `id` = 1;
-    ## Delete
-#     DELETE FROM `offers` WHERE `id` = 2;
+        name = 'Мытьё волос',
+        description = 'Мытьё волос. Укладка волос',
+        price = 9.99,
+        period = '25'
+    WHERE id = 1;
+    -- --  Delete
+--      DELETE FROM offers WHERE id = 2;

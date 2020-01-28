@@ -1,1 +1,1 @@
-DROP DATABASE IF EXISTS `barbershop_db`;
+DROP DATABASE IF EXISTS barbershop_db;
