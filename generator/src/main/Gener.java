@@ -10,6 +10,15 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Gener {
+
+    private static final String POSTGRESQL = "postgreSql";
+    private static final String MYSQL = "mySql";
+
+    private static final String SQL_LANGUAGE = POSTGRESQL;
+
+    private static final String POSTGRESQL_USE_COMMAND = "\\c";
+    private static final String MYSQL_USE_COMMAND = "USE";
+
     private static final int NUMBER = 100;
     private static final int SUMMARY_SERVICE_NUMBER = 200;
     private static final int AVAILABLE_SERVICES_NUMBER = 16;
@@ -24,6 +33,21 @@ public class Gener {
 
 
     public static void main(String[] args) throws FileNotFoundException {
+
+        String USE_COMMAND = "";
+
+        switch (SQL_LANGUAGE) {
+            case POSTGRESQL:
+                USE_COMMAND = POSTGRESQL_USE_COMMAND;
+                break;
+            case MYSQL:
+                USE_COMMAND = MYSQL_USE_COMMAND;
+                break;
+            default:
+                USE_COMMAND = "";
+                break;
+        }
+
         Set<String> loginsSet = new HashSet<>();
         Scanner scannerLogins = new Scanner(new FileInputStream(LOGINS_PATH));
         while (scannerLogins.hasNext()) {
@@ -77,9 +101,9 @@ public class Gener {
         System.out.println("Number female patronymics: " + patronymicsFemale.size());
 
         PrintStream printStream = new PrintStream("fill_tables.sql");
-        printStream.println("USE `barbershop_db`;");
-        printStream.println("# Fill table `users`");
-        printStream.println("INSERT INTO `users` (`login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role`)");
+        printStream.println(USE_COMMAND + " barbershop_db;");
+        printStream.println("-- Fill table users");
+        printStream.println("INSERT INTO users (login, password, name, surname, patronymic, email, phone, image_path, role)");
         printStream.println("VALUES");
         StringBuilder stringBuffer = new StringBuilder();
         Set<Long> phoneNumbers = new HashSet<>();
@@ -131,43 +155,43 @@ public class Gener {
             stringBuffer
                     .append("(")
 
-                    .append("\"")
+                    .append("\'")
                     .append(login)
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append(passwordEncoder.encode(login + "1/"))
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append(name)
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append(surname)
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append(patronymic)
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append(login)
                     .append("@gmail.com")
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
                     .append(phone)
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append(avatarPath)
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
                     .append(role)
@@ -184,8 +208,8 @@ public class Gener {
         }
         currentId = 0;
 
-        printStream.println("\n# Fill table `employees`");
-        printStream.println("INSERT INTO `employees` (`employee_id`, `experience`, `im`, `fb`, `vk`, `work_week`)");
+        printStream.println("\n-- Fill table employees");
+        printStream.println("INSERT INTO employees (employee_id, experience, im, fb, vk, work_week)");
         printStream.println("VALUES");
         for (int i = 0; i < employeeIdentifiers.size(); i++) {
             Random randomWeekDay = new Random();
@@ -200,32 +224,32 @@ public class Gener {
                     .append(employeeIdentifiers.get(i))
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append(new java.sql.Date(new Date().getDate()))
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append("https://www.instagram.com/")
                     .append(employeeIdentifiers.get(i))
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append("https://www.facebook.com/")
                     .append(employeeIdentifiers.get(i))
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append("https://vk.com/")
                     .append(employeeIdentifiers.get(i))
-                    .append("\"")
+                    .append("\'")
                     .append(", ")
 
-                    .append("\"")
+                    .append("\'")
                     .append(week.toString())
-                    .append("\"")
+                    .append("\'")
 
                     .append(")");
             printStream.print(stringBuffer.toString());
@@ -237,36 +261,36 @@ public class Gener {
             stringBuffer.setLength(0);
         }
 
-        printStream.println("\n# Fill table `offers`");
+        printStream.println("\n-- Fill table offers");
         printStream.println(
-                "INSERT INTO `offers` (`name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show`)\n" +
+                "INSERT INTO offers (name, description, image_path, price, period, is_main, is_show)\n" +
                         "VALUES\n" +
-                        "(\"Традиционная<br\\>стрижка\", \"Эта классическая традиционная услуга идеально подходит,<br/>если вы хотите, чтобы ваши волосы были подстрижены правильно.<br/>Наши парикмахеры будут рады помочь вам с этим.<br/>Мытьё волос. Стрижка машинкой. Укладка волос.\", \"resources/upload/admin/service/traditional-haircut.png\", 25, 25, 1, 1),\n" +
-                        "(\"Бритьё<br\\>бороды\", \"Бритьё бороды - одна из наших самых популярных услуг.<br/>Это необходимость для всех мужчин,<br/>которые хотят иметь бороду, которая выглядит потрясающе.<br/>Распаривание кожного покрова лица. Бритьё шаветкой.\", \"resources/upload/admin/service/beard-shave.png\", 40, 60, 1, 1),\n" +
-                        "(\"Подравнивание<br\\>усов\", \"Усы - это классический выбор мужчин,<br>и они никогда не выйдут из моды надолго.<br>С нами вы можете сохранить свои усы ухоженными.<br/>Подравнивание усов. Укладка.\", \"resources/upload/admin/service/mustache-trim.png\", 30, 45, 1, 1),\n" +
-                        "(\"Подравнивание<br\\>бороды\", \"Все хорошо знаю, что борода придаёт брутальности лицу.<br/>Чтобы ваша борода смотрелась аккуратно,<br/>за ней нужен уход, именно поэтому мы предлагаем данную услугу.<br/>Придание формы бороде шаветкой. Укладка бороды.\", \"resources/upload/admin/service/beard-trim.png\", 25, 30, 1, 1),\n" +
-                        "(\"Рисунок на волосах\", \"Стрижка волос согласно трафарету.\", \"resources/upload/admin/service/hair-draw.png\", 55, 90, 0, 1),\n" +
-                        "(\"Афрокосички\", \"Мытьё волос. Заплетание косичек.\", \"resources/upload/admin/service/afro-braids.png\", 150, 90, 0, 1),\n" +
-                        "(\"Покраска бороды\", \"Мытьё, окрашивание волос бороды.\", \"resources/upload/admin/service/beard-paint.png\", 45, 75, 0, 1),\n" +
-                        "(\"Пробор/Окантовка\", \"Придание формы причёске.\", \"resources/upload/admin/service/part-edge.png\", 10, 20, 0, 1),\n" +
-                        "(\"Укладка\", \"Укладка волос.\", \"resources/upload/admin/service/styling.png\", 10, 15, 0, 1),\n" +
-                        "(\"Тонирование бороды\", \"Мытье, окрашивание, укладка бороды.\", \"resources/upload/admin/service/beard-tint.png\", 35, 40, 0, 1),\n" +
+                        "(\'Традиционная<br\\>стрижка\', \'Эта классическая традиционная услуга идеально подходит,<br/>если вы хотите, чтобы ваши волосы были подстрижены правильно.<br/>Наши парикмахеры будут рады помочь вам с этим.<br/>Мытьё волос. Стрижка машинкой. Укладка волос.\', \'resources/upload/admin/service/traditional-haircut.png\', 25, 25, true, true),\n" +
+                        "(\'Бритьё<br\\>бороды\', \'Бритьё бороды - одна из наших самых популярных услуг.<br/>Это необходимость для всех мужчин,<br/>которые хотят иметь бороду, которая выглядит потрясающе.<br/>Распаривание кожного покрова лица. Бритьё шаветкой.\', \'resources/upload/admin/service/beard-shave.png\', 40, 60, true, true),\n" +
+                        "(\'Подравнивание<br\\>усов\', \'Усы - это классический выбор мужчин,<br>и они никогда не выйдут из моды надолго.<br>С нами вы можете сохранить свои усы ухоженными.<br/>Подравнивание усов. Укладка.\', \'resources/upload/admin/service/mustache-trim.png\', 30, 45, true, true),\n" +
+                        "(\'Подравнивание<br\\>бороды\', \'Все хорошо знаю, что борода придаёт брутальности лицу.<br/>Чтобы ваша борода смотрелась аккуратно,<br/>за ней нужен уход, именно поэтому мы предлагаем данную услугу.<br/>Придание формы бороде шаветкой. Укладка бороды.\', \'resources/upload/admin/service/beard-trim.png\', 25, 30, true, true),\n" +
+                        "(\'Рисунок на волосах\', \'Стрижка волос согласно трафарету.\', \'resources/upload/admin/service/hair-draw.png\', 55, 90, false, true),\n" +
+                        "(\'Афрокосички\', \'Мытьё волос. Заплетание косичек.\', \'resources/upload/admin/service/afro-braids.png\', 150, 90, false, true),\n" +
+                        "(\'Покраска бороды\', \'Мытьё, окрашивание волос бороды.\', \'resources/upload/admin/service/beard-paint.png\', 45, 75, false, true),\n" +
+                        "(\'Пробор/Окантовка\', \'Придание формы причёске.\', \'resources/upload/admin/service/part-edge.png\', 10, 20, false, true),\n" +
+                        "(\'Укладка\', \'Укладка волос.\', \'resources/upload/admin/service/styling.png\', 10, 15, false, true),\n" +
+                        "(\'Тонирование бороды\', \'Мытье, окрашивание, укладка бороды.\', \'resources/upload/admin/service/beard-tint.png\', 35, 40, false, true),\n" +
 
-                        "(\"Королевское бритьё\", \"Распаривание кожного покрова лица. Бритьё шаветкой.\", \"path/to/preview.jpg\", 40, 60, 0, 0),\n" +
-                        "(\"Моделирование бороды\", \"Придание формы бороде шаветкой. Укладка бороды.\", \"path/to/preview.jpg\", 25, 30, 0, 0),\n" +
-                        "(\"Стрижка бороды и усов\", \"Мытьё, стрижка бороды и усов.\", \"path/to/preview.jpg\", 25, 45, 0, 0),\n" +
-                        "(\"Детская стрижка\", \"Мытьё волос. Стрижка машинков/ножниками. Укладка волос.\", \"path/to/preview.jpg\", 30, 50, 0, 0),\n" +
-                        "(\"Стрижка машинкой\", \"Мытьё волос.Стрижка машинкой. Укладка волос.\", \"path/to/preview.jpg\", 25, 25, 0, 0),\n" +
-                        "(\"Мужская стрижка\", \"Мытьё волос. Стрижка машинков/ножниками. Укладка волос.\", \"path/to/preview.jpg\", 40, 60, 0, 0),\n" +
-                        "(\"Камуфляж седины\", \"Мытьё, окрашивание волос.\", \"path/to/preview.jpg\", 45, 75, 0, 0),\n" +
-                        "(\"Окрашивание\", \"Мытьй, окрашивание волос.\", \"path/to/preview.jpg\", 60, 60, 0, 0),\n" +
-                        "(\"Очищающая маска для лица\", \"Распаривание кожи лица, наложение очищающей маски.\", \"path/to/preview.jpg\", 30, 45, 0, 0),\n" +
-                        "(\"Удаление волос воском (одна зона)\", \"Распаривание кожи выбранной зоны, удаление волос воском.\", \"path/to/preview.jpg\", 15, 15, 0, 0),\n" +
-                        "(\"Массаж головы\", \"Массаж головы.\", \"path/to/preview.jpg\", 10, 15, 0, 0);"
+                        "(\'Королевское бритьё\', \'Распаривание кожного покрова лица. Бритьё шаветкой.\', \'path/to/preview.jpg\', 40, 60, false, false),\n" +
+                        "(\'Моделирование бороды\', \'Придание формы бороде шаветкой. Укладка бороды.\', \'path/to/preview.jpg\', 25, 30, false, false),\n" +
+                        "(\'Стрижка бороды и усов\', \'Мытьё, стрижка бороды и усов.\', \'path/to/preview.jpg\', 25, 45, false, false),\n" +
+                        "(\'Детская стрижка\', \'Мытьё волос. Стрижка машинков/ножниками. Укладка волос.\', \'path/to/preview.jpg\', 30, 50, false, false),\n" +
+                        "(\'Стрижка машинкой\', \'Мытьё волос.Стрижка машинкой. Укладка волос.\', \'path/to/preview.jpg\', 25, 25, false, false),\n" +
+                        "(\'Мужская стрижка\', \'Мытьё волос. Стрижка машинков/ножниками. Укладка волос.\', \'path/to/preview.jpg\', 40, 60, false, false),\n" +
+                        "(\'Камуфляж седины\', \'Мытьё, окрашивание волос.\', \'path/to/preview.jpg\', 45, 75, false, false),\n" +
+                        "(\'Окрашивание\', \'Мытьй, окрашивание волос.\', \'path/to/preview.jpg\', 60, 60, false, false),\n" +
+                        "(\'Очищающая маска для лица\', \'Распаривание кожи лица, наложение очищающей маски.\', \'path/to/preview.jpg\', 30, 45, false, false),\n" +
+                        "(\'Удаление волос воском (одна зона)\', \'Распаривание кожи выбранной зоны, удаление волос воском.\', \'path/to/preview.jpg\', 15, 15, false, false),\n" +
+                        "(\'Массаж головы\', \'Массаж головы.\', \'path/to/preview.jpg\', 10, 15, false, false);"
         );
 
-        printStream.println("\n# Fill table `reservations`");
-        printStream.println("INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`)");
+        printStream.println("\n-- Fill table reservations");
+        printStream.println("INSERT INTO reservations (offer_id, customer_id, employee_id, date)");
         printStream.println("VALUES");
         for (int i = 0; i < SUMMARY_SERVICE_NUMBER; i++) {
             Random random = new Random();
@@ -279,10 +303,10 @@ public class Gener {
                     .append(", ")
                     .append(random.nextInt(employeeIdentifiers.size() + 1) + 1)
                     .append(", ")
-                    .append("\"")
+                    .append("\'")
                     .append(new SimpleDateFormat("yyyy-MM-dd HH:mm")
                             .format(new Date()))
-                    .append("\"")
+                    .append("\'")
                     .append(")");
             printStream.print(stringBuffer.toString());
             if (i < SUMMARY_SERVICE_NUMBER - 1) {
