@@ -4,7 +4,7 @@ CREATE TABLE users
 (
     id         SERIAL,
     login      VARCHAR(32) NOT NULL,
-    password   CHAR(88)    NOT NULL,
+    password   VARCHAR(60)    NOT NULL,
     name       VARCHAR(32) NOT NULL,
     surname    VARCHAR(32) NOT NULL,
     patronymic VARCHAR(32) NOT NULL,
@@ -100,3 +100,5 @@ CREATE TABLE reviews
     CONSTRAINT REVIEWS_DESCRIPTION_CHK CHECK (LENGTH(description) > 0),
     CONSTRAINT REVIEWS_ROW_UQ UNIQUE (customer_id, employee_id, description)
 );
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO barbershop_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO barbershop_user;
