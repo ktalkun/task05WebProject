@@ -110,7 +110,8 @@ public class Gener {
 
         List<Integer> customerIdentifiers = new ArrayList<>();
         List<Integer> employeeIdentifiers = new ArrayList<>();
-        int currentId = 1;
+//        first id == 2 because admin user (who initialized firstly) has id == 1
+        int currentId = 2;
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
