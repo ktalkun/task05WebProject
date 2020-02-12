@@ -17,4 +17,4 @@ services:
     container_name: adminer_bs
     restart: always
     ports:
-    - 6080:80801
+    - 6080:8080
