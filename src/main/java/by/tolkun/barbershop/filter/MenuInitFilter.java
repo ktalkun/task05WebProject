@@ -45,6 +45,23 @@ public class MenuInitFilter extends GenericFilterBean {
                         "fal fa-history"
                 )
         )));
+        profileMenu.put(Role.ROLE_DIRECTOR, new ArrayList<>(Arrays.asList(
+                new MenuItem(
+                        AllowPageURL.PROFILE_EDIT,
+                        "Profile",
+                        "fal fa-shopping-bag"
+                ),
+                new MenuItem(
+                        "profile/reviews.html",
+                        "Reviews",
+                        "fal fa-comment-alt"
+                ),
+                new MenuItem(
+                        "profile/history.html",
+                        "History",
+                        "fal fa-history"
+                )
+        )));
         profileMenu.put(Role.ROLE_CUSTOMER, new ArrayList<>(Arrays.asList(
                 new MenuItem(
                         AllowPageURL.PROFILE_EDIT,
