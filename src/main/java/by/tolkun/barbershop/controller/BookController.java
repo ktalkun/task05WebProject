@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Map;
@@ -66,14 +66,12 @@ public class BookController {
         String dateParam = allParams.get("date");
         String timeParam = allParams.get("time");
 
-        Date date;
-        java.util.Date dateTwelveTime = new java.util.Date(
-                new SimpleDateFormat("dd/MM/yyyy HH:mm a")
-                        .parse(dateParam + " " + timeParam)
-                        .getTime());
-        date = new Date(new java.util.Date(
-                new SimpleDateFormat("dd/MM/yyyy HH:mm")
-                        .format(dateTwelveTime)).getTime());
+//        Format of date gotten from page
+        DateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
+//        Format of date for database
+        DateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        java.util.Date dateTwelveTime = inputFormat.parse(dateParam + " " + timeParam);
+        java.sql.Date date = new java.sql.Date(outputFormat.parse(outputFormat.format(dateTwelveTime)).getTime());
 
         User user = userService.findByLogin(principal.getName());
 
