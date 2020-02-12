@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int create(final User user) {
-        final String query = "INSERT INTO `users` (`login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role`) VALUES (?,?,?,?,?,?,?,?,?)";
+        final String query = "INSERT INTO users (login, password, name, surname, patronymic, email, phone, image_path, role) VALUES (?,?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query,
@@ -43,12 +43,20 @@ public class UserDaoImpl implements UserDao {
             ps.setInt(9, user.getRole().getIdentity());
             return ps;
         }, keyHolder);
-        return Objects.requireNonNull(keyHolder.getKey()).intValue();
+
+        int id;
+        if (!Objects.requireNonNull(keyHolder.getKeys()).isEmpty()) {
+            id = (Integer) keyHolder.getKeys().get("id");
+        } else {
+            id = Objects.requireNonNull(keyHolder.getKey()).intValue();
+        }
+
+        return id;
     }
 
     @Override
     public User read(int id) {
-        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `id` = ?";
+        final String query = "SELECT id, login, password, name, surname, patronymic, email, phone, image_path, role FROM users WHERE id = ?";
         try {
             return jdbcTemplate.queryForObject(query, new UserMapper(), id);
         } catch (EmptyResultDataAccessException e) {
@@ -58,13 +66,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> readAll() {
-        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users`";
+        final String query = "SELECT id, login, password, name, surname, patronymic, email, phone, image_path, role FROM users";
         return jdbcTemplate.query(query, new UserMapper());
     }
 
     @Override
     public User read(String login) {
-        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ?";
+        final String query = "SELECT id, login, password, name, surname, patronymic, email, phone, image_path, role FROM users WHERE login = ?";
         try {
             return jdbcTemplate.queryForObject(query, new UserMapper(), login);
         } catch (EmptyResultDataAccessException e) {
@@ -74,7 +82,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User read(String login, String password) {
-        final String query = "SELECT `id`, `login`, `password`, `name`, `surname`, `patronymic`, `email`, `phone`, `image_path`, `role` FROM `users` WHERE `login` = ? AND password = ?";
+        final String query = "SELECT id, login, password, name, surname, patronymic, email, phone, image_path, role FROM users WHERE login = ? AND password = ?";
         try {
             return jdbcTemplate.queryForObject(query, new UserMapper(), login,
                     password);
@@ -85,7 +93,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-        final String query = "UPDATE `users` SET `login` = ?, `password` = ?, `name`  = ?, `surname` = ?, `patronymic` = ?, `email` = ?, `phone` = ?, `image_path` = ?, `role` = ? WHERE `id` = ?";
+        final String query = "UPDATE users SET login = ?, password = ?, name  = ?, surname = ?, patronymic = ?, email = ?, phone = ?, image_path = ?, role = ? WHERE id = ?";
         jdbcTemplate.update(query, user.getLogin(), user.getPassword(),
                 user.getName(), user.getSurname(), user.getPatronymic(),
                 user.getEmail(), user.getPhone(), user.getImagePath(),
@@ -94,7 +102,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(int id) {
-        final String query = "DELETE FROM `users` WHERE `id` = ?";
+        final String query = "DELETE FROM users WHERE id = ?";
         jdbcTemplate.update(query, id);
     }
 }

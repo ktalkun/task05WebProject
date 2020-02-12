@@ -4,6 +4,8 @@ import by.tolkun.barbershop.dao.EmployeeDao;
 import by.tolkun.barbershop.entity.Employee;
 import by.tolkun.barbershop.entity.Role;
 import by.tolkun.barbershop.mapper.EmployeeMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +24,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     private final JdbcTemplate jdbcTemplate;
 
+    private static final Logger LOGGER = LogManager.getLogger(EmployeeDaoImpl.class);
+
+
     @Autowired
     public EmployeeDaoImpl(final JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -29,7 +34,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public int create(Employee employee) {
-        final String query = "INSERT INTO `employees` (`experience`, `im`, `fb`, `vk`, `work_week`) VALUES (?, ?, ?, ?, ?)";
+        final String query = "INSERT INTO employees (experience, im, fb, vk, work_week) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query,
@@ -66,7 +71,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 "employees.work_week AS work_week " +
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
-                "WHERE `role` = " + Role.ROLE_EMPLOYEE.getIdentity() + "&&" + " `id` = ?;";
+                "WHERE id = ?;";
         try {
             return jdbcTemplate.queryForObject(query, new EmployeeMapper(), id);
         } catch (EmptyResultDataAccessException e) {
@@ -93,13 +98,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 "employees.work_week AS work_week " +
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
-                "WHERE `role` = " + Role.ROLE_EMPLOYEE.getIdentity();
+                "WHERE role = " + Role.ROLE_EMPLOYEE.getIdentity();
         return jdbcTemplate.query(query, new EmployeeMapper());
     }
 
     @Override
     public void update(Employee employee) {
-        final String query = "UPDATE `employees` SET `experience`= ?, `im` = ?, `fb` = ?, `vk` = ?, `work_week` = ? WHERE `id` = ?";
+        final String query = "UPDATE employees SET experience= ?, im = ?, fb = ?, vk = ?, work_week = ? WHERE id = ?";
         jdbcTemplate.update(query, employee.getExperience(),
                 employee.getSocialRef().get("im"),
                 employee.getSocialRef().get("fb"),
@@ -113,13 +118,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public void delete(int id) {
-        final String query = "DELETE FROM `employees` WHERE `employee_id` = ?";
+        final String query = "DELETE FROM employees WHERE employee_id = ?";
         jdbcTemplate.update(query, id);
     }
 
     @Override
     public int noteNumber() {
-        final String query = "SELECT COUNT(`employee_id`) AS `count` FROM `employees`;";
+        final String query = "SELECT COUNT(employee_id) AS count FROM employees;";
         Integer count = jdbcTemplate.queryForObject(query, Integer.class);
         return count != null ? count : 0;
     }
@@ -143,9 +148,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 "employees.work_week AS work_week " +
                 "FROM users " +
                 "JOIN employees AS employees ON employees.employee_id = users.id " +
-                "WHERE `role` = " + Role.ROLE_EMPLOYEE.getIdentity() + " " +
+                "WHERE role = " + Role.ROLE_EMPLOYEE.getIdentity() + " " +
                 "ORDER BY users.id " +
-                "LIMIT ?, ?;";
+                "OFFSET ? LIMIT ?;";
         return jdbcTemplate.query(query, new EmployeeMapper(), offset, limit);
     }
 }

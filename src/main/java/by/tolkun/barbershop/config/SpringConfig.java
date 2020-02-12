@@ -22,10 +22,10 @@ public class SpringConfig {
     @Bean
     public DataSource getDataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/barbershop_db?useUnicode=true&characterEncoding=UTF-8");
+        dataSource.setUrl("jdbc:postgresql://localhost:5433/barbershop_db?useUnicode=true&characterEncoding=UTF-8");
         dataSource.setUsername("barbershop_user");
         dataSource.setPassword("barber");
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("org.postgresql.Driver");
         return dataSource;
     }
 }

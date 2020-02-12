@@ -28,7 +28,7 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public int create(final Reservation reservation) {
-        final String query = "INSERT INTO `reservations` (`offer_id`, `customer_id`, `employee_id`, `date`) VALUES (?,?,?,?)";
+        final String query = "INSERT INTO reservations (offer_id, customer_id, employee_id, date) VALUES (?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query,
@@ -39,7 +39,15 @@ public class ReservationDaoImpl implements ReservationDao {
             ps.setTimestamp(4, new Timestamp(reservation.getDate().getTime()));
             return ps;
         }, keyHolder);
-        return Objects.requireNonNull(keyHolder.getKey()).intValue();
+
+        int id;
+        if (!Objects.requireNonNull(keyHolder.getKeys()).isEmpty()) {
+            id = (Integer) keyHolder.getKeys().get("id");
+        } else {
+            id = Objects.requireNonNull(keyHolder.getKey()).intValue();
+        }
+
+        return id;
     }
 
     @Override
@@ -85,7 +93,7 @@ public class ReservationDaoImpl implements ReservationDao {
                 "JOIN users AS customers ON customers.id = reservations.customer_id " +
                 "JOIN users AS employees ON employees.id = reservations.employee_id " +
                 "JOIN employees AS employees_info ON employees.id = employees.id " +
-                "WHERE `id` = ?;";
+                "WHERE reservations.id = ?;";
         try {
             return jdbcTemplate.queryForObject(query, new ReservationMapper(), id);
         } catch (EmptyResultDataAccessException e) {
@@ -136,13 +144,14 @@ public class ReservationDaoImpl implements ReservationDao {
                 "JOIN users AS customers ON customers.id = reservations.customer_id " +
                 "JOIN users AS employees ON employees.id = reservations.employee_id " +
                 "JOIN employees AS employees_info ON employees.id = employees.id " +
-                "GROUP BY `id`;";
+                "GROUP BY reservations.id;";
         return jdbcTemplate.query(query, new ReservationMapper());
     }
 
     @Override
     public List<Reservation> readByCustomer(final int customerId) {
         final String query = "SELECT " +
+                "DISTINCT ON (reservations.id) " +
                 "reservations.id, " +
                 "offers.id AS offer_id, " +
                 "offers.name AS offer_name, " +
@@ -184,7 +193,7 @@ public class ReservationDaoImpl implements ReservationDao {
                 "JOIN users AS employees ON employees.id = reservations.employee_id " +
                 "JOIN employees AS employees_info ON employees.id = employees.id " +
                 "WHERE reservations.customer_id = ? " +
-                "GROUP BY `id`;";
+                "GROUP BY reservations.id, offers.id, customers.id, employees.id, employees_info.experience, employees_info.im, employees_info.fb, employees_info.vk, employees_info.work_week;";
         try {
             return jdbcTemplate.query(query, new ReservationMapper(), customerId);
         } catch (EmptyResultDataAccessException e) {
@@ -236,7 +245,7 @@ public class ReservationDaoImpl implements ReservationDao {
                 "JOIN users AS employees ON employees.id = reservations.employee_id " +
                 "JOIN employees AS employees_info ON employees.id = employees.id " +
                 "WHERE reservations.employee_id = ? " +
-                "GROUP BY `id`;";
+                "GROUP BY reservation.id;";
         try {
             return jdbcTemplate.query(query, new ReservationMapper(), employeeId);
         } catch (EmptyResultDataAccessException e) {
@@ -246,7 +255,7 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public void update(final Reservation reservation) {
-        final String query = "UPDATE `reservations` SET `offer_id` = ?, `customer_id` = ?, `employee_id` = ?, `date` = ? WHERE `id` = ?";
+        final String query = "UPDATE reservations SET offer_id = ?, customer_id = ?, employee_id = ?, date = ? WHERE id = ?";
         jdbcTemplate.update(query, reservation.getOffer().getId(),
                 reservation.getCustomer().getId(),
                 reservation.getEmployee().getId(),
@@ -256,7 +265,7 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public void delete(final int id) {
-        final String query = "DELETE FROM `reservations` WHERE `id` = ?";
+        final String query = "DELETE FROM reservations WHERE id = ?";
         jdbcTemplate.update(query, id);
     }
 }

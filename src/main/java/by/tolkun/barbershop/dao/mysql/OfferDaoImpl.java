@@ -27,7 +27,7 @@ public class OfferDaoImpl implements OfferDao {
 
     @Override
     public int create(final Offer offer) {
-        final String query = "INSERT INTO `offers` (`name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String query = "INSERT INTO offers (name, description, image_path, price, period, is_main, is_show) VALUES (?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query,
@@ -46,7 +46,7 @@ public class OfferDaoImpl implements OfferDao {
 
     @Override
     public Offer read(final int id) {
-        final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show` FROM `offers` WHERE `id` = ?";
+        final String query = "SELECT id, name, description, image_path, price, period, is_main, is_show FROM offers WHERE id = ?";
         try {
             return jdbcTemplate.queryForObject(query, new OfferMapper(), id);
         } catch (EmptyResultDataAccessException e) {
@@ -56,13 +56,13 @@ public class OfferDaoImpl implements OfferDao {
 
     @Override
     public List<Offer> readAll() {
-        final String query = "SELECT `id`, `name`, `description`, `image_path`, `price`, `period`, `is_main`, `is_show` FROM `offers`";
+        final String query = "SELECT id, name, description, image_path, price, period, is_main, is_show FROM offers";
         return jdbcTemplate.query(query, new OfferMapper());
     }
 
     @Override
     public void update(final Offer offer) {
-        final String query = "UPDATE `offers` SET `name` = ?, `description` = ?, `image_path` = ?, `price` = ?, `period` = ?, `is_main` = ?, `is_show` = ? WHERE `id` = ?";
+        final String query = "UPDATE offers SET name = ?, description = ?, image_path = ?, price = ?, period = ?, is_main = ?, is_show = ? WHERE id = ?";
         jdbcTemplate.update(query, offer.getName(), offer.getDescription(),
                 offer.getImagePath(), offer.getPrice(), offer.getPeriod(),
                 offer.isMain(), offer.isShow(), offer.getId());
@@ -70,7 +70,7 @@ public class OfferDaoImpl implements OfferDao {
 
     @Override
     public void delete(final int id) {
-        final String query = "DELETE FROM `offers` WHERE `id` = ?";
+        final String query = "DELETE FROM offers WHERE id = ?";
         jdbcTemplate.update(query, id);
     }
 }
