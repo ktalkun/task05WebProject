@@ -6,7 +6,6 @@ public final class AllowView {
     public static final String NOT_FOUND = "404";
     public static final String LOGIN = "login";
     public static final String SIGNIN = "signin";
-    public static final String ROOT = "";
     public static final String INDEX = "index";
     public static final String SERVICE = "service";
     public static final String BARBER = "barber";
