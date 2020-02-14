@@ -5,10 +5,7 @@ package by.tolkun.barbershop.url;
  */
 public final class AllowPageURL {
     public static final String MESSAGE = "/message.html";
-    public static final String EXCEPTION = "/exception.html";
-    public static final String NOT_FOUND = "/404.html";
     public static final String LOGIN = "/login.html";
-    public static final String LOGOUT = "/logout.html";
     public static final String SIGNIN = "/signin.html";
     public static final String ROOT = "/";
     public static final String INDEX = "/index.html";
