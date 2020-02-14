@@ -14,7 +14,7 @@
                 <ul class="uui-header-tools nav navbar-nav">
                     <li>
                         <ul>
-                            <li><a href="<@spring.url "/index.html"/>">Главная</a></li>
+                            <li><a href="<@spring.url "/"/>">Главная</a></li>
                             <li><a href="<@spring.url "/service.html"/>">Услуги</a></li>
                             <li><a href="<@spring.url "/barber.html"/>">Барберы</a></li>
                             <li><a href="<@spring.url "/staff.html"/>">Сотрудники</a></li>

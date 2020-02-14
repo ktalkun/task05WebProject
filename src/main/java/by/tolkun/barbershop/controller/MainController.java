@@ -15,12 +15,12 @@ public class MainController {
 
     private static final String RECIPIENT = "tolkun_14@inbox.ru";
 
-    @RequestMapping(path = {AllowPageURL.ROOT, AllowPageURL.INDEX})
+    @RequestMapping(path = {AllowPageURL.ROOT})
     public String showPage() {
         return "index";
     }
 
-    @RequestMapping(path = {AllowPageURL.ROOT, AllowPageURL.INDEX},
+    @RequestMapping(path = {AllowPageURL.ROOT},
             params = {"name", "email", "title", "description"})
     public String sendEmail(@RequestParam Map<String, String> allParams,
                             final RedirectAttributes attributes) throws MessagingException {

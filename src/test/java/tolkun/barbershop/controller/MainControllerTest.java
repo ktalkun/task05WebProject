@@ -41,7 +41,7 @@ public class MainControllerTest {
     @Test
     public void showPage_ShouldRenderIndexView() throws Exception {
         mockMvc
-                .perform(get(AllowPageURL.INDEX))
+                .perform(get(AllowPageURL.ROOT))
                 .andExpect(status().isOk())
                 .andExpect(view().name(AllowView.INDEX));
     }

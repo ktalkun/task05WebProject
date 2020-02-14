@@ -8,7 +8,6 @@ public final class AllowPageURL {
     public static final String LOGIN = "/login.html";
     public static final String SIGNIN = "/signin.html";
     public static final String ROOT = "/";
-    public static final String INDEX = "/index.html";
     public static final String SERVICE = "/service.html";
     public static final String BARBER = "/barber.html";
     public static final String STAFF = "/staff.html";

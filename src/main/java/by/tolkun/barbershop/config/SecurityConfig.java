@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler((request, response, e) -> {
                     request.setAttribute("message",
                             "Access to the resource denied.");
-                    request.setAttribute("redirectUrl", AllowPageURL.INDEX);
+                    request.setAttribute("redirectUrl", AllowPageURL.ROOT);
                     request
                             .getRequestDispatcher(AllowPageURL.MESSAGE)
                             .forward(request, response);
