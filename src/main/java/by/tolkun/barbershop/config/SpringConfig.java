@@ -1,18 +1,25 @@
 package by.tolkun.barbershop.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = "by.tolkun.barbershop")
 @EnableAspectJAutoProxy
+@PropertySource(value = "classpath:db.properties")
 public class SpringConfig {
+
+    private Environment environment;
+
+    @Autowired
+    public SpringConfig(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public JdbcTemplate getJdbcTemplate(){
@@ -21,11 +28,11 @@ public class SpringConfig {
 
     @Bean
     public DataSource getDataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5433/barbershop_db?useUnicode=true&characterEncoding=UTF-8");
-        dataSource.setUsername("barbershop_user");
-        dataSource.setPassword("barber");
-        dataSource.setDriverClassName("org.postgresql.Driver");
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
+        dataSource.setJdbcUrl(environment.getProperty("jdbc.url"));
+        dataSource.setUsername(environment.getProperty("jdbc.username"));
+        dataSource.setPassword(environment.getProperty("jdbc.password"));
         return dataSource;
     }
 }
