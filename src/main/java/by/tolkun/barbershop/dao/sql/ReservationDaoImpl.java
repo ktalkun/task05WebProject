@@ -1,4 +1,4 @@
-package by.tolkun.barbershop.dao.mysql;
+package by.tolkun.barbershop.dao.sql;
 
 import by.tolkun.barbershop.dao.ReservationDao;
 import by.tolkun.barbershop.entity.Reservation;

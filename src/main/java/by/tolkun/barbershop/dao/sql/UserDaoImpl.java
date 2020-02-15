@@ -1,4 +1,4 @@
-package by.tolkun.barbershop.dao.mysql;
+package by.tolkun.barbershop.dao.sql;
 
 import by.tolkun.barbershop.dao.UserDao;
 import by.tolkun.barbershop.entity.User;
