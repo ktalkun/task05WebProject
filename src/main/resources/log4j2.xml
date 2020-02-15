@@ -25,6 +25,13 @@
             <AppenderRef ref="TxtFile" />
         </Logger>
 
+        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+            <AppenderRef ref="TxtFile"/>
+        </Logger>
+<!--        <Logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">-->
+<!--            <AppenderRef ref="TxtFile"/>-->
+<!--        </Logger>-->
+
         <!-- Root Logger -->
         <Root level="error">
             <!--<AppenderRef ref="Console" />-->
