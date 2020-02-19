@@ -77,7 +77,7 @@ public class LoggerControllerAspect {
                 joinPoint.getTarget().getClass(),
                 allParams.get("login"));
     }
-    
+
     @AfterThrowing(
             pointcut = "within(by.tolkun.barbershop.controller.*)",
             throwing = "e")
