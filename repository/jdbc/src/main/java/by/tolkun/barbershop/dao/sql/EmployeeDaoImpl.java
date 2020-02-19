@@ -4,8 +4,6 @@ import by.tolkun.barbershop.dao.EmployeeDao;
 import by.tolkun.barbershop.entity.Employee;
 import by.tolkun.barbershop.entity.Role;
 import by.tolkun.barbershop.mapper.EmployeeMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,9 +21,6 @@ import java.util.Objects;
 public class EmployeeDaoImpl implements EmployeeDao {
 
     private final JdbcTemplate jdbcTemplate;
-
-    private static final Logger LOGGER = LogManager.getLogger(EmployeeDaoImpl.class);
-
 
     @Autowired
     public EmployeeDaoImpl(final JdbcTemplate jdbcTemplate) {
