@@ -39,7 +39,7 @@
         </div>
     </section>
     <section id="contact-us-section">
-        <form action="<@spring.url "/index.html"/>" accept-charset="utf-8">
+        <form action="<@spring.url "/"/>" accept-charset="utf-8">
         <#--TODO: user resource bundle-->
         <h3>Связаться с нами</h3>
         <input required type="text" name="name" placeholder="Имя*"
