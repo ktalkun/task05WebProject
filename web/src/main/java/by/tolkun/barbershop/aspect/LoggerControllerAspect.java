@@ -34,7 +34,7 @@ public class LoggerControllerAspect {
     //    MainController
     @AfterReturning("execution(* by.tolkun.barbershop.controller.MainController.sendEmail(..))")
     public void logSendEmailMainControllerAfterReturning(JoinPoint joinPoint) {
-        LOGGER.info("{}. Email was sent.");
+        LOGGER.info("Email was sent.");
     }
 
     //    ProfileController
@@ -77,8 +77,7 @@ public class LoggerControllerAspect {
                 joinPoint.getTarget().getClass(),
                 allParams.get("login"));
     }
-
-
+    
     @AfterThrowing(
             pointcut = "within(by.tolkun.barbershop.controller.*)",
             throwing = "e")
