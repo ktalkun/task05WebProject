@@ -13,5 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>jdbc</module>
+        <module>domain</module>
     </modules>
 </project>
