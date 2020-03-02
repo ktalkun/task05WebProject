@@ -1,5 +1,7 @@
 package by.tolkun.barbershop.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.util.Objects;
 
 /**
@@ -7,6 +9,8 @@ import java.util.Objects;
  *
  * @author Kirill Tolkun
  */
+@javax.persistence.Entity
+@Table(name = "offers")
 public final class Offer extends Entity {
 
     /**
@@ -45,6 +49,12 @@ public final class Offer extends Entity {
     private boolean isShow;
 
     /**
+     * Default constructor
+     */
+    public Offer() {
+    }
+
+    /**
      * Constructor with parameters.
      *
      * @param inputId of the offer
@@ -58,6 +68,7 @@ public final class Offer extends Entity {
      *
      * @return name of offer
      */
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -76,6 +87,7 @@ public final class Offer extends Entity {
      *
      * @return description of offer
      */
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -94,6 +106,7 @@ public final class Offer extends Entity {
      *
      * @return image path of offer
      */
+    @Column(name = "image_path")
     public String getImagePath() {
         return imagePath;
     }
@@ -112,6 +125,7 @@ public final class Offer extends Entity {
      *
      * @return price of offer
      */
+    @Column(name = "price")
     public float getPrice() {
         return price;
     }
@@ -130,6 +144,7 @@ public final class Offer extends Entity {
      *
      * @return period of offer
      */
+    @Column(name = "period")
     public int getPeriod() {
         return period;
     }
@@ -149,6 +164,7 @@ public final class Offer extends Entity {
      * @return {@code true} if offer will be in main area,
      * {@code false} otherwise
      */
+    @Column(name = "is_main")
     public boolean isMain() {
         return isMain;
     }
@@ -167,6 +183,7 @@ public final class Offer extends Entity {
      *
      * @return {@code true} if offer will be show, {@code false} otherwise
      */
+    @Column(name = "is_show")
     public boolean isShow() {
         return isShow;
     }
