@@ -22,10 +22,19 @@ public class Employee extends User {
     private Date experience;
 
     /**
-     * Social references of employee.
+     * Social reference for instagram
      */
-    private Map<String, String> socialRef;
+    private String instagramReferece;
 
+    /**
+     * Social reference for facebook
+     */
+    private String facebookReference;
+
+    /**
+     * Social reference for vkontakte
+     */
+    private String vkontakteReference;
 
     /**
      * Work week of employee.
@@ -67,22 +76,60 @@ public class Employee extends User {
     }
 
     /**
-     * Get social references.
+     * Get social reference of instagram.
      *
-     * @return map of social references
+     * @return social reference of instagram
      */
-    @Transient
-    public Map<String, String> getSocialRef() {
-        return socialRef;
+    @Column(name = "im")
+    public String getInstagramReferece() {
+        return instagramReferece;
     }
 
     /**
-     * Set social references.
+     * Set social reference of instagram.
      *
-     * @param inputSocialRef the new social of references
+     * @param inputInstagramReferece the new social reference of instagram
      */
-    public void setSocialRef(final Map<String, String> inputSocialRef) {
-        socialRef = inputSocialRef;
+    public void setInstagramReferece(final String inputInstagramReferece) {
+        instagramReferece = inputInstagramReferece;
+    }
+
+    /**
+     * Get social reference of facebook.
+     *
+     * @return social reference of facebook
+     */
+    @Column(name = "fb")
+    public String getFacebookReference() {
+        return facebookReference;
+    }
+
+    /**
+     * Set social reference of facebook.
+     *
+     * @param inputFacebookReference the new social reference of facebook
+     */
+    public void setFacebookReference(final String inputFacebookReference) {
+        facebookReference = inputFacebookReference;
+    }
+
+    /**
+     * Get social reference of vkontakte.
+     *
+     * @return social reference of vkontakte
+     */
+    @Column(name = "vk")
+    public String getVkontakteReference() {
+        return vkontakteReference;
+    }
+
+    /**
+     * Set social reference of vkontakte.
+     *
+     * @param inputVkontakteReference the new social reference of vkontakte
+     */
+    public void setVkontakteReference(final String inputVkontakteReference) {
+        vkontakteReference = inputVkontakteReference;
     }
 
     /**
@@ -143,7 +190,9 @@ public class Employee extends User {
         Employee employee = (Employee) o;
         return getId() == employee.getId()
                 && Objects.equals(experience, employee.experience)
-                && Objects.equals(socialRef, employee.socialRef)
+                && Objects.equals(instagramReferece, employee.instagramReferece)
+                && Objects.equals(facebookReference, employee.facebookReference)
+                && Objects.equals(vkontakteReference, employee.vkontakteReference)
                 && Objects.equals(workWeek, employee.workWeek);
     }
 
@@ -154,9 +203,9 @@ public class Employee extends User {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), experience, socialRef, workWeek);
+        return Objects.hash(super.hashCode(), experience, instagramReferece, facebookReference, vkontakteReference,
+                workWeek);
     }
-
     /**
      * Create string representation.
      *
@@ -167,8 +216,10 @@ public class Employee extends User {
     toString() {
         return "Employee{"
                 + "experience=" + experience
-                + "socialReferences=" + socialRef
-                + "workWeek=" + workWeek
+                + ", instagramReference" + instagramReferece
+                + ", facebookReference" + facebookReference
+                + ", vkontakteReference" + vkontakteReference
+                + ", workWeek=" + workWeek
                 + super.toString()
                 + "} ";
     }

@@ -19,10 +19,19 @@ public class EmployeeBuilder extends UserBuilder {
     private Date experience;
 
     /**
-     * Social references of employee.
+     * Social reference for instagram
      */
-    private Map<String, String> socialRef;
+    private String instagramReferece;
 
+    /**
+     * Social reference for facebook
+     */
+    private String facebookReference;
+
+    /**
+     * Social reference for vkontakte
+     */
+    private String vkontakteReference;
 
     /**
      * Work week of employee.
@@ -41,13 +50,35 @@ public class EmployeeBuilder extends UserBuilder {
     }
 
     /**
-     * Build social references.
+     * Build social references of facebook.
      *
-     * @param inputSocialRes the new social referances
+     * @param inputFacebookReference the new social referances of facebook
      * @return builder
      */
-    public EmployeeBuilder socialRef(final Map<String, String> inputSocialRes) {
-        socialRef = inputSocialRes;
+    public EmployeeBuilder facebookReference(final String inputFacebookReference) {
+        facebookReference = inputFacebookReference;
+        return this;
+    }
+
+    /**
+     * Build social references of vkontakte.
+     *
+     * @param inputVkontakteReference the new social referances of vkontakte
+     * @return builder
+     */
+    public EmployeeBuilder vkontakteReference(final String inputVkontakteReference) {
+        vkontakteReference = inputVkontakteReference;
+        return this;
+    }
+
+    /**
+     * Build social references of instagram.
+     *
+     * @param inputInstagramReference the new social referances of instagram
+     * @return builder
+     */
+    public EmployeeBuilder instagramReference(final String inputInstagramReference) {
+        instagramReferece = inputInstagramReference;
         return this;
     }
 
@@ -80,7 +111,9 @@ public class EmployeeBuilder extends UserBuilder {
         employee.setRole(role);
         employee.setImagePath(imagePath);
         employee.setExperience(experience);
-        employee.setSocialRef(socialRef);
+        employee.setInstagramReferece(instagramReferece);
+        employee.setFacebookReference(facebookReference);
+        employee.setVkontakteReference(vkontakteReference);
         employee.setWorkWeek(workWeek);
         return employee;
     }

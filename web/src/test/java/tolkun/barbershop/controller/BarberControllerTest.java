@@ -71,12 +71,9 @@ public class BarberControllerTest {
                         .imagePath("TestImagePath")
                         .role(Role.ROLE_EMPLOYEE))
                         .experience(new Date(0))
-                        .socialRef(Stream.of(
-                                new AbstractMap.SimpleEntry<>("im", "testIm"),
-                                new AbstractMap.SimpleEntry<>("fb", "testFb"),
-                                new AbstractMap.SimpleEntry<>("vk", "TestVk")
-                        ).collect(Collectors.toMap(Map.Entry::getKey,
-                                Map.Entry::getValue)))
+                        .instagramReference("testIm")
+                        .facebookReference("testFb")
+                        .vkontakteReference("testVk")
                         .workWeek(new int[]{0, 0, 1, 1, 0, 0, 1})
                         .build()
         );

@@ -39,11 +39,9 @@ public class ReservationMapper implements RowMapper<Reservation> {
                 .role(Role.getByIdentity(resultSet.getInt("customer_role")));
         EmployeeBuilder employeeBuilder = (EmployeeBuilder)new EmployeeBuilder()
                 .experience(resultSet.getDate("employee_experience"))
-                .socialRef(Stream.of(new String[][]{
-                        {"im", resultSet.getString("employee_im")},
-                        {"fb", resultSet.getString("employee_fb")},
-                        {"vk", resultSet.getString("employee_vk")}
-                }).collect(Collectors.toMap(e -> e[0], e -> e[1])))
+                .instagramReference(resultSet.getString("employee_im"))
+                .facebookReference(resultSet.getString("employee_fb"))
+                .vkontakteReference(resultSet.getString("employee_vk"))
                 .workWeek(resultSet
                         .getString("employee_work_week")
                         .codePoints()

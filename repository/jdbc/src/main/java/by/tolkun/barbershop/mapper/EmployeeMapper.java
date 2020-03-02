@@ -25,11 +25,9 @@ public class EmployeeMapper implements RowMapper<Employee> {
                 .imagePath(resultSet.getString("image_path"))
                 .role(Role.getByIdentity(resultSet.getInt("role"))))
                 .experience(resultSet.getDate("experience"))
-                .socialRef(Stream.of(new String[][]{
-                        {"im", resultSet.getString("im")},
-                        {"fb", resultSet.getString("fb")},
-                        {"vk", resultSet.getString("vk")}
-                }).collect(Collectors.toMap(e -> e[0], e -> e[1])))
+                .instagramReference(resultSet.getString("employee_im"))
+                .facebookReference(resultSet.getString("employee_fb"))
+                .vkontakteReference(resultSet.getString("employee_vk"))
                 .workWeek(resultSet
                         .getString("work_week")
                         .codePoints()

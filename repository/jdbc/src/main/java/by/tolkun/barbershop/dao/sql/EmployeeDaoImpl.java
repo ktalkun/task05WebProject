@@ -35,9 +35,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
             PreparedStatement ps = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
             ps.setDate(1, employee.getExperience());
-            ps.setString(2, employee.getSocialRef().get("im"));
-            ps.setString(3, employee.getSocialRef().get("fb"));
-            ps.setString(4, employee.getSocialRef().get("vk"));
+            ps.setString(2, employee.getInstagramReferece());
+            ps.setString(3, employee.getFacebookReference());
+            ps.setString(4, employee.getVkontakteReference());
             ps.setString(5, Arrays.stream(employee.getWorkWeek())
                     .mapToObj(String::valueOf)
                     .reduce(String::concat)
@@ -101,9 +101,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public void update(Employee employee) {
         final String query = "UPDATE employees SET experience= ?, im = ?, fb = ?, vk = ?, work_week = ? WHERE id = ?";
         jdbcTemplate.update(query, employee.getExperience(),
-                employee.getSocialRef().get("im"),
-                employee.getSocialRef().get("fb"),
-                employee.getSocialRef().get("vk"),
+                employee.getInstagramReferece(),
+                employee.getFacebookReference(),
+                employee.getVkontakteReference(),
                 Arrays.stream(employee.getWorkWeek())
                         .mapToObj(String::valueOf)
                         .reduce(String::concat)

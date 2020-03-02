@@ -34,11 +34,11 @@ f<#include "tags/head.ftl"/>
                         <li class="uui-label <#if employee.workWeek[6] == 1>active-day</#if>" >Вс</li>
                     </ul>
                     <div class="barber-social">
-                        <a href="${employee.socialRef["im"]}"><i
+                        <a href="${employee.instagramReferece}"><i
                                     class="fab fa-instagram"></i></a>
-                        <a href="${employee.socialRef["fb"]}"><i
+                        <a href="${employee.facebookReference}"><i
                                     class="fab fa-facebook-f"></i></a>
-                        <a href="${employee.socialRef["vk"]}"><i
+                        <a href="${employee.vkontakteReference}"><i
                                     class="fab fa-vk"></i></a>
                     </div>
                     <button class="uui-button large transparent">Выбрать</button>
