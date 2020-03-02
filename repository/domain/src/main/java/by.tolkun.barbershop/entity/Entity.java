@@ -1,5 +1,6 @@
 package by.tolkun.barbershop.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -7,6 +8,7 @@ import java.util.Objects;
  *
  * @author Kirill Tolkun
  */
+@MappedSuperclass
 public abstract class Entity {
     /**
      * Unique identifier of entity.
@@ -30,6 +32,9 @@ public abstract class Entity {
      *
      * @return id of entity
      */
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
