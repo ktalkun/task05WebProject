@@ -1,5 +1,7 @@
 package by.tolkun.barbershop.entity;
 
+import javax.persistence.*;
+import javax.persistence.Entity;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Map;
@@ -10,6 +12,9 @@ import java.util.Objects;
  *
  * @author Kirill Tolkun
  */
+@Entity
+@Table(name = "employees")
+@PrimaryKeyJoinColumn(name = "employee_id", referencedColumnName = "id")
 public class Employee extends User {
     /**
      * Date of career begin.
@@ -28,6 +33,11 @@ public class Employee extends User {
     private int[] workWeek;
 
     /**
+     * Constructor without parameters
+     */
+    public Employee(){}
+
+    /**
      * Constructor with parameters.
      *
      * @param inputId of the user
@@ -41,6 +51,8 @@ public class Employee extends User {
      *
      * @return experience of employee
      */
+    @Column(name = "experience")
+    @Temporal(TemporalType.DATE)
     public Date getExperience() {
         return experience;
     }
@@ -59,6 +71,7 @@ public class Employee extends User {
      *
      * @return map of social references
      */
+    @Transient
     public Map<String, String> getSocialRef() {
         return socialRef;
     }
@@ -77,6 +90,7 @@ public class Employee extends User {
      *
      * @return work week of employee
      */
+    @Transient
     public int[] getWorkWeek() {
         return workWeek;
     }
@@ -88,6 +102,21 @@ public class Employee extends User {
      */
     public void setWorkWeek(final int[] inputWorkWeek) {
         workWeek = Arrays.copyOf(inputWorkWeek, inputWorkWeek.length);
+    }
+
+    @Column(name = "work_week")
+    public String getWorkWeekAsString(){
+        return Arrays.stream(workWeek)
+                .mapToObj(String::valueOf)
+                .reduce(String::concat)
+                .get();
+    }
+
+    public void setWorkWeekAsString(final String inputWorkWeek) {
+        workWeek = inputWorkWeek.codePoints()
+                .map(value ->
+                        Character.getNumericValue((char) value))
+                .toArray();
     }
 
     /**
