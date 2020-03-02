@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,6 +15,9 @@ import java.util.Set;
  *
  * @author Kirill Tolkun
  */
+@javax.persistence.Entity
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User extends Entity implements UserDetails {
 
     /**
@@ -62,6 +66,11 @@ public class User extends Entity implements UserDetails {
     private Role role;
 
     /**
+     * Constructor without parameters
+     */
+    public User(){}
+
+    /**
      * Constructor with parameters.
      *
      * @param inputId of the user
@@ -75,6 +84,7 @@ public class User extends Entity implements UserDetails {
      *
      * @return login of user
      */
+    @Column(name = "login")
     public String getLogin() {
         return login;
     }
@@ -93,6 +103,7 @@ public class User extends Entity implements UserDetails {
      *
      * @return granted authorities
      */
+    @Transient
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
@@ -105,60 +116,10 @@ public class User extends Entity implements UserDetails {
      *
      * @return password of user
      */
+    @Column(name = "password")
     @Override
     public String getPassword() {
         return password;
-    }
-
-    /**
-     * Get username (login)
-     *
-     * @return username (login)
-     */
-    @Override
-    public String getUsername() {
-        return login;
-    }
-
-    /**
-     * Check account isn't expired.
-     *
-     * @return {@code true} if account isn't expired, {@code false} otherwise
-     */
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    /**
-     * Check account isn't locked.
-     *
-     * @return {@code true} id account is locked, {@code false} otherwise
-     */
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    /**
-     * Check the credentials isn't expired.
-     *
-     * @return {@code true} if credentials isn't expired, {@code false}
-     * otherwise
-     */
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    /**
-     * Check the user is enabled.
-     *
-     * @return {@code true} is user is enabled and {@code false} otherwise
-     */
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
     /**
@@ -175,6 +136,7 @@ public class User extends Entity implements UserDetails {
      *
      * @return name of user
      */
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -193,6 +155,7 @@ public class User extends Entity implements UserDetails {
      *
      * @return surname of user
      */
+    @Column(name = "surname")
     public String getSurname() {
         return surname;
     }
@@ -211,6 +174,7 @@ public class User extends Entity implements UserDetails {
      *
      * @return patronymic of user
      */
+    @Column(name = "patronymic")
     public String getPatronymic() {
         return patronymic;
     }
@@ -229,6 +193,7 @@ public class User extends Entity implements UserDetails {
      *
      * @return email of user
      */
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -247,6 +212,7 @@ public class User extends Entity implements UserDetails {
      *
      * @return phone of user
      */
+    @Column(name = "phone")
     public long getPhone() {
         return phone;
     }
@@ -265,6 +231,8 @@ public class User extends Entity implements UserDetails {
      *
      * @return role of user
      */
+    @Column(name = "role")
+    @Enumerated(EnumType.ORDINAL)
     public Role getRole() {
         return role;
     }
@@ -283,6 +251,7 @@ public class User extends Entity implements UserDetails {
      *
      * @return image path of user
      */
+    @Column(name = "image_path")
     public String getImagePath() {
         return imagePath;
     }
@@ -294,6 +263,62 @@ public class User extends Entity implements UserDetails {
      */
     public void setImagePath(final String inputImagePath) {
         this.imagePath = inputImagePath;
+    }
+
+    /**
+     * Get username (login)
+     *
+     * @return username (login)
+     */
+    @Transient
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    /**
+     * Check account isn't expired.
+     *
+     * @return {@code true} if account isn't expired, {@code false} otherwise
+     */
+    @Transient
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * Check account isn't locked.
+     *
+     * @return {@code true} id account is locked, {@code false} otherwise
+     */
+    @Transient
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * Check the credentials isn't expired.
+     *
+     * @return {@code true} if credentials isn't expired, {@code false}
+     * otherwise
+     */
+    @Transient
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * Check the user is enabled.
+     *
+     * @return {@code true} is user is enabled and {@code false} otherwise
+     */
+    @Transient
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     /**
