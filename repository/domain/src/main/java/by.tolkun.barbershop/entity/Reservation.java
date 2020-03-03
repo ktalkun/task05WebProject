@@ -1,5 +1,6 @@
 package by.tolkun.barbershop.entity;
 
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
@@ -8,6 +9,8 @@ import java.util.Objects;
  *
  * @author Kirill Tolkun
  */
+@javax.persistence.Entity
+@Table(name = "reservations")
 public final class Reservation extends Entity {
 
     /**
@@ -31,6 +34,11 @@ public final class Reservation extends Entity {
     private Date date;
 
     /**
+     * Constructor without parameters
+     */
+    public Reservation(){}
+
+    /**
      * Constructor with parameters.
      *
      * @param inputId the id of the reservation
@@ -44,6 +52,7 @@ public final class Reservation extends Entity {
      *
      * @return offer of reservation
      */
+    @OneToOne
     public Offer getOffer() {
         return offer;
     }
@@ -62,6 +71,7 @@ public final class Reservation extends Entity {
      *
      * @return customer of reservation
      */
+    @OneToOne
     public User getCustomer() {
         return customer;
     }
@@ -80,6 +90,7 @@ public final class Reservation extends Entity {
      *
      * @return employee of reservation
      */
+    @OneToOne
     public Employee getEmployee() {
         return employee;
     }
@@ -98,6 +109,8 @@ public final class Reservation extends Entity {
      *
      * @return date of reservation
      */
+    @Column(name = "date")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getDate() {
         return date;
     }
