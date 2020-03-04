@@ -17,7 +17,6 @@ import java.util.List;
 @Transactional
 public class OfferDaoImpl implements OfferDao {
 
-
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -28,12 +27,10 @@ public class OfferDaoImpl implements OfferDao {
     @Override
     public int create(final Offer offer) {
         Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Offer> criteriaQuery = criteriaBuilder.createQuery(Offer.class);
-        Root<Offer> root = criteriaQuery.from(Offer.class);
-
-
-        return 0;
+        session.beginTransaction();
+        int generatedId = (int) session.save(offer);
+        session.getTransaction().commit();
+        return generatedId;
     }
 
     @Override
@@ -63,13 +60,13 @@ public class OfferDaoImpl implements OfferDao {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaUpdate<Offer> criteriaUpdate = criteriaBuilder.createCriteriaUpdate(Offer.class);
         Root<Offer> root = criteriaUpdate.from(Offer.class);
-        criteriaUpdate.set("name", offer.getName());
-        criteriaUpdate.set("description", offer.getDescription());
-        criteriaUpdate.set("image_path", offer.getImagePath());
-        criteriaUpdate.set("price", offer.getPrice());
-        criteriaUpdate.set("period", offer.getPeriod());
-        criteriaUpdate.set("is_main", offer.isMain());
-        criteriaUpdate.set("is_show", offer.isShow());
+        criteriaUpdate.set("name", offer.getName())
+                .set("description", offer.getDescription())
+                .set("image_path", offer.getImagePath())
+                .set("price", offer.getPrice())
+                .set("period", offer.getPeriod())
+                .set("is_main", offer.isMain())
+                .set("is_show", offer.isShow());
         criteriaUpdate.where(criteriaBuilder.equal(root.get("id"), offer.getId()));
 
         Transaction transaction = session.beginTransaction();
@@ -84,7 +81,6 @@ public class OfferDaoImpl implements OfferDao {
         CriteriaDelete<Offer> criteriaDelete = criteriaBuilder.createCriteriaDelete(Offer.class);
         Root<Offer> root = criteriaDelete.from(Offer.class);
         criteriaDelete.where(criteriaBuilder.equal(root.get("id"), id));
-
         Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaDelete).executeUpdate();
         transaction.commit();
