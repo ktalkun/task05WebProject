@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -34,7 +35,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
-            ps.setDate(1, employee.getExperience());
+            ps.setDate(1, (Date) employee.getExperience());
             ps.setString(2, employee.getInstagramReferece());
             ps.setString(3, employee.getFacebookReference());
             ps.setString(4, employee.getVkontakteReference());

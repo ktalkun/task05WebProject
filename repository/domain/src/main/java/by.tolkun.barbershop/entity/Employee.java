@@ -2,9 +2,8 @@ package by.tolkun.barbershop.entity;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Objects;
 
 /**
