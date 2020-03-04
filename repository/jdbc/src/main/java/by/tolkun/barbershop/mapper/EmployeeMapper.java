@@ -25,9 +25,9 @@ public class EmployeeMapper implements RowMapper<Employee> {
                 .imagePath(resultSet.getString("image_path"))
                 .role(Role.getByIdentity(resultSet.getInt("role"))))
                 .experience(resultSet.getDate("experience"))
-                .instagramReference(resultSet.getString("employee_im"))
-                .facebookReference(resultSet.getString("employee_fb"))
-                .vkontakteReference(resultSet.getString("employee_vk"))
+                .instagramReference(resultSet.getString("im"))
+                .facebookReference(resultSet.getString("fb"))
+                .vkontakteReference(resultSet.getString("vk"))
                 .workWeek(resultSet
                         .getString("work_week")
                         .codePoints()
