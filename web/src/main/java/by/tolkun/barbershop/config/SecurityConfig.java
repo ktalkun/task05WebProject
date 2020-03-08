@@ -51,8 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
-                .antMatchers("/login.html", "/signin.html").anonymous()
-                .antMatchers("/book.html").hasAuthority(
+                .antMatchers(AllowPageURL.LOGIN, AllowPageURL.SIGNIN).anonymous()
+                .antMatchers(AllowPageURL.BOOK).hasAuthority(
                 Role.ROLE_CUSTOMER.toString())
                 .antMatchers("/profile/**").authenticated()
                 .anyRequest().permitAll();
@@ -62,11 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         security
                 .formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/login.html")
+                .loginPage(AllowPageURL.LOGIN)
+                .loginProcessingUrl(AllowPageURL.LOGIN)
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/index.html")
+                .defaultSuccessUrl(AllowPageURL.ROOT)
                 .failureHandler((request, response, e) -> {
                     request.setAttribute("message",
                             "User with such login or password isn't existed.");
@@ -78,8 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         security
                 .logout()
-                .logoutUrl("/logout.html")
-                .logoutSuccessUrl("/index.html")
+                .logoutUrl(AllowPageURL.LOGOUT)
+                .logoutSuccessUrl(AllowPageURL.ROOT)
                 .invalidateHttpSession(true);
 
         security
