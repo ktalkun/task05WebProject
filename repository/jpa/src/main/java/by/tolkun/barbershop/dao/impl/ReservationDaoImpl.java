@@ -1,7 +1,10 @@
 package by.tolkun.barbershop.dao.impl;
 
 import by.tolkun.barbershop.dao.ReservationDao;
+import by.tolkun.barbershop.entity.Employee;
+import by.tolkun.barbershop.entity.Offer;
 import by.tolkun.barbershop.entity.Reservation;
+import by.tolkun.barbershop.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -60,9 +63,27 @@ public class ReservationDaoImpl implements ReservationDao {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
         Root<Reservation> root = criteriaQuery.from(Reservation.class);
-        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("customer_id"), customerId));
+//        Fetch<Reservation, Offer> offerFetch = root.fetch("offers", JoinType.INNER);
+//        Fetch<Reservation, User> userFetch = root.fetch("users", JoinType.INNER);
+//        Fetch<Reservation, Employee> employeeFetch = root.fetch("employees", JoinType.INNER);
+//        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("customer_id"), customerId));
         Query<Reservation> query = session.createQuery(criteriaQuery);
         return query.getResultList();
+
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
+//        Root<UserEntity> user = cq.from(UserEntity.class);
+//
+//        // Fetch User --> Address (wished relation, without nested @OneToOne relations)
+//        Fetch<UserEntity, AddressEntity> addressFetch = user.fetch(UserEntity_.address, JoinType.LEFT);
+//        // Fetch User --> Badge (wished relation, without nested @OneToOne relations)
+//        Fetch<UserEntity, BadgeEntity> badgeFetch = user.fetch(UserEntity_.badge, JoinType.LEFT);
+//
+//        List<Predicate> predicates = new ArrayList<Predicate>();
+//
+//        cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()]))).distinct(true);
+//        TypedQuery<UserEntity> query = em.createQuery(cq);
+//        List<UserEntity> result = query.getResultList();
     }
 
     @Override
@@ -83,7 +104,7 @@ public class ReservationDaoImpl implements ReservationDao {
         CriteriaUpdate<Reservation> criteriaUpdate = criteriaBuilder.createCriteriaUpdate(Reservation.class);
         Root<Reservation> root = criteriaUpdate.from(Reservation.class);
         criteriaUpdate
-                .set("Reservation_id", reservation.getOffer().getId())
+                .set("reservation_id", reservation.getOffer().getId())
                 .set("customer_id", reservation.getCustomer().getId())
                 .set("employee_id", reservation.getEmployee().getId())
                 .set("date", reservation.getDate());
