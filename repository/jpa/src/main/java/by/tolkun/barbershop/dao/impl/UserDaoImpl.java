@@ -27,10 +27,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int create(final User user) {
         Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        int generatedId = (int) session.save(user);
-        session.getTransaction().commit();
-        return generatedId;
+        return (int) session.save(user);
     }
 
     @Override
@@ -41,6 +38,10 @@ public class UserDaoImpl implements UserDao {
         Root<User> root = criteriaQuery.from(User.class);
         criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), id));
         Query<User> query = session.createQuery(criteriaQuery);
+        List<User> users = query.getResultList();
+        if (users.size() == 0) {
+            return null;
+        }
         return query.getSingleResult();
     }
 
@@ -60,8 +61,12 @@ public class UserDaoImpl implements UserDao {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);
-        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), login));
+        CriteriaQuery<User> user = criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), login));
         Query<User> query = session.createQuery(criteriaQuery);
+        List<User> users = query.getResultList();
+        if (users.size() == 0) {
+            return null;
+        }
         return query.getSingleResult();
     }
 
@@ -74,6 +79,10 @@ public class UserDaoImpl implements UserDao {
         criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), login),
                 criteriaBuilder.equal(root.get("password"), password));
         Query<User> query = session.createQuery(criteriaQuery);
+        List<User> users = query.getResultList();
+        if (users.size() == 0) {
+            return null;
+        }
         return query.getSingleResult();
     }
 
