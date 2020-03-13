@@ -4,7 +4,6 @@ import by.tolkun.barbershop.dao.OfferDao;
 import by.tolkun.barbershop.entity.Offer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,9 +26,7 @@ public class OfferDaoImpl implements OfferDao {
     @Override
     public int create(final Offer offer) {
         Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
         int generatedId = (int) session.save(offer);
-        session.getTransaction().commit();
         return generatedId;
     }
 
@@ -68,10 +65,7 @@ public class OfferDaoImpl implements OfferDao {
                 .set("is_main", offer.isMain())
                 .set("is_show", offer.isShow());
         criteriaUpdate.where(criteriaBuilder.equal(root.get("id"), offer.getId()));
-
-        Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaUpdate).executeUpdate();
-        transaction.commit();
     }
 
     @Override
@@ -81,8 +75,6 @@ public class OfferDaoImpl implements OfferDao {
         CriteriaDelete<Offer> criteriaDelete = criteriaBuilder.createCriteriaDelete(Offer.class);
         Root<Offer> root = criteriaDelete.from(Offer.class);
         criteriaDelete.where(criteriaBuilder.equal(root.get("id"), id));
-        Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaDelete).executeUpdate();
-        transaction.commit();
     }
 }

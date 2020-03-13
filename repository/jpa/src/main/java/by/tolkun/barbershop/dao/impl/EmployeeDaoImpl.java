@@ -5,7 +5,6 @@ import by.tolkun.barbershop.entity.Employee;
 import by.tolkun.barbershop.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,9 +27,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public int create(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
         int generatedId = (int) session.save(employee);
-        session.getTransaction().commit();
         return generatedId;
     }
 
@@ -77,10 +74,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 .set("vk", employee.getVkontakteReference())
                 .set("work_week", employee.getWorkWeekAsString());
         criteriaUpdate.where(criteriaBuilder.equal(root.get("id"), employee.getId()));
-
-        Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaUpdate).executeUpdate();
-        transaction.commit();
     }
 
     @Override
@@ -90,9 +84,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         CriteriaDelete<Employee> criteriaDelete = criteriaBuilder.createCriteriaDelete(Employee.class);
         Root<Employee> root = criteriaDelete.from(Employee.class);
         criteriaDelete.where(criteriaBuilder.equal(root.get("id"), id));
-        Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaDelete).executeUpdate();
-        transaction.commit();
     }
 
     @Override

@@ -1,13 +1,9 @@
 package by.tolkun.barbershop.dao.impl;
 
 import by.tolkun.barbershop.dao.ReservationDao;
-import by.tolkun.barbershop.entity.Employee;
-import by.tolkun.barbershop.entity.Offer;
 import by.tolkun.barbershop.entity.Reservation;
-import by.tolkun.barbershop.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,9 +26,7 @@ public class ReservationDaoImpl implements ReservationDao {
     @Override
     public int create(final Reservation reservation) {
         Session session = sessionFactory.getCurrentSession();
-//        session.beginTransaction();
         int generatedId = (int) session.save(reservation);
-//        session.getTransaction().commit();
         return generatedId;
     }
 
@@ -63,27 +57,9 @@ public class ReservationDaoImpl implements ReservationDao {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
         Root<Reservation> root = criteriaQuery.from(Reservation.class);
-//        Fetch<Reservation, Offer> offerFetch = root.fetch("offers", JoinType.INNER);
-//        Fetch<Reservation, User> userFetch = root.fetch("users", JoinType.INNER);
-//        Fetch<Reservation, Employee> employeeFetch = root.fetch("employees", JoinType.INNER);
-//        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("customer_id"), customerId));
-        Query<Reservation> query = session.createQuery(criteriaQuery);
-        return query.getResultList();
-
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
-//        Root<UserEntity> user = cq.from(UserEntity.class);
-//
-//        // Fetch User --> Address (wished relation, without nested @OneToOne relations)
-//        Fetch<UserEntity, AddressEntity> addressFetch = user.fetch(UserEntity_.address, JoinType.LEFT);
-//        // Fetch User --> Badge (wished relation, without nested @OneToOne relations)
-//        Fetch<UserEntity, BadgeEntity> badgeFetch = user.fetch(UserEntity_.badge, JoinType.LEFT);
-//
-//        List<Predicate> predicates = new ArrayList<Predicate>();
-//
-//        cq.where(cb.and(predicates.toArray(new Predicate[predicates.size()]))).distinct(true);
-//        TypedQuery<UserEntity> query = em.createQuery(cq);
-//        List<UserEntity> result = query.getResultList();
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("customer"), customerId));
+        CriteriaQuery<Reservation> all = criteriaQuery.select(root);
+        return session.createQuery(all).getResultList();
     }
 
     @Override
@@ -92,7 +68,7 @@ public class ReservationDaoImpl implements ReservationDao {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Reservation> criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
         Root<Reservation> root = criteriaQuery.from(Reservation.class);
-        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("employee_id"), employeeId));
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("employee"), employeeId));
         Query<Reservation> query = session.createQuery(criteriaQuery);
         return query.getResultList();
     }
@@ -109,10 +85,7 @@ public class ReservationDaoImpl implements ReservationDao {
                 .set("employee_id", reservation.getEmployee().getId())
                 .set("date", reservation.getDate());
         criteriaUpdate.where(criteriaBuilder.equal(root.get("id"), reservation.getId()));
-
-        Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaUpdate).executeUpdate();
-        transaction.commit();
     }
 
     @Override
@@ -122,8 +95,6 @@ public class ReservationDaoImpl implements ReservationDao {
         CriteriaDelete<Reservation> criteriaDelete = criteriaBuilder.createCriteriaDelete(Reservation.class);
         Root<Reservation> root = criteriaDelete.from(Reservation.class);
         criteriaDelete.where(criteriaBuilder.equal(root.get("id"), id));
-        Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaDelete).executeUpdate();
-        transaction.commit();
     }
 }

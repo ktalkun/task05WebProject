@@ -4,7 +4,6 @@ import by.tolkun.barbershop.dao.UserDao;
 import by.tolkun.barbershop.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -103,10 +102,7 @@ public class UserDaoImpl implements UserDao {
                 .set("image_path", user.getImagePath())
                 .set("role", user.getRole().getIdentity());
         criteriaUpdate.where(criteriaBuilder.equal(root.get("id"), user.getId()));
-
-        Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaUpdate).executeUpdate();
-        transaction.commit();
     }
 
     @Override
@@ -116,8 +112,6 @@ public class UserDaoImpl implements UserDao {
         CriteriaDelete<User> criteriaDelete = criteriaBuilder.createCriteriaDelete(User.class);
         Root<User> root = criteriaDelete.from(User.class);
         criteriaDelete.where(criteriaBuilder.equal(root.get("id"), id));
-        Transaction transaction = session.beginTransaction();
         session.createQuery(criteriaDelete).executeUpdate();
-        transaction.commit();
     }
 }
