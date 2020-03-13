@@ -917,8 +917,16 @@ main{
 }
 
 .about-section > div{
+    width: 100%;
     padding: 40px;
     font-size: 1.2em;
+}
+
+.about-section > div > a.uui-button{
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 40px;
 }
 
 .about-unit{

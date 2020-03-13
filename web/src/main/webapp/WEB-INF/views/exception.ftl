@@ -18,9 +18,10 @@
     <section id="login-form-section" class="about-section">
         <div>
             <p>Exception message:</p>
-            <#if exceptionStackTrace??>
+            <p></p><#if exceptionStackTrace??>
                 ${exceptionStackTrace}
-            </#if>
+            </#if></p>
+            <a class="uui-button transparent large" href="<@spring.url "/"/>">Back</a>
         </div>
     </section>
 </main>
