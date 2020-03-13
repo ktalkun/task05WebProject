@@ -99,7 +99,7 @@ public class UserDaoImpl implements UserDao {
                 .set("patronymic", user.getPatronymic())
                 .set("email", user.getEmail())
                 .set("phone", user.getPhone())
-                .set("image_path", user.getImagePath())
+                .set("imagePath", user.getImagePath())
                 .set("role", user.getRole().getIdentity());
         criteriaUpdate.where(criteriaBuilder.equal(root.get("id"), user.getId()));
         session.createQuery(criteriaUpdate).executeUpdate();
