@@ -53,6 +53,7 @@ public final class Reservation extends Entity {
      * @return offer of reservation
      */
     @OneToOne
+    @JoinColumn(name = "offer_id")
     public Offer getOffer() {
         return offer;
     }
@@ -72,6 +73,7 @@ public final class Reservation extends Entity {
      * @return customer of reservation
      */
     @OneToOne
+    @JoinColumn(name = "customer_id")
     public User getCustomer() {
         return customer;
     }
@@ -91,6 +93,7 @@ public final class Reservation extends Entity {
      * @return employee of reservation
      */
     @OneToOne
+    @JoinColumn(name = "employee_id")
     public Employee getEmployee() {
         return employee;
     }
